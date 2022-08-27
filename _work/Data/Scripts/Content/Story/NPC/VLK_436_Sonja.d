@@ -20,7 +20,7 @@ instance VLK_436_Sonja (Npc_Default)
     slf.attribute[ATR_MANA] 			= 90;
 		
 	// ------ Kampf-Taktik ------
-	fight_tactic		= FAI_HUMAN_COWARD;	
+	fight_tactic		= FAI_HUMAN_COWARD;
 	
 	// ------ Equippte Waffen ------																	
 	
@@ -38,6 +38,19 @@ instance VLK_436_Sonja (Npc_Default)
 	
 	// ------ NSC-relevante Talente vergeben ------
 	B_GiveNpcTalents (self);
+	// Sonja soll noch etwas vom Helden lernen.
+	Npc_SetTalentSkill	(self, NPC_TALENT_MAGE, 			0);
+
+	// ------ Sonstige Talente ------
+	Npc_SetTalentSkill	(self, NPC_TALENT_PICKLOCK, 		0); //hängt ab von DEX (auf Programmebene)
+	Npc_SetTalentSkill	(self, NPC_TALENT_SNEAK, 			0);
+	Npc_SetTalentSkill	(self, NPC_TALENT_ACROBAT, 			0);
+
+	Npc_SetTalentSkill	(self, NPC_TALENT_PICKPOCKET, 		0);	//hängt ab von DEX (auf Scriptebene)
+	Npc_SetTalentSkill	(self, NPC_TALENT_SMITH, 			0);
+	Npc_SetTalentSkill	(self, NPC_TALENT_RUNES, 			0);
+	Npc_SetTalentSkill	(self, NPC_TALENT_ALCHEMY, 			0);
+	Npc_SetTalentSkill	(self, NPC_TALENT_TAKEANIMALTROPHY,	0);
 	
 	// ------ Kampf-Talente ------																	
 	B_SetFightSkills (self, 30); 

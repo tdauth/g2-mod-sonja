@@ -11,6 +11,10 @@
 func INT Spell_ProcessMana (VAR INT manaInvested)
 {
 	var int activeSpell; activeSpell = Npc_GetActiveSpell(self);
+
+    // Sonja
+	if (activeSpell == SPL_SummonSonja   		) 	{	return	Spell_Logic_SummonSonja		(manaInvested);	};
+	if (activeSpell == SPL_TeleportSonja   		) 	{	return	Spell_Logic_TeleportSonja	(manaInvested);	};
 	
 	//Paladin-Runen
 	if (activeSpell == SPL_PalLight				)	{	return  Spell_Logic_PalLight			(manaInvested); };
@@ -105,9 +109,6 @@ func INT Spell_ProcessMana (VAR INT manaInvested)
 	if (activeSpell == SPL_Skull				)	{	return	Spell_Logic_Skull			(manaInvested);	};
 	if (activeSpell == SPL_SummonZombie			)	{	return	Spell_Logic_SummonZombie	(manaInvested);	};
 	if (activeSpell == SPL_SummonMud			)	{	return	Spell_Logic_SummonMud		(manaInvested);	};
-
-	// Sonja
-	if (activeSpell == SPL_Reserved_90   		) 	{	return	Spell_Logic_SummonSonja		(manaInvested);	};
 
 //Leer
 

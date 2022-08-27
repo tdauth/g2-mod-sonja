@@ -4,7 +4,6 @@
 
 const int SPL_Cost_SummonSonja		= 5;
 
-
 INSTANCE Spell_SummonSonja (C_Spell_Proto)
 {
 	time_per_mana			= 0;
@@ -17,7 +16,7 @@ func int Spell_Logic_SummonSonja(var int manaInvested)
 	{
 		return SPL_SENDCAST;
 	}
-	else if (self.attribute[ATR_MANA] >= SPL_Cost_SummonZombie)
+	else if (self.attribute[ATR_MANA] >= SPL_Cost_SummonSonja && self != VLK_436_Sonja)
 	{
 		return SPL_SENDCAST;
 	}
@@ -42,7 +41,7 @@ func void Spell_Cast_SummonSonja()
 	wpName = Npc_GetNearestWP(hero);
 
 	AI_Teleport(VLK_436_Sonja, wpName);
-	AI_GotoNpc(VLK_436_Sonja, hero);
+	//AI_GotoNpc(VLK_436_Sonja, hero);
 
 	self.aivar[AIV_SelectSpell] += 1;
 };

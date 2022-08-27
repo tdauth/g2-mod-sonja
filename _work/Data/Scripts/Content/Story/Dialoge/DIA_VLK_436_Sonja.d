@@ -3,6 +3,7 @@ var int SonjaGeheiratet;					//= TRUE Sonja geheiratet.
 var int SonjaGefragt;						//= TRUE Sonja nach Freikaufen gefragt.
 var int SonjaSummonDays;
 var int SonjaProfitDays;
+var int SonjaRespawnDays;
 var int SonjaCookDays;
 var int 	Sonja_SkinTexture; // 137 Frau
 var int 	Sonja_BodyTexture; // BodyTex_N
@@ -176,17 +177,18 @@ func void DIA_Sonja_BEZAHLEN_DoIt()
 {
 	if (Npc_HasItems (other, ItMi_Gold) < 1000)
 	{
-        AI_Output (self, other, "DIA_Sonja_STANDARD_16_03"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
+        AI_Output (self, other, "DIA_Sonja_BEZAHLEN_16_00"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
 	}
 	else
 	{
         B_GiveInvItems (other, self, ItMi_Gold, 1000);
-        AI_Output (self, other, "DIA_Sonja_STANDARD_16_04"); //1000 Goldstücke! Wahnsinn! Endlich mal ein reicher Mann im Hafen, der weiß wie man eine Dame behandelt.
-        AI_Output (self, other, "DIA_Sonja_STANDARD_16_05"); //Lass uns abhauen!
+        AI_Output (self, other, "DIA_Sonja_BEZAHLEN_16_01"); //1000 Goldstücke! Wahnsinn! Endlich mal ein reicher Mann im Hafen, der weiß wie man eine Dame behandelt.
+        AI_Output (self, other, "DIA_Sonja_BEZAHLEN_16_02"); //Lass uns abhauen!
         B_LogEntry ("Sonja", "Sonja folgt mir nun und arbeitet für mich.");
         SonjaFolgt = TRUE;
         SonjaSummonDays = 0;
         SonjaProfitDays = 0;
+        SonjaRespawnDays = 0;
         SonjaCookDays = 0;
         Sonja_SkinTexture = FaceBabe_L_Charlotte2;
         Sonja_BodyTexture = BodyTexBabe_L;
@@ -221,10 +223,10 @@ func int DIA_Sonja_FREIKAUFEN_Condition ()
 
 func void DIA_Sonja_FREIKAUFEN_Info ()
 {
-    AI_Output (other, self, "Ich möchte dich freikaufen!"); //Ich möchte dich freikaufen!
-    AI_Output (self, other, "DIA_Sonja_STANDARD_16_06"); //Oh Romeo, willst du das wirklich tun? Hast du denn überhaupt genug Gold, um eine Frau wie mich zu versorgen?
-    AI_Output (other, self, "Du könntest weiterhin für mich arbeiten."); //Du könntest weiterhin für mich arbeiten.
-    AI_Output (self, other, "DIA_Sonja_STANDARD_16_07"); //Sagen wir so: Wenn du mir eine Menge Gold gibst und mehr übrig lässt als Bromor, dann verlasse ich gerne die Rote Laterne.
+    AI_Output (other, self, "DIA_Sonja_FREIKAUFEN_15_00"); //Ich möchte dich freikaufen!
+    AI_Output (self, other, "DIA_Sonja_FREIKAUFEN_16_00"); //Oh Romeo, willst du das wirklich tun? Hast du denn überhaupt genug Gold, um eine Frau wie mich zu versorgen?
+    AI_Output (other, self, "DIA_Sonja_FREIKAUFEN_15_01"); //Du könntest weiterhin für mich arbeiten.
+    AI_Output (self, other, "DIA_Sonja_FREIKAUFEN_16_02"); //Sagen wir so: Wenn du mir eine Menge Gold gibst und mehr übrig lässt als Bromor, dann verlasse ich gerne die Rote Laterne.
     B_LogEntry ("Sonja", "Sonja, die Freudendame in der Roten Laterne, schließt sich mir an und arbeitet für mich, wenn ich ihr 1000 Goldstücke gebe.");
     SonjaGefragt = TRUE;
 };
@@ -251,9 +253,12 @@ func int DIA_Sonja_PEOPLE_Condition ()
 func void DIA_Sonja_PEOPLE_Info ()
 {
     Info_ClearChoices	(DIA_Sonja_PEOPLE);
-	Info_AddChoice		(DIA_Sonja_PEOPLE, DIALOG_BACK 		,                 DIA_Sonja_PEOPLE_BACK);
+    Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du vom Richter?"	,     DIA_Sonja_PEOPLE_Richter);
+    Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Lord Hagen?"	,     DIA_Sonja_PEOPLE_Hagen);
+    Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Vatras?"	,     DIA_Sonja_PEOPLE_Vatras);
 	Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Nadja?"	,     DIA_Sonja_PEOPLE_Nadja);
     Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Bromor?"	,     DIA_Sonja_PEOPLE_Bromor);
+    Info_AddChoice		(DIA_Sonja_PEOPLE, DIALOG_BACK 		,                 DIA_Sonja_PEOPLE_BACK);
 };
 
 func void DIA_Sonja_PEOPLE_BACK ()
@@ -263,13 +268,13 @@ func void DIA_Sonja_PEOPLE_BACK ()
 
 func void DIA_Sonja_PEOPLE_Nadja ()
 {
-    AI_Output (other, self, "Was hältst du von Nadja?"); //Was hältst du von Nadja?
-    AI_Output (self, other, "DIA_Sonja_STANDARD_16_08"); //Nadja? Ach so eine graue Maus. Die kann doch gar nichts! Hübsch ist sie, zugegeben, aber Erfahrung hat sei kaum und Schönheit vergeht.
+    AI_Output (other, self, "DIA_Sonja_PEOPLE_Nadja_15_00"); //Was hältst du von Nadja?
+    AI_Output (self, other, "DIA_Sonja_PEOPLE_Nadja_16_00"); //Nadja? Ach so eine graue Maus. Die kann doch gar nichts! Hübsch ist sie, zugegeben, aber Erfahrung hat sei kaum und Schönheit vergeht.
     B_LogEntry ("Sonja", "Sonja hält Nadja für eine graue Maus.");
 
     if (SonjaFolgt == TRUE)
     {
-        AI_Output (self, other, "DIA_Sonja_STANDARD_16_09"); //Du findest sie doch nicht etwa hübscher als mich? Ich warne dich, schau sie bloß nicht an!
+        AI_Output (self, other, "DIA_Sonja_PEOPLE_Nadja_16_01"); //Du findest sie doch nicht etwa hübscher als mich? Ich warne dich, schau sie bloß nicht an!
         B_LogEntry ("Sonja", "Sonja ist eifersüchtig auf Nadja.");
     };
 
@@ -279,12 +284,12 @@ func void DIA_Sonja_PEOPLE_Nadja ()
 
 func void DIA_Sonja_PEOPLE_Bromor ()
 {
-    AI_Output (other, self, "Was hältst du von Bromor?");
-    AI_Output (self, other, "DIA_Sonja_STANDARD_16_10"); //Bromor ist ein mieser Halsabschneider. Er nimmt den meisten Ertrag der Frauen für sich.
+    AI_Output (other, self, "DIA_Sonja_PEOPLE_Bromor_15_00"); //Was hältst du von Bromor?
+    AI_Output (self, other, "DIA_Sonja_PEOPLE_Bromor_16_00"); //Bromor ist ein mieser Halsabschneider. Er nimmt den meisten Ertrag der Frauen für sich.
 
     if (SonjaFolgt == TRUE)
     {
-        AI_Output (self, other, "DIA_Sonja_STANDARD_16_11"); //Aber was soll's? Meinen Prinzen habe ich ja jetzt gefunden!
+        AI_Output (self, other, "DIA_Sonja_PEOPLE_Bromor_16_01"); //Aber was soll's? Meinen Prinzen habe ich ja jetzt gefunden!
     };
 
     B_LogEntry ("Sonja", "Sonja hält Bromor für einen miesen Halsabschneider.");
@@ -292,27 +297,100 @@ func void DIA_Sonja_PEOPLE_Bromor ()
     DIA_Sonja_PEOPLE_Info();
 };
 
+func void DIA_Sonja_PEOPLE_Vatras ()
+{
+    AI_Output (other, self, "DIA_Sonja_PEOPLE_Vatras_15_00"); //Was hältst du von Vatras?
+    AI_Output (self, other, "DIA_Sonja_PEOPLE_Vatras_16_00"); //Vatras predigt jetzt viel ruhiger, seitdem er mir seine Wasserzauber gezeigt hat.
+
+    B_LogEntry ("Sonja", "Sonja hat Vatras ruhiger gestimmt.");
+
+    DIA_Sonja_PEOPLE_Info();
+};
+
+func void DIA_Sonja_PEOPLE_Hagen ()
+{
+    AI_Output (other, self, "DIA_Sonja_PEOPLE_Hagen_15_00"); //Was hältst du von Lord Hagen?
+    AI_Output (self, other, "DIA_Sonja_PEOPLE_Hagen_16_00"); //Im Bett durfte ich ihn nur mit Eure Lordschaft ansprechen.
+
+    B_LogEntry ("Sonja", "Lord Hagen wurde nur als Eure Lordschaft von Sonja angesprochen.");
+
+    DIA_Sonja_PEOPLE_Info();
+};
+
+func void DIA_Sonja_PEOPLE_Richter ()
+{
+    AI_Output (other, self, "DIA_Sonja_PEOPLE_Richter_15_00"); //Was hältst du vom Richter?
+    AI_Output (self, other, "DIA_Sonja_PEOPLE_Hagen_16_00"); //Über mich hat er jede Nacht gerichtet. Sein Urteil viel zu meinen Gunsten aus.
+
+    B_LogEntry ("Sonja", "Der Richter urteilte zu Sonjas gunsten.");
+
+    DIA_Sonja_PEOPLE_Info();
+};
+
 ///////////////////////////////////////////////////////////////////////
-//	Info XP
+//	Info NOT YET
 ///////////////////////////////////////////////////////////////////////
-instance DIA_Sonja_XP		(C_INFO)
+instance DIA_Sonja_NOT_YET		(C_INFO)
 {
 	npc			 = 	VLK_436_Sonja;
-	condition	 = 	DIA_Sonja_XP_Condition;
-	information	 = 	DIA_Sonja_XP_Info;
+	condition	 = 	DIA_Sonja_NOT_YET_Condition;
+	information	 = 	DIA_Sonja_NOT_YET_Info;
+	permanent	 = 	FALSE;
+	description  =  "Gibt es überhaupt jemanden, der noch nicht Kunde bei dir war?";
+	nr		 	= 99;
+};
+
+func int DIA_Sonja_NOT_YET_Condition ()
+{
+	return SonjaFolgt;
+};
+
+func void DIA_Sonja_NOT_YET_Info ()
+{
+    AI_Output (other, self, "DIA_Sonja_NOT_YET_15_00"); //Gibt es überhaupt jemanden, der noch nicht Kunde bei dir war?
+    AI_Output (self, other, "DIA_Sonja_NOT_YET_16_00"); //Hmm, nicht sehr viele Leute, aber ja. Ich kann dir eine Liste geben.
+    B_LogEntry ("Sonja", "Sonja hat mir eine Liste von Leuten gegeben, die noch nicht Kunden bei ihr waren.");
+    CreateInvItems (self, ItWr_SonjasList, 1);
+    B_GiveInvItems (self, other, ItWr_SonjasList, 1);
+};
+
+///////////////////////////////////////////////////////////////////////
+//	Info SKILL
+///////////////////////////////////////////////////////////////////////
+instance DIA_Sonja_SKILL		(C_INFO)
+{
+	npc			 = 	VLK_436_Sonja;
+	condition	 = 	DIA_Sonja_SKILL_Condition;
+	information	 = 	DIA_Sonja_SKILL_Info;
 	permanent	 = 	TRUE;
 	description  =  "Wie erfahren bist du?";
 	nr		 	= 3;
 };
 
-func int DIA_Sonja_XP_Condition ()
+func int DIA_Sonja_SKILL_Condition ()
 {
 	return SonjaFolgt == TRUE;
 };
 
+func void DIA_Sonja_SKILL_Info ()
+{
+    Info_ClearChoices	(DIA_Sonja_SKILL);
+    Info_AddChoice		(DIA_Sonja_SKILL, "Schutz"	,     DIA_Sonja_PROTECTION_Info);
+    Info_AddChoice		(DIA_Sonja_SKILL, "Talente"	,     DIA_Sonja_SKILL_Exact_Info);
+	Info_AddChoice		(DIA_Sonja_SKILL, "Attribute"	,     DIA_Sonja_STATS_Info);
+    Info_AddChoice		(DIA_Sonja_SKILL, "Erfahrung"	,     DIA_Sonja_XP_Info);
+    Info_AddChoice		(DIA_Sonja_SKILL, DIALOG_BACK 		,                 DIA_Sonja_SKILL_BACK);
+};
+
+func void DIA_Sonja_SKILL_BACK ()
+{
+    Info_ClearChoices	(DIA_Sonja_SKILL);
+};
+
 func void DIA_Sonja_XP_Info ()
 {
-    AI_Output (other, self, "Wie erfahren bist du?"); //Wie erfahren bist du?
+    AI_Output (other, self, "DIA_Sonja_XP_15_00"); //Wie erfahren bist du?
+    AI_Output (self, other, "DIA_Sonja_XP_16_00"); //Finde es heraus!
 
     var String levelText;
     var String lpText;
@@ -333,47 +411,26 @@ func void DIA_Sonja_XP_Info ()
     PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
     //PrintScreen (ConcatStrings("Maximales Mana ", IntToString(self.attribute[ATR_MANA_MAX])), - 1, - 1, FONT_Screen, 2);
     //PrintScreen (ConcatStrings("Maximale Lebenspunkte ", IntToString(self.attribute[ATR_HITPOINTS_MAX])), - 1, - 1, FONT_Screen, 2);
-};
 
-///////////////////////////////////////////////////////////////////////
-//	Info STATS
-///////////////////////////////////////////////////////////////////////
-instance DIA_Sonja_STATS		(C_INFO)
-{
-	npc			 = 	VLK_436_Sonja;
-	condition	 = 	DIA_Sonja_STATS_Condition;
-	information	 = 	DIA_Sonja_STATS_Info;
-	permanent	 = 	TRUE;
-	description  =  "Wie stark bist du?";
-	nr		 	= 4;
-};
-
-func int DIA_Sonja_STATS_Condition ()
-{
-	return SonjaFolgt == TRUE;
+    DIA_Sonja_SKILL_Info();
 };
 
 func void DIA_Sonja_STATS_Info ()
 {
-    AI_Output (other, self, "Wie stark bist du?"); //Wie stark bist du?
+    AI_Output (other, self, "DIA_Sonja_STATS_15_00"); //Wie stark bist du?
+    AI_Output (self, other, "DIA_Sonja_STATS_16_00"); //Finde es heraus!
 
-    var String levelText;
     var String hpText;
     var String manaText;
-    var String lpText;
     var String strText;
     var String dexText;
     var String msg;
 
-    levelText = ConcatStrings("Stufe: ", IntToString(self.level));
-    lpText = ConcatStrings(" Lernpunkte: ", IntToString(self.lp));
-    hpText = ConcatStrings(" Leben: ", IntToString(self.attribute[ATR_HITPOINTS_MAX]));
+    hpText = ConcatStrings("Leben: ", IntToString(self.attribute[ATR_HITPOINTS_MAX]));
     manaText = ConcatStrings(" Mana: ", IntToString(self.attribute[ATR_MANA_MAX]));
     strText = ConcatStrings(" Stärke: ", IntToString(self.attribute[ATR_STRENGTH]));
     dexText = ConcatStrings(" Geschick: ", IntToString(self.attribute[ATR_DEXTERITY]));
     msg = "";
-    msg = ConcatStrings(msg, levelText);
-    msg = ConcatStrings(msg, lpText);
     msg = ConcatStrings(msg, hpText);
     msg = ConcatStrings(msg, manaText);
     msg = ConcatStrings(msg, strText);
@@ -382,7 +439,99 @@ func void DIA_Sonja_STATS_Info ()
     PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
     //PrintScreen (ConcatStrings("Maximales Mana ", IntToString(self.attribute[ATR_MANA_MAX])), - 1, - 1, FONT_Screen, 2);
     //PrintScreen (ConcatStrings("Maximale Lebenspunkte ", IntToString(self.attribute[ATR_HITPOINTS_MAX])), - 1, - 1, FONT_Screen, 2);
+
+    DIA_Sonja_SKILL_Info();
 };
+
+func void DIA_Sonja_SKILL_Exact_Info ()
+{
+    AI_Output (other, self, "DIA_Sonja_SKILL_15_00"); //Wie gut bist du ausgebildet?
+    AI_Output (self, other, "DIA_Sonja_SKILL_16_00"); //Finde es heraus!
+
+    var String text1H;
+    var String text2H;
+    var String textBow;
+    var String textCrossbow;
+    var String textMage;
+    var String textSneak;
+    var String msg;
+
+    text1H = ConcatStrings("1H : ", IntToString(self.HitChance[NPC_TALENT_1H]));
+    text1H = ConcatStrings(text1H, "% ");
+    text2H = ConcatStrings("2H : ", IntToString(self.HitChance[NPC_TALENT_2H]));
+    text2H = ConcatStrings(text2H, "% ");
+    textBow = ConcatStrings("Bogen: ", IntToString(self.HitChance[NPC_TALENT_BOW]));
+    textBow = ConcatStrings(textBow, "% ");
+    textCrossbow = ConcatStrings("Armbrust: ", IntToString(self.HitChance[NPC_TALENT_CROSSBOW]));
+    textCrossbow = ConcatStrings(textCrossbow, "% ");
+    textMage = ConcatStrings("Magiekreis: ", IntToString(Npc_GetTalentSkill (self, NPC_TALENT_MAGE)));
+    textMage = ConcatStrings(textMage, " ");
+    textSneak = ConcatStrings("Schleichen: ", IntToString(Npc_GetTalentSkill (self, NPC_TALENT_SNEAK)));
+
+    msg = "";
+    msg = ConcatStrings(msg, text1H);
+    msg = ConcatStrings(msg, text2H);
+    msg = ConcatStrings(msg, textBow);
+    msg = ConcatStrings(msg, textCrossbow);
+    msg = ConcatStrings(msg, textMage);
+    msg = ConcatStrings(msg, textSneak);
+
+    PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
+    //PrintScreen (ConcatStrings("Maximales Mana ", IntToString(self.attribute[ATR_MANA_MAX])), - 1, - 1, FONT_Screen, 2);
+    //PrintScreen (ConcatStrings("Maximale Lebenspunkte ", IntToString(self.attribute[ATR_HITPOINTS_MAX])), - 1, - 1, FONT_Screen, 2);
+
+    DIA_Sonja_SKILL_Info();
+};
+
+func void DIA_Sonja_PROTECTION_Info ()
+{
+    AI_Output (other, self, "DIA_Sonja_PROTECTION_15_00"); //Wie gut bist du geschützt?
+    AI_Output (self, other, "DIA_Sonja_STATS_16_00"); //Finde es heraus!
+
+    //CONST INT PROT_BARRIER									= DAM_INDEX_BARRIER		;
+//CONST INT PROT_BLUNT									= DAM_INDEX_BLUNT		;
+//CONST INT PROT_EDGE										= DAM_INDEX_EDGE		;
+//CONST INT PROT_FIRE										= DAM_INDEX_FIRE		;
+//CONST INT PROT_FLY										= DAM_INDEX_FLY			;
+//CONST INT PROT_MAGIC									= DAM_INDEX_MAGIC		;
+//CONST INT PROT_POINT									= DAM_INDEX_POINT		;
+//CONST INT PROT_FALL										= DAM_INDEX_FALL		;
+
+    var String barrierText;
+    var String bluntText;
+    var String edgeText;
+    var String fireText;
+    var String flyText;
+    var String magicText;
+    var String pointText;
+    var String fallText;
+    var String msg;
+
+    barrierText = ConcatStrings("Barrier: ", IntToString(self.protection[PROT_BARRIER]));
+    bluntText = ConcatStrings(" Blunt: ", IntToString(self.attribute[PROT_BLUNT]));
+    edgeText = ConcatStrings(" Edge: ", IntToString(self.attribute[PROT_EDGE]));
+    fireText = ConcatStrings(" Feuer: ", IntToString(self.attribute[PROT_FIRE]));
+    flyText = ConcatStrings(" Flug: ", IntToString(self.attribute[PROT_FLY]));
+    magicText = ConcatStrings(" Magie: ", IntToString(self.attribute[PROT_MAGIC]));
+    pointText = ConcatStrings(" Punkt: ", IntToString(self.attribute[PROT_POINT]));
+    fallText = ConcatStrings(" Fall: ", IntToString(self.attribute[PROT_FALL]));
+    msg = "";
+    msg = ConcatStrings(msg, barrierText);
+    msg = ConcatStrings(msg, bluntText);
+    msg = ConcatStrings(msg, edgeText);
+    msg = ConcatStrings(msg, fireText);
+    msg = ConcatStrings(msg, flyText);
+    msg = ConcatStrings(msg, magicText);
+    msg = ConcatStrings(msg, pointText);
+    msg = ConcatStrings(msg, fallText);
+
+    PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
+    //PrintScreen (ConcatStrings("Maximales Mana ", IntToString(self.attribute[ATR_MANA_MAX])), - 1, - 1, FONT_Screen, 2);
+    //PrintScreen (ConcatStrings("Maximale Lebenspunkte ", IntToString(self.attribute[ATR_HITPOINTS_MAX])), - 1, - 1, FONT_Screen, 2);
+
+    DIA_Sonja_SKILL_Info();
+};
+
 
 // ------------------------------------------------------------
 // 						Komm (wieder) mit!
@@ -406,7 +555,7 @@ func int DIA_Sonja_ComeOn_Condition ()
 func void DIA_Sonja_ComeOn_Info ()
 {
 	AI_Output (other, self, "DIA_Addon_Skip_ComeOn_15_00"); //Komm mit.
-    AI_Output (self ,other, "DIA_Sonja_STANDARD_16_12"); //Ich folge dir mein Prinz!
+    AI_Output (self ,other, "DIA_Sonja_COMEON_16_00"); //Ich folge dir mein Prinz!
     AI_StopProcessInfos (self);
 
     SonjaComeOn();
@@ -431,7 +580,7 @@ FUNC INT DIA_Sonja_WarteHier_Condition()
 FUNC VOID DIA_Sonja_WarteHier_Info()
 {
 	AI_Output (other, self,"DIA_Liesel_WarteHier_15_00");	//Warte hier!
-	AI_Output (self ,other, "Wie du meinst, mein Süßer!"); //Wie du meinst, mein Süßer!
+	AI_Output (self ,other, "DIA_Sonja_WARTEHIER_16_00"); //Wie du meinst, mein Süßer!
 
 	self.aivar[AIV_PARTYMEMBER] = FALSE;
 
@@ -460,8 +609,8 @@ FUNC INT DIA_Sonja_GoHome_Condition()
 
 FUNC VOID DIA_Sonja_GoHome_Info()
 {
-	AI_Output (other, self, "DIA_Sonja_GoHome_15_00"); //Ich brauch dich nicht mehr.
-	AI_Output (self, other, "DIA_Sonja_STANDARD_16_13"); // Suche mich bald mein Prinz, ich warte auf dich!
+	AI_Output (other, self, "DIA_Addon_Skip_GoHome_15_00"); //Ich brauch dich nicht mehr.
+	AI_Output (self, other, "DIA_Sonja_GoHome_16_00"); // Arschloch!
 
 	self.aivar[AIV_PARTYMEMBER] = FALSE;
 	Npc_ExchangeRoutine	(self,"START");
@@ -490,7 +639,7 @@ func void DIA_Sonja_HEILUNG_Info ()
 {
 	AI_Output			(other, self, "DIA_Biff_HEILUNG_15_00"); //Brauchst du Heilung?
 
-    AI_Output			(self, other, "Klar. Schaden kann's nicht."); //Klar. Schaden kann's nicht.
+    AI_Output			(self, other, "DIA_Sonja_HEILUNG_16_00"); //Klar. Schaden kann's nicht.
 
     Info_ClearChoices	(DIA_Sonja_HEILUNG);
     Info_AddChoice	(DIA_Sonja_HEILUNG, "(den kleinsten Heiltrank.)", DIA_Sonja_HEILUNG_heiltrankLow );
@@ -515,7 +664,7 @@ func void DIA_Sonja_HEILUNG_heiltrank ()
 	}
 	else
 	{
-	AI_Output			(self, other, "Ich schätze, ich muss warten, bis du einen übrig hast."); //Ich schätze, ich muss warten, bis du einen übrig hast.
+        AI_Output			(self, other, "DIA_Sonja_HEILUNG_16_01"); //Ich schätze, ich muss warten, bis du einen übrig hast.
 	};
 
 	AI_StopProcessInfos (self);
@@ -537,7 +686,7 @@ func void DIA_Sonja_HEILUNG_heiltrankLow ()
 	}
 	else
 	{
-	AI_Output			(self, other, "Im Moment hast du leider keinen. Ich komm später noch mal darauf zurück."); //Im Moment hast du leider keinen. Ich komm später noch mal darauf zurück.
+        AI_Output			(self, other, "DIA_Sonja_HEILUNG_16_02"); //Im Moment hast du leider keinen. Ich komm später noch mal darauf zurück.
 	};
 
 	AI_StopProcessInfos (self);
@@ -546,7 +695,7 @@ func void DIA_Sonja_HEILUNG_heiltrankLow ()
 func void DIA_Sonja_HEILUNG_spaeter ()
 {
 	AI_Output			(other, self, "DIA_Biff_HEILUNG_spaeter_15_00"); //Ich werde dir später etwas geben.
-	AI_Output			(self ,other, "Vergiss es aber nicht."); //Vergiss es aber nicht.
+	AI_Output			(self ,other, "DIA_Sonja_HEILUNG_16_03"); //Vergiss es aber nicht.
 
 	AI_StopProcessInfos (self);
 };
@@ -571,11 +720,11 @@ func int DIA_Sonja_DI_HEAL_Condition ()
 
 func void DIA_Sonja_DI_HEAL_Info ()
 {
-	AI_Output			(other, self, "Lass es uns tun!");
+	AI_Output			(other, self, "DIA_Sonja_HEAL_15_00"); //Lass es uns tun!
 
 	if hero.attribute [ATR_HITPOINTS] < hero.attribute[ATR_HITPOINTS_MAX] || hero.attribute [ATR_MANA] < hero.attribute[ATR_MANA_MAX]
 	{
-		AI_Output			(self, other, "DIA_Sonja_STANDARD_16_14"); //Endlich erobert mein Prinz sein Schloss zurück!
+		AI_Output			(self, other, "DIA_Sonja_HEAL_16_00"); //Endlich erobert mein Prinz sein Schloss zurück!
 		PlayVideo ("LOVESCENE.BIK");
 		hero.attribute [ATR_HITPOINTS] = hero.attribute[ATR_HITPOINTS_MAX];
 		hero.attribute [ATR_MANA] = hero.attribute[ATR_MANA_MAX];
@@ -584,8 +733,8 @@ func void DIA_Sonja_DI_HEAL_Info ()
 	}
 	else
 	{
-		AI_Output			(self, other,  "DIA_Sonja_STANDARD_16_15"); //Ich habe Migräne.
-		B_LogEntry ("Sonja", "Sonja hat komischerweise öfter mal Migräne.");
+		AI_Output			(self, other,  "DIA_Sonja_HEAL_16_01"); //Ich habe Migräne.
+		B_LogEntry ("Sonja", "Sonja hat komischerweise öfter mal Migräne, wenn ich meine Wurst warm machen will.");
 	};
 };
 
@@ -609,15 +758,15 @@ func int DIA_Sonja_FEELINGS_Condition ()
 
 func void DIA_Sonja_FEELINGS_Info ()
 {
-	AI_Output			(other, self, "Wie fühlst du dich?"); //Wie fühlst du dich?
+	AI_Output			(other, self, "DIA_Sonja_FEELINGS_15_00"); //Wie fühlst du dich?
 
     if (Wld_IsRaining())
     {
-        AI_Output			(self, other, "DIA_Sonja_STANDARD_16_16"); //Ach, das Wetter ist beschissen!
+        AI_Output			(self, other, "DIA_Sonja_FEELINGS_16_00"); //Ach, das Wetter ist beschissen!
     }
     else
     {
-        AI_Output			(self, other, "DIA_Sonja_STANDARD_16_17"); //Das Wetter ist heute schön!
+        AI_Output			(self, other, "DIA_Sonja_FEELINGS_16_01"); //Das Wetter ist heute schön!
     };
 };
 
@@ -647,6 +796,11 @@ func void DIA_Sonja_WAREZ_Info ()
         CreateInvItems (self, ItRu_SummonSonja, 1);
     };
 
+    if (Npc_HasItems (self, ItRu_TeleportSonja) <= 0)
+    {
+        CreateInvItems (self, ItRu_TeleportSonja, 1);
+    };
+
     // Immer neuen Rohstahl
     if (Npc_HasItems (self, ItMiSwordraw) <= 0)
     {
@@ -663,7 +817,7 @@ func void DIA_Sonja_WAREZ_Info ()
     };
 
 	B_GiveTradeInv (self);
-	AI_Output			(other, self, "DIA_Sonja_WAREZ_15_00"); //Zeig mir deine Ware.
+	AI_Output			(other, self, "DIA_Isgaroth_Trade_15_00"); //Zeig mir deine Ware.
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -686,10 +840,10 @@ func int DIA_Sonja_HEIRATEN_Condition ()
 
 func void DIA_Sonja_HEIRATEN_Info ()
 {
-	AI_Output			(other, self, "Möchtest du meine Frau werden?"); //Möchtest du meine Frau werden?
-	AI_Output			(other, self, "DIA_Sonja_STANDARD_16_16"); //Hmmm, hast du mir denn wirklich genug zu bieten? Wie sieht es mit Schmuck aus? Was ist mit schöner Kleidung? Die kostet Geld. Wo sollen wir wohnen, mein Prinz?
-	AI_Output			(other, self, "Ich sorge für alles."); //Ich sorge für alles.
-	AI_Output			(other, self, "DIA_Sonja_STANDARD_16_17"); //Ich glaube an dich. Gib mir noch einmal 1000 Goldstücke und etwas Schmuck und wir können heiraten.
+	AI_Output			(other, self, "DIA_Sonja_HEIRATEN_15_00"); //Möchtest du meine Frau werden?
+	AI_Output			(other, self, "DIA_Sonja_HEIRATEN_16_00"); //Hmmm, hast du mir denn wirklich genug zu bieten? Wie sieht es mit Schmuck aus? Was ist mit schöner Kleidung? Die kostet Geld. Wo sollen wir wohnen, mein Prinz?
+	AI_Output			(other, self, "DIA_Sonja_HEIRATEN_15_01"); //Ich sorge für alles.
+	AI_Output			(other, self, "DIA_Sonja_HEIRATEN_16_01"); //Ich glaube an dich. Gib mir noch einmal 1000 Goldstücke und etwas Schmuck und wir können heiraten.
 
 	B_LogEntry ("Sonja", "Sonja wird meine Frau wenn ich ihr 1000 Goldstücke, einen goldenen Ring und eine Schatulle gebe.");
 };
@@ -714,18 +868,19 @@ func int DIA_Sonja_HOCHZEIT_Condition ()
 
 func void DIA_Sonja_HOCHZEIT_Info ()
 {
-	AI_Output			(other, self, "Möchtest du meine Frau werden?"); //Möchtest du meine Frau werden?
+	AI_Output			(other, self, "DIA_Sonja_HOCHZEIT_15_00"); //Möchtest du meine Frau werden?
 
 	if (Npc_HasItems (other, ItMi_Gold) < 1000 || Npc_HasItems(other, ItMi_GoldRing) <= 0 || Npc_HasItems(other, ItMi_GoldChest) <= 0)
 	{
-        AI_Output (self, other, "DIA_Sonja_STANDARD_16_03"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
+        AI_Output (self, other, "DIA_Sonja_HOCHZEIT_16_00"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
 	}
 	else
 	{
-        AI_Output (self, other, "DIA_Sonja_STANDARD_16_04"); //Oh, mein Prinz, ich gebe dir das Ja-Wort. Wir sind nun Frau und Mann. Schnell gib, mir die Waren, damit ich sie für uns aufbewaren kann.
+        AI_Output (self, other, "DIA_Sonja_HOCHZEIT_16_01"); //Oh, mein Prinz, ich gebe dir das Ja-Wort. Wir sind nun Frau und Mann. Schnell gib, mir die Waren, damit ich sie für uns aufbewaren kann.
         B_GiveInvItems (other, self, ItMi_Gold, 1000);
         B_GiveInvItems (other, self, ItMi_GoldRing, 1);
-        B_LogEntry ("Sonja", "Sonja und ich haben geheiratet. Wir sind nun Frau und Mann!");
+        B_GiveInvItems (other, self, ItMi_GoldChest, 1);
+        B_LogEntry ("Sonja", "Sonja und ich haben geheiratet. Wir sind nun Mann und Frau. Wenn mein alter Freund Xardas das nur wüsste!");
         SonjaGeheiratet = TRUE;
 	};
 };
@@ -750,17 +905,17 @@ func int DIA_Sonja_SUMMON_Condition ()
 
 func void DIA_Sonja_SUMMON_Info ()
 {
-	AI_Output			(other, self, "Kannst du ein paar andere Frauen besorgen?"); //Kannst du ein paar Krieger beschwören?
+	AI_Output			(other, self, "DIA_Sonja_SUMMON_15_00"); //Kannst du ein paar andere Frauen besorgen?
 
 	if (Wld_GetDay() - SonjaSummonDays >= 3)
 	{
-        AI_Output			(other, self, "DIA_Sonja_STANDARD_16_18"); //Ich kenne ein Bäurin, die Interesse haben könnte. Aber nur damit du mit ihr mehr Gold verdienen kannst, verstanden?
+        AI_Output			(other, self, "DIA_Sonja_SUMMON_16_00"); //Ich kenne ein Bäurin, die Interesse haben könnte. Aber nur damit du mit ihr mehr Gold verdienen kannst, verstanden?
         Wld_SpawnNpcRange	(self,	BAU_915_Baeuerin,	1,	500);
         SonjaSummonDays = Wld_GetDay();
     }
     else
     {
-        AI_Output			(other, self, "DIA_Sonja_STANDARD_16_18"); //Komm in ein paar Tagen noch mal zu mir. Alle drei Tage kann ich dir eine Frau beschaffen.
+        AI_Output			(other, self, "DIA_Sonja_SUMMON_16_01"); //Komm in ein paar Tagen noch mal zu mir. Alle drei Tage kann ich dir eine Frau beschaffen.
         B_LogEntry ("Sonja", "Sonja kann mir alle drei Tage eine neue Frau beschaffen.");
 
         var String msg;
@@ -789,18 +944,18 @@ func int DIA_Sonja_PROFIT_Condition ()
 
 func void DIA_Sonja_PROFIT_Info ()
 {
-	AI_Output			(other, self, "Warst du auch fleißig anschaffen?"); //Warst du auch fleißig anschaffen?
-	AI_Output			(other, self, "DIA_Sonja_STANDARD_16_18"); //Mein Tor ist für jeden zahlenden geöffnet.
+	AI_Output			(other, self, "DIA_Sonja_PROFIT_15_00"); //Warst du auch fleißig anschaffen?
+	AI_Output			(other, self, "DIA_Sonja_PROFIT_16_00"); //Mein Tor ist für jeden Zahlenden weit geöffnet.
 
 	if (Wld_GetDay() - SonjaProfitDays >= 5)
 	{
-        AI_Output			(other, self, "DIA_Sonja_STANDARD_16_18"); //Hier mein Prinz. 50 Goldstücke pro Kunde und du bekommst deine Hälfte!
+        AI_Output			(other, self, "DIA_Sonja_PROFIT_16_01"); //Hier mein Prinz. 50 Goldstücke pro Kunde und du bekommst deine Hälfte!
         B_GiveInvItems (self, other, ItMi_Gold, (Wld_GetDay() - SonjaProfitDays) * 25); // 1 Kunde pro Tag
         SonjaProfitDays = Wld_GetDay();
 	}
 	else
 	{
-        AI_Output			(other, self, "DIA_Sonja_STANDARD_16_18"); //Komm in ein paar Tagen noch mal zu mir. Alle fünf Tage kann ich dir dein Gold geben.
+        AI_Output			(other, self, "DIA_Sonja_PROFIT_16_02"); //Komm in ein paar Tagen noch mal zu mir. Alle fünf Tage kann ich dir dein Gold geben.
         B_LogEntry ("Sonja", "Sonja gibt mir alle sieben Tage meinen Anteil an ihrem verdienten Gold.");
 
         var String msg;
@@ -830,7 +985,7 @@ FUNC INT DIA_Sonja_TRAINING_Condition()
 
 FUNC VOID DIA_Sonja_TRAINING_Info()
 {
-    AI_Output			(other, self, "Lass mich dich trainieren!"); //Lass mich dich trainieren!
+    AI_Output			(other, self, "DIA_Sonja_TRAINING_15_00"); //Lass mich dich trainieren!
     B_LogEntry ("Sonja", "Ich kann Sonja mit ihrer eigenen gesammelten Erfahrung trainieren.");
 
 	Info_ClearChoices	(DIA_Sonja_TRAINING);
@@ -904,22 +1059,91 @@ FUNC VOID DIA_Sonja_Teach_DEX_5 ()
 
 func void DIA_Sonja_TRAINING_ONE_HAND ()
 {
-	DIA_Sonja_TRAINING_Info();
+	Info_ClearChoices (DIA_Sonja_TRAINING);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_Learn1h1	, B_GetLearnCostTalent(other, NPC_TALENT_1H, 1))			,DIA_Sonja_Teach_1H_1);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_Learn1h5	, B_GetLearnCostTalent(other, NPC_TALENT_1H, 1)*5)		,DIA_Sonja_Teach_1H_5);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_Teach_Back);
 };
+
+func VOID DIA_Sonja_Teach_1H_1()
+{
+	B_TeachFightTalentPercent (other, self, NPC_TALENT_1H, 1, T_MAX);
+
+	DIA_Sonja_TRAINING_ONE_HAND();
+};
+
+FUNC VOID DIA_Sonja_Teach_1H_5()
+{
+	B_TeachFightTalentPercent (other, self, NPC_TALENT_1H, 5, T_MAX);
+
+	DIA_Sonja_TRAINING_ONE_HAND();
+};
+
 
 func void DIA_Sonja_TRAINING_TWO_HAND ()
 {
-	DIA_Sonja_TRAINING_Info();
+	Info_ClearChoices (DIA_Sonja_TRAINING);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_Learn2h1	, B_GetLearnCostTalent(other, NPC_TALENT_2H, 1))			,DIA_Sonja_Teach_2H_1);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_Learn2h5	, B_GetLearnCostTalent(other, NPC_TALENT_2H, 1)*5)		,DIA_Sonja_Teach_2H_5);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_Teach_Back);
+};
+
+func VOID DIA_Sonja_Teach_2H_1()
+{
+	B_TeachFightTalentPercent (other, self, NPC_TALENT_2H, 1, T_MAX);
+
+	DIA_Sonja_TRAINING_TWO_HAND();
+};
+
+FUNC VOID DIA_Sonja_Teach_2H_5()
+{
+	B_TeachFightTalentPercent (other, self, NPC_TALENT_2H, 5, T_MAX);
+
+	DIA_Sonja_TRAINING_TWO_HAND();
 };
 
 func void DIA_Sonja_TRAINING_BOW ()
 {
-	DIA_Sonja_TRAINING_Info();
+	Info_ClearChoices (DIA_Sonja_TRAINING);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnBow1	, B_GetLearnCostTalent(other, NPC_TALENT_BOW, 1))			,DIA_Sonja_Teach_Bow_1);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnBow5	, B_GetLearnCostTalent(other, NPC_TALENT_BOW, 1)*5)		,DIA_Sonja_Teach_Bow_5);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_Teach_Back);
+};
+
+func VOID DIA_Sonja_Teach_Bow_1()
+{
+	B_TeachFightTalentPercent (other, self, NPC_TALENT_BOW, 1, T_MAX);
+
+	DIA_Sonja_TRAINING_BOW();
+};
+
+FUNC VOID DIA_Sonja_Teach_Bow_5()
+{
+	B_TeachFightTalentPercent (other, self, NPC_TALENT_BOW, 5, T_MAX);
+
+	DIA_Sonja_TRAINING_BOW();
 };
 
 func void DIA_Sonja_TRAINING_CROSSBOW ()
 {
-	DIA_Sonja_TRAINING_Info();
+	Info_ClearChoices (DIA_Sonja_TRAINING);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnCrossBow1	, B_GetLearnCostTalent(other, NPC_TALENT_CROSSBOW, 1))			,DIA_Sonja_Teach_CrossBow_1);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnCrossBow5	, B_GetLearnCostTalent(other, NPC_TALENT_CROSSBOW, 1)*5)		,DIA_Sonja_Teach_CrossBow_5);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_Teach_Back);
+};
+
+func VOID DIA_Sonja_Teach_CrossBow_1()
+{
+	B_TeachFightTalentPercent (other, self, NPC_TALENT_CROSSBOW, 1, T_MAX);
+
+	DIA_Sonja_TRAINING_CROSSBOW();
+};
+
+FUNC VOID DIA_Sonja_Teach_CrossBow_5()
+{
+	B_TeachFightTalentPercent (other, self, NPC_TALENT_CROSSBOW, 5, T_MAX);
+
+	DIA_Sonja_TRAINING_CROSSBOW();
 };
 
 func void DIA_Sonja_TRAINING_MANA ()
@@ -946,7 +1170,76 @@ FUNC VOID DIA_Sonja_TEACH_MANA_5()
 
 func void DIA_Sonja_TRAINING_RUNES ()
 {
-	DIA_Sonja_TRAINING_Info();
+    Info_ClearChoices   (DIA_Sonja_TRAINING);
+
+    Info_AddChoice		(DIA_Sonja_TRAINING, PRINT_LearnCircle_6, DIA_Sonja_TEACH_MAGIC_CIRCLE_6);
+    Info_AddChoice		(DIA_Sonja_TRAINING, PRINT_LearnCircle_5, DIA_Sonja_TEACH_MAGIC_CIRCLE_5);
+    Info_AddChoice		(DIA_Sonja_TRAINING, PRINT_LearnCircle_4, DIA_Sonja_TEACH_MAGIC_CIRCLE_4);
+    Info_AddChoice		(DIA_Sonja_TRAINING, PRINT_LearnCircle_3, DIA_Sonja_TEACH_MAGIC_CIRCLE_3);
+    Info_AddChoice		(DIA_Sonja_TRAINING, PRINT_LearnCircle_2, DIA_Sonja_TEACH_MAGIC_CIRCLE_2);
+    Info_AddChoice		(DIA_Sonja_TRAINING, PRINT_LearnCircle_1, DIA_Sonja_TEACH_MAGIC_CIRCLE_1);
+
+    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_Teach_Back);
+};
+
+func void DIA_Sonja_TEACH_MAGIC_CIRCLE_1 ()
+{
+    if (B_TeachMagicCircle (other,self, 1))
+    {
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_01"); //Du bist bist nun im ersten Kreis der Magie.
+    };
+
+	DIA_Sonja_TRAINING_RUNES();
+};
+
+func void DIA_Sonja_TEACH_MAGIC_CIRCLE_2 ()
+{
+    if (B_TeachMagicCircle (other,self, 2))
+    {
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_02"); //Du bist bist nun im zweiten Kreis der Magie.
+    };
+
+	DIA_Sonja_TRAINING_RUNES();
+};
+
+func void DIA_Sonja_TEACH_MAGIC_CIRCLE_3 ()
+{
+    if (B_TeachMagicCircle (other,self, 3))
+    {
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_03"); //Du bist bist nun im dritten Kreis der Magie.
+    };
+
+	DIA_Sonja_TRAINING_RUNES();
+};
+
+func void DIA_Sonja_TEACH_MAGIC_CIRCLE_4 ()
+{
+    if (B_TeachMagicCircle (other,self, 4))
+    {
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_04"); //Du bist bist nun im vierten Kreis der Magie.
+    };
+
+	DIA_Sonja_TRAINING_RUNES();
+};
+
+func void DIA_Sonja_TEACH_MAGIC_CIRCLE_5 ()
+{
+    if (B_TeachMagicCircle (other,self, 5))
+    {
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_05"); //Du bist bist nun im fünften Kreis der Magie.
+    };
+
+	DIA_Sonja_TRAINING_RUNES();
+};
+
+func void DIA_Sonja_TEACH_MAGIC_CIRCLE_6 ()
+{
+    if (B_TeachMagicCircle (other,self, 6))
+    {
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_06"); //Du bist bist nun im sechsten Kreis der Magie.
+    };
+
+	DIA_Sonja_TRAINING_RUNES();
 };
 
 func void DIA_Sonja_TRAINING_ALCHEMY ()
@@ -956,7 +1249,161 @@ func void DIA_Sonja_TRAINING_ALCHEMY ()
 
 func void DIA_Sonja_TRAINING_MORE ()
 {
-	DIA_Sonja_TRAINING_Info();
+	Info_ClearChoices   (DIA_Sonja_TRAINING);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString("Schleichen", B_GetLearnCostTalent(self, NPC_TALENT_SNEAK, 1)), DIA_Sonja_TEACH_SNEAK);
+    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_Teach_Back);
+};
+
+func void DIA_Sonja_TEACH_SNEAK ()
+{
+    if (B_TeachThiefTalent (other, self, NPC_TALENT_SNEAK))
+	{
+		AI_Output (self, other, "DIA_Sonja_TRAINING_15_07");//Du kannst jetzt schleichen.
+	};
+
+	DIA_Sonja_TRAINING_MORE();
+};
+
+//func void AI_SetWalkmode(var c_npc n, var int n0)
+//gibt an mit welchem Walkmode Run etc der Character durch das Level läuft
+//NPC_RUN : Rennen
+//NPC_WALK : Gehen
+//NPC_SNEAK : Schleichen
+//NPC_RUN_WEAPON : Rennen mit gezogener Waffe
+//NPC_WALK_WEAPON : Gehen mit gezogener Waffe
+//NPC_SNEAK_WEAPON : Schleichen mit gezogener Waffe
+
+//////////////////////////////////////////////////////////////////////
+//	Info WALKMODE
+///////////////////////////////////////////////////////////////////////
+INSTANCE DIA_Sonja_WALKMODE   (C_INFO)
+{
+	npc         = VLK_436_Sonja;
+	nr          = 10;
+	condition   = DIA_Sonja_WALKMODE_Condition;
+	information = DIA_Sonja_WALKMODE_Action;
+	permanent   = TRUE;
+	description = "Ändere deine Gangart!";
+};
+
+FUNC INT DIA_Sonja_WALKMODE_Condition()
+{
+	return SonjaFolgt == TRUE;
+};
+FUNC VOID DIA_Sonja_WALKMODE_Action()
+{
+	AI_Output (other, self, "DIA_Sonja_WALKMODE_15_00");//Ändere deine Gangart!
+
+	Info_ClearChoices   (DIA_Sonja_WALKMODE);
+	if (Npc_GetTalentSkill(self, NPC_TALENT_SNEAK) == 1)
+	{
+        Info_AddChoice		(DIA_Sonja_WALKMODE, "Schleiche", DIA_Sonja_WALKMODE_SNEAK);
+    };
+	Info_AddChoice		(DIA_Sonja_WALKMODE, "Gehe", DIA_Sonja_WALKMODE_WALK);
+    Info_AddChoice		(DIA_Sonja_WALKMODE, "Renne (Standard)", DIA_Sonja_WALKMODE_RUN);
+    Info_AddChoice 		(DIA_Sonja_WALKMODE,DIALOG_BACK,DIA_Sonja_WALKMODE_Back);
+
+};
+
+func void DIA_Sonja_WALKMODE_Back ()
+{
+    Info_ClearChoices   (DIA_Sonja_WALKMODE);
+};
+
+func void DIA_Sonja_WALKMODE_RUN ()
+{
+    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_01");//Renne!
+    AI_SetWalkmode(self, NPC_RUN);
+
+    DIA_Sonja_WALKMODE_Action();
+};
+
+func void DIA_Sonja_WALKMODE_WALK ()
+{
+    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_02");//Gehe!
+    AI_SetWalkmode(self, NPC_WALK);
+
+    DIA_Sonja_WALKMODE_Action();
+};
+
+func void DIA_Sonja_WALKMODE_SNEAK ()
+{
+    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_03");//Schleiche!
+    AI_SetWalkmode(self, NPC_SNEAK);
+
+    DIA_Sonja_WALKMODE_Action();
+};
+
+//const int FAI_HUMAN_COWARD				= 2		;
+//const int FAI_HUMAN_NORMAL				= 42	;
+//const int FAI_HUMAN_STRONG				= 3		;
+//const int FAI_HUMAN_MASTER				= 4		;
+
+//////////////////////////////////////////////////////////////////////
+//	Info FAI
+///////////////////////////////////////////////////////////////////////
+INSTANCE DIA_Sonja_FAI   (C_INFO)
+{
+	npc         = VLK_436_Sonja;
+	nr          = 10;
+	condition   = DIA_Sonja_FAI_Condition;
+	information = DIA_Sonja_FAI_Action;
+	permanent   = TRUE;
+	description = "Ändere dein Kampfverhalten!";
+};
+
+FUNC INT DIA_Sonja_FAI_Condition()
+{
+	return SonjaFolgt == TRUE;
+};
+FUNC VOID DIA_Sonja_FAI_Action()
+{
+	AI_Output (other, self, "DIA_Sonja_FAI_15_00");//Ändere dein Kampfverhalten!
+
+	Info_ClearChoices   (DIA_Sonja_FAI);
+	Info_AddChoice		(DIA_Sonja_FAI, "Meister", DIA_Sonja_FAI_MASTER);
+	Info_AddChoice		(DIA_Sonja_FAI, "Stark", DIA_Sonja_FAI_STRONG);
+	Info_AddChoice		(DIA_Sonja_FAI, "Normal", DIA_Sonja_FAI_NORMAL);
+    Info_AddChoice		(DIA_Sonja_FAI, "Feigling (Standard)", DIA_Sonja_FAI_COWARD);
+    Info_AddChoice 		(DIA_Sonja_FAI,DIALOG_BACK,DIA_Sonja_FAI_Back);
+
+};
+
+func void DIA_Sonja_FAI_Back ()
+{
+    Info_ClearChoices   (DIA_Sonja_FAI);
+};
+
+func void DIA_Sonja_FAI_COWARD ()
+{
+    AI_Output (other, self, "DIA_Sonja_FAI_15_01");//Kämpfe wie ein Feigling!
+    self.fight_tactic = FAI_HUMAN_COWARD;
+
+    DIA_Sonja_FAI_Action();
+};
+
+func void DIA_Sonja_FAI_NORMAL ()
+{
+    AI_Output (other, self, "DIA_Sonja_FAI_15_02");//Kämpfe normal!
+    self.fight_tactic = FAI_HUMAN_NORMAL;
+
+    DIA_Sonja_FAI_Action();
+};
+
+func void DIA_Sonja_FAI_STRONG ()
+{
+    AI_Output (other, self, "DIA_Sonja_FAI_15_03");//Kämpfe stark!
+    self.fight_tactic = FAI_HUMAN_STRONG;
+
+    DIA_Sonja_FAI_Action();
+};
+
+func void DIA_Sonja_FAI_MASTER ()
+{
+    AI_Output (other, self, "DIA_Sonja_FAI_15_04");//Kämpfe wie ein Meister!
+    self.fight_tactic = FAI_HUMAN_MASTER;
+
+    DIA_Sonja_FAI_Action();
 };
 
 //---------------------------------------------------------------------
@@ -971,50 +1418,45 @@ INSTANCE DIA_Sonja_ein   (C_INFO)
 	permanent   = TRUE;
 	description = "Kannst du meine Fähigkeit im Goldhacken einschätzen?";
 };
+
 FUNC INT DIA_Sonja_ein_Condition()
 {
 	return SonjaFolgt == TRUE;
 };
-var int Sonja_einmal;
-var int Sonja_Gratulation;
+
 FUNC VOID DIA_Sonja_ein_Info()
 {
 	AI_Output (other, self, "DIA_Addon_Finn_ein_15_00");//Kannst du meine Fähigkeit im Goldhacken einschätzen?
 
-	if (Sonja_einmal == FALSE)
-	{
-		AI_Output (self, other, "DIA_Sonja_ein_07_01");//Klar. Ich mache das schon seit über 35 Jahren. Es gibt nichts, das ich nicht erkenne!
-		Sonja_einmal = TRUE;
-	};
-	AI_Output (self, other, "DIA_Sonja_ein_07_02");//Bei dir würde ich sagen, du bist ein ...
+	AI_Output (self, other, "DIA_Sonja_ein_16_01");//Bei dir würde ich sagen, du bist ein ...
 
 	if (Hero_HackChance < 20)
 	{
-		AI_Output (self, other, "DIA_Sonja_ein_07_03"); //blutiger Anfänger.
+		AI_Output (self, other, "DIA_Sonja_ein_16_02"); //blutiger Anfänger.
 	}
 	else if (Hero_HackChance < 40)
 	{
-		AI_Output (self, other, "DIA_Sonja_ein_07_04"); //ganz passabler Schürfer.
+		AI_Output (self, other, "DIA_Sonja_ein_16_03"); //ganz passabler Schürfer.
 	}
 	else if (Hero_HackChance < 55)
 	{
-		AI_Output (self, other, "DIA_Sonja_ein_07_05"); //erfahrener Goldschürfer.
+		AI_Output (self, other, "DIA_Sonja_ein_16_04"); //erfahrener Goldschürfer.
 	}
 	else if (Hero_HackChance < 75)
 	{
-		AI_Output (self, other, "DIA_Sonja_ein_07_06"); //wachechter Buddler.
+		AI_Output (self, other, "DIA_Sonja_ein_16_05"); //wachechter Buddler.
 	}
 	else if (Hero_HackChance < 90)
 	{
-		AI_Output (self, other, "DIA_Sonja_ein_07_07"); //verdammt guter Buddler.
+		AI_Output (self, other, "DIA_Sonja_ein_16_06"); //verdammt guter Buddler.
 	}
 	else if (Hero_HackChance < 98)
 	{
-		AI_Output (self, other, "DIA_Sonja_ein_07_08"); //Meister Buddler.
+		AI_Output (self, other, "DIA_Sonja_ein_16_07"); //Meister Buddler.
 	}
 	else
 	{
-		AI_Output (self, other, "DIA_Sonja_ein_07_09"); //Guru - unter den Buddlern.
+		AI_Output (self, other, "DIA_Sonja_ein_16_08"); //Guru - unter den Buddlern.
 	};
 
 
@@ -1062,7 +1504,7 @@ func void DIA_Sonja_ROUTINE_BACK()
 
 func void DIA_Sonja_ROUTINE_Pee ()
 {
-	AI_Output			(other, self, "Geh mal für kleine Mädchen!"); //Geh mal für kleine Mädchen!
+	AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_00"); //Geh mal für kleine Mädchen!
 	Npc_ExchangeRoutine	(self,"PEE");
 
 	DIA_Sonja_ROUTINE_Info();
@@ -1070,7 +1512,7 @@ func void DIA_Sonja_ROUTINE_Pee ()
 
 func void DIA_Sonja_ROUTINE_Dance ()
 {
-	AI_Output			(other, self, "Tanz!"); //Tanz!
+	AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_01"); //Tanz!
 	Npc_ExchangeRoutine	(self,"DANCE");
 
 	DIA_Sonja_ROUTINE_Info();
@@ -1078,19 +1520,28 @@ func void DIA_Sonja_ROUTINE_Dance ()
 
 func void DIA_Sonja_ROUTINE_Vatras()
 {
+    self.aivar[AIV_PARTYMEMBER] = FALSE;
     AI_StopProcessInfos (self);
+    // Der Dialog wird sonst nicht geschlossen:
+    AI_Wait(self, 10);
     AI_GotoNpc(self, Vatras);
 };
 
 func void DIA_Sonja_ROUTINE_Pyrokar()
 {
+    self.aivar[AIV_PARTYMEMBER] = FALSE;
     AI_StopProcessInfos (self);
+    // Der Dialog wird sonst nicht geschlossen:
+    AI_Wait(self, 10);
     AI_GotoNpc(self, Pyrokar);
 };
 
 func void DIA_Sonja_ROUTINE_Xardas()
 {
+    self.aivar[AIV_PARTYMEMBER] = FALSE;
     AI_StopProcessInfos (self);
+    // Der Dialog wird sonst nicht geschlossen:
+    AI_Wait(self, 10);
     AI_GotoNpc(self, Xardas);
 };
 
@@ -1146,7 +1597,7 @@ func void DIA_Sonja_AUSSEHEN_BACK()
 
 func void DIA_Sonja_AUSSEHEN_Nude ()
 {
-	AI_Output			(other, self, "Zieh dich aus!"); //Zieh dich aus!
+	AI_Output			(other, self, "DIA_Sonja_AUSSEHEN_15_00"); //Zieh dich aus!
 
     AI_UnequipArmor (self);
 
@@ -1155,7 +1606,7 @@ func void DIA_Sonja_AUSSEHEN_Nude ()
 
 func void DIA_Sonja_AUSSEHEN_Clothing ()
 {
-	AI_Output			(other, self, "Zieh dir was an!"); //Zieh dir was an!
+	AI_Output			(other, self, "DIA_Sonja_AUSSEHEN_15_01"); //Zieh dir was an!
 
     AI_EquipBestArmor (self);
 
@@ -1164,7 +1615,7 @@ func void DIA_Sonja_AUSSEHEN_Clothing ()
 
 func void DIA_Sonja_AUSSEHEN_Fat ()
 {
-	AI_Output			(other, self, "Iss etwas!"); //Iss etwas!
+	AI_Output			(other, self, "DIA_Sonja_AUSSEHEN_15_02"); //Iss etwas!
 
     Mdl_SetModelFatness (self, 4);
 
@@ -1173,7 +1624,7 @@ func void DIA_Sonja_AUSSEHEN_Fat ()
 
 func void DIA_Sonja_AUSSEHEN_Thin ()
 {
-	AI_Output			(other, self, "Mach ein bisschen Sport!"); //Mach ein bisschen Sport!
+	AI_Output			(other, self, "DIA_Sonja_AUSSEHEN_15_03"); //Mach ein bisschen Sport!
 
     Mdl_SetModelFatness (self, 0);
 
@@ -1540,8 +1991,8 @@ func void Sonja_Equip(var int armor, var int cost)
 {
     if (Npc_HasItems(self, armor))
     {
-        AI_Output			(other, self, "Benutz das hier!"); //"Benutz das hier
-        AI_Output			(self, other, "Wie du magst!"); //Wie du magst!
+        AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_00"); //Benutz das hier!
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_00"); //Wie du magst!
         EquipItem(self, armor);
         B_LogEntry ("Sonja", "Ich kann Sonja sagen, was sie anziehen soll. Sie findet das in Ordnung.");
     }
@@ -1549,15 +2000,15 @@ func void Sonja_Equip(var int armor, var int cost)
     {
         if (Npc_HasItems (other, ItMi_Gold) < cost)
         {
-            AI_Output (self, other, "DIA_Sonja_STANDARD_16_03"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
+            AI_Output (self, other, "DIA_Sonja_KLEIDUNG_16_01"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
             B_LogEntry ("Sonja", "Sonja ist genervt, dass ich mir Ausrüstung für sie nicht leisten kann.");
         }
         else
         {
             B_GiveInvItems (other, self, ItMi_Gold, cost);
 
-            AI_Output			(other, self, "Hier ist neue Ausrüstung!"); //Hier ist neue Ausrüstung!
-            AI_Output			(self, other, "Danke!"); //Danke!
+            AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_01"); //Hier ist neue Ausrüstung!
+            AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_02"); //Danke!
 
             B_GiveInvItems (other, self, armor, 1);
             EquipItem(self, armor);
@@ -1570,8 +2021,8 @@ func void Sonja_Bekleiden(var int armor, var int cost)
 {
     if (Npc_HasItems(self, armor))
     {
-        AI_Output			(other, self, "Zieh das hier an!"); //Zieh das hier an!
-        AI_Output			(self, other, "Wie du magst!"); //Wie du magst!
+        AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_02"); //Zieh das hier an!
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_00"); //Wie du magst!
 
         AI_UnequipArmor	(self);
         AI_EquipArmor 	(self, armor);
@@ -1582,15 +2033,15 @@ func void Sonja_Bekleiden(var int armor, var int cost)
     {
         if (Npc_HasItems (other, ItMi_Gold) < cost)
         {
-            AI_Output (self, other, "DIA_Sonja_STANDARD_16_03"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
+            AI_Output (self, other, "DIA_Sonja_KLEIDUNG_16_01"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
             B_LogEntry ("Sonja", "Sonja ist genervt, dass ich mir Kleidung für sie nicht leisten kann.");
         }
         else
         {
             B_GiveInvItems (other, self, ItMi_Gold, cost);
 
-            AI_Output			(other, self, "Hier ist etwas Neues zum Anziehen!"); //Hier ist etwas Neues zum Anziehen!
-            AI_Output			(self, other, "Danke!"); //Danke!
+            AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_03"); //Hier ist etwas Neues zum Anziehen!
+            AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_02"); //Danke!
 
             CreateInvItems (self, armor, 1);
             AI_UnequipArmor	(self);
@@ -1647,6 +2098,193 @@ func void DIA_Sonja_KLEIDUNG_DragonSlayer ()
     DIA_Sonja_KLEIDUNG_Info();
 };
 
+func void SonjaRespawnMonsterKhorinis ()
+{
+    Wld_InsertNpc 	(Gobbo_Skeleton, 	"FP_ROAM_MEDIUMFOREST_KAP2_24");
+    Wld_InsertNpc 	(Skeleton, 			"FP_ROAM_MEDIUMFOREST_KAP2_22");
+    Wld_InsertNpc 	(Lesser_Skeleton, 	"FP_ROAM_MEDIUMFOREST_KAP2_23");
+    Wld_InsertNpc 	(Wolf, 			"FP_ROAM_MEDIUMFOREST_KAP2_25");
+    Wld_InsertNpc 	(Wolf, 			"FP_ROAM_MEDIUMFOREST_KAP2_26");
+    Wld_InsertNpc 	(Bloodfly, "FP_ROAM_CITY_TO_FOREST_50");
+    Wld_InsertNpc 	(Bloodfly, "FP_ROAM_CITY_TO_FOREST_49");
+    Wld_InsertNpc 	(Wolf, "NW_CITY_TO_FOREST_10");
+    Wld_InsertNpc 	(Wolf, "NW_CITY_TO_FOREST_05");
+    Wld_InsertNpc 	(Sheep, 			"NW_FARM3_MOUNTAINLAKE_05");
+    Wld_InsertNpc 	(Sheep, 			"NW_FARM3_MOUNTAINLAKE_05");
+    Wld_InsertNpc 	(Scavenger, 		"NW_TROLLAREA_PLANE_05");
+    Wld_InsertNpc 	(Scavenger, 		"NW_TROLLAREA_PLANE_05");
+    Wld_InsertNpc 	(Scavenger, 		"NW_TROLLAREA_PLANE_06");
+    Wld_InsertNpc 	(Scavenger, 		"NW_TROLLAREA_PLANE_04");
+    Wld_InsertNpc 	(Scavenger, 		"NW_TROLLAREA_PLANE_04");
+    Wld_InsertNpc 	(Scavenger, 		"NW_TROLLAREA_PLANE_11");
+    Wld_InsertNpc 	(Scavenger, 		"NW_TROLLAREA_PLANE_11");
+    Wld_InsertNpc 	(Scavenger, 		"NW_TROLLAREA_PLANE_11");
+    Wld_InsertNpc 	(Lurker, 		"NW_TROLLAREA_PATH_72");
+    Wld_InsertNpc 	(Lurker, 		"NW_TROLLAREA_PATH_72");
+    Wld_InsertNpc 	(Lurker, 		"NW_TROLLAREA_PATH_75");
+    Wld_InsertNpc 	(Waran, 		"NW_TROLLAREA_PATH_22_MONSTER");
+    Wld_InsertNpc 	(Waran, 		"NW_TROLLAREA_PATH_22_MONSTER");
+    Wld_InsertNpc 	(Molerat, "NW_FOREST_PATH_62_02");
+    Wld_InsertNpc 	(Molerat, "NW_FOREST_PATH_62_02");
+    Wld_InsertNpc 	(Molerat, "FP_ROAM_CITY_TO_FOREST_41");
+    Wld_InsertNpc 	(Scavenger, 			"NW_FOREST_CONNECT_MONSTER2");
+    Wld_InsertNpc 	(Scavenger, 			"NW_FOREST_CONNECT_MONSTER2");
+    Wld_InsertNpc 	(Wolf, 			"NW_SHRINE_MONSTER");
+    Wld_InsertNpc 	(Wolf, 			"NW_SHRINE_MONSTER");
+    Wld_InsertNpc 	(Giant_Bug, 			"NW_PATH_TO_MONASTER_AREA_01");
+    Wld_InsertNpc 	(Giant_Bug, 			"NW_PATH_TO_MONASTER_AREA_01");
+    Wld_InsertNpc 	(Scavenger, 			"NW_PATH_TO_MONASTER_AREA_11");
+    Wld_InsertNpc 	(Scavenger, 			"NW_PATH_TO_MONASTER_MONSTER22");
+    Wld_InsertNpc	(Giant_Bug, 	"NW_FARM1_CITYWALL_RIGHT_02");
+    Wld_InsertNpc	(Wolf, "NW_FARM1_PATH_CITY_10_B");
+    Wld_InsertNpc	(Wolf, "NW_FARM1_PATH_CITY_SHEEP_04");
+
+    Wld_InsertNpc	(Giant_Bug,	"NW_FARM1_PATH_SPAWN_07");
+    Wld_InsertNpc 	(Bloodfly, "FP_ROAM_CITY_TO_FOREST_34");
+    Wld_InsertNpc 	(Bloodfly, "FP_ROAM_CITY_TO_FOREST_36");
+
+    Wld_InsertNpc 	(Scavenger,	"NW_TAVERNE_BIGFARM_MONSTER_01");
+    Wld_InsertNpc 	(Scavenger,	"NW_TAVERNE_BIGFARM_MONSTER_01");
+
+    Wld_InsertNpc 	(Lurker,	"NW_BIGFARM_LAKE_MONSTER_02_01");
+
+    Wld_InsertNpc 	(Gobbo_Black, 		"NW_BIGFARM_LAKE_03_MOVEMENT");
+    Wld_InsertNpc 	(Gobbo_Black, 		"NW_BIGFARM_LAKE_03_MOVEMENT");
+
+    Wld_InsertNpc 	(Gobbo_Black,	"NW_TAVERNE_TROLLAREA_MONSTER_05_01");
+
+    Wld_InsertNpc 	(Gobbo_Green,	"NW_BIGFARM_LAKE_MONSTER_05_01");
+    Wld_InsertNpc 	(Gobbo_Green,	"NW_BIGFARM_LAKE_MONSTER_05_01");
+    Wld_InsertNpc 	(Gobbo_Green,	"NW_BIGFARM_LAKE_MONSTER_05_01");
+};
+
+func void SonjaRespawnTrolleKhorinis ()
+{
+    Wld_InsertNpc 	(Troll, 				"NW_CASTLEMINE_TROLL_08");
+	Wld_InsertNpc 	(Troll, 				"NW_CASTLEMINE_TROLL_07");
+
+
+	//----- Schwarzer Troll -----
+	Wld_InsertNpc 	(Troll_Black, 			"NW_TROLLAREA_PATH_84");
+};
+
+func void SonjaRespawnShadowBeastsKhorinis ()
+{
+    Wld_InsertNpc		(Shadowbeast, "NW_FARM1_CITYWALL_FOREST_04_B");
+    Wld_InsertNpc 	(Shadowbeast,	"NW_FARM4_WOOD_MONSTER_08");
+    Wld_InsertNpc 	(Shadowbeast, "FP_ROAM_MEDIUMFOREST_KAP3_20");
+    Wld_InsertNpc 	(Shadowbeast, "FP_ROAM_CITYFOREST_KAP3_04");
+    Wld_InsertNpc 	(Shadowbeast, "NW_FOREST_PATH_35_06");
+    Wld_InsertNpc 	(Shadowbeast, "NW_CITYFOREST_CAVE_A06");
+    Wld_InsertNpc 	(Shadowbeast, 	"FP_ROAM_NW_TROLLAREA_RUINS_10");
+    Wld_InsertNpc 	(Shadowbeast, 	"NW_TROLLAREA_RIVERSIDECAVE_02");
+    Wld_InsertNpc 	(Shadowbeast, 	"NW_TROLLAREA_RIVERSIDECAVE_07");
+};
+
+// ************************************************************
+// 			  				RESPAWN
+// ************************************************************
+INSTANCE DIA_Sonja_RESPAWN (C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 900;
+	condition	= DIA_Sonja_RESPAWN_Condition;
+	information	= DIA_Sonja_RESPAWN_Info;
+	permanent	= TRUE;
+	description = "Rufe alle wilden Tiere herbei ...";
+};
+
+FUNC INT DIA_Sonja_RESPAWN_Condition()
+{
+	return SonjaFolgt == TRUE;
+};
+
+FUNC VOID DIA_Sonja_RESPAWN_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_RESPAWN_15_00"); //Rufe alle wilden Tiere herbei ...
+
+    Info_ClearChoices	(DIA_Sonja_RESPAWN);
+
+    Info_AddChoice		(DIA_Sonja_RESPAWN, "Alle Schattenläufer in Khorinis"	,Sonja_RESPAWN_ShadowBeastsKhorinis);
+    Info_AddChoice		(DIA_Sonja_RESPAWN, "Alle Trolle in Khorinis"	,Sonja_RESPAWN_TrolleKhorinis);
+	Info_AddChoice		(DIA_Sonja_RESPAWN, "Alle Tiere in Khorinis"	,Sonja_RESPAWN_Khorinis);
+	Info_AddChoice		(DIA_Sonja_RESPAWN, DIALOG_BACK 		, DIA_Sonja_RESPAWN_BACK);
+};
+
+func void DIA_Sonja_RESPAWN_BACK()
+{
+	Info_ClearChoices (DIA_Sonja_RESPAWN);
+};
+
+FUNC VOID Sonja_RESPAWN_Khorinis()
+{
+    AI_Output			(other, self, "DIA_Sonja_RESPAWN_15_00"); //Rufe alle wilden Tiere herbei.
+
+    if (Wld_GetDay() - SonjaRespawnDays < 7)
+    {
+        AI_Output			(self, other, "DIA_Sonja_RESPAWN_16_00"); //Das kann ich nur einmal in der Woche tun! Komm in ein paar Tagen wieder!
+        B_LogEntry ("Sonja", "Sonja kann nur einmal in der Woche alle wilden Tiere herbei rufen.");
+
+        var String msg;
+        msg = ConcatStrings("Verbleibende Tage: ", IntToString(7 + SonjaRespawnDays - Wld_GetDay()));
+        PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
+    }
+    else
+    {
+        AI_Output			(self, other, "DIA_Sonja_RESPAWN_16_01"); //Gerne, mein Ehemann!
+        SonjaRespawnMonsterKhorinis();
+        SonjaRespawnDays = 0;
+    };
+
+    DIA_Sonja_RESPAWN_Info();
+};
+
+FUNC VOID Sonja_RESPAWN_TrolleKhorinis()
+{
+    AI_Output			(other, self, "DIA_Sonja_RESPAWN_15_00"); //Rufe alle wilden Tiere herbei.
+
+    if (Wld_GetDay() - SonjaRespawnDays < 7)
+    {
+        AI_Output			(self, other, "DIA_Sonja_RESPAWN_16_00"); //Das kann ich nur einmal in der Woche tun! Komm in ein paar Tagen wieder!
+        B_LogEntry ("Sonja", "Sonja kann nur einmal in der Woche alle wilden Tiere herbei rufen.");
+
+        var String msg;
+        msg = ConcatStrings("Verbleibende Tage: ", IntToString(7 + SonjaRespawnDays - Wld_GetDay()));
+        PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
+    }
+    else
+    {
+        AI_Output			(self, other, "DIA_Sonja_RESPAWN_16_01"); //Gerne, mein Ehemann!
+        SonjaRespawnTrolleKhorinis();
+        SonjaRespawnDays = 0;
+    };
+
+    DIA_Sonja_RESPAWN_Info();
+};
+
+FUNC VOID Sonja_RESPAWN_ShadowBeastsKhorinis()
+{
+    AI_Output			(other, self, "DIA_Sonja_RESPAWN_15_00"); //Rufe alle wilden Tiere herbei.
+
+    if (Wld_GetDay() - SonjaRespawnDays < 7)
+    {
+        AI_Output			(self, other, "DIA_Sonja_RESPAWN_16_00"); //Das kann ich nur einmal in der Woche tun! Komm in ein paar Tagen wieder!
+        B_LogEntry ("Sonja", "Sonja kann nur einmal in der Woche alle wilden Tiere herbei rufen.");
+
+        var String msg;
+        msg = ConcatStrings("Verbleibende Tage: ", IntToString(7 + SonjaRespawnDays - Wld_GetDay()));
+        PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
+    }
+    else
+    {
+        AI_Output			(self, other, "DIA_Sonja_RESPAWN_16_01"); //Gerne, mein Ehemann!
+        SonjaRespawnShadowBeastsKhorinis();
+        SonjaRespawnDays = 0;
+    };
+
+    DIA_Sonja_RESPAWN_Info();
+};
+
 // ************************************************************
 // 			  				KOCHEN
 // ************************************************************
@@ -1667,13 +2305,13 @@ FUNC INT DIA_Sonja_KOCHEN_Condition()
 
 FUNC VOID DIA_Sonja_KOCHEN_Info()
 {
-    AI_Output			(other, self, "Koch mir was!"); //Koch mir was!
+    AI_Output			(other, self, "DIA_Sonja_KOCHEN_15_00"); //Koch mir was!
 
     if (SonjaGeheiratet)
     {
-        if (Wld_GetDay() - SonjaCookDays >= 7)
+        if (Wld_GetDay() - SonjaCookDays < 7)
         {
-            AI_Output			(self, other, "Ich koche nur jede Woche etwas für dich! Komm in ein paar Tagen wieder!"); //Ich koche nur jede Woche etwas für dich! Komm in ein paar Tage wieder!
+            AI_Output			(self, other, "DIA_Sonja_KOCHEN_16_00"); //Ich koche nur jede Woche etwas für dich! Komm in ein paar Tagen wieder!
             B_LogEntry ("Sonja", "Sonja kocht für mich nur einmal in der Woche.");
 
             var String msg;
@@ -1682,14 +2320,14 @@ FUNC VOID DIA_Sonja_KOCHEN_Info()
         }
         else
         {
-            AI_Output			(self, other, "Gerne, mein Ehemann!"); //Gerne, mein Ehemann!
+            AI_Output			(self, other, "DIA_Sonja_KOCHEN_16_01"); //Gerne, mein Ehemann!
             B_GiveInvItems (self, other, ItFo_XPStew, 1);
             SonjaCookDays = 0;
         };
     }
     else
     {
-        AI_Output			(self, other, "Koch dir doch selbst was! Ich bin nicht deine Frau!"); //Koch dir doch selbst was! Ich bin nicht deine Frau!
+        AI_Output			(self, other, "DIA_Sonja_KOCHEN_16_02"); //Koch dir doch selbst was! Ich bin nicht deine Frau!
     };
 };
 
@@ -1715,20 +2353,107 @@ FUNC INT DIA_Sonja_ANGEBEN_Condition()
 
 FUNC VOID DIA_Sonja_ANGEBEN_Info()
 {
-    AI_Output			(other, self, "Schau mal wie viel Erfahrung ich gesammelt habe!"); //Schau mal wie viel Erfahrung ich gesammelt habe!
+    AI_Output			(other, self, "DIA_Sonja_ANGEBEN_15_00"); //Schau mal wie viel Erfahrung ich gesammelt habe!
 
     if (other.level <= SonjaAngebenLevel)
     {
-        AI_Output			(self, other, "Ach, du Angeber! Du bist doch immer noch so wie beim letzten Mal!"); //Ach, du Angeber! Du bist doch immer noch so wie beim letzten Mal!
+        AI_Output			(self, other, "DIA_Sonja_ANGEBEN_16_00"); //Ach, du Angeber! Du bist doch immer noch so wie beim letzten Mal!
         B_LogEntry ("Sonja", "Sonja ist unbeeindruckt von meiner Angeberei, wenn ich nicht wirklich mehr Erfahrung gesammelt habe.");
     }
     else
     {
-        AI_Output			(self, other, "Ja mein Prinz, du bist der Beste! Aus dir kann noch ein König werden!"); //Ja mein Prinz, du bist der Beste! Aus dir kann noch ein König werden!
+        AI_Output			(self, other, "DIA_Sonja_ANGEBEN_16_01"); //Ja mein Prinz, du bist der Beste! Aus dir kann noch ein König werden!
         B_LogEntry ("Sonja", "Sonja mag mich mit mehr Erfahrung lieber. Ich sollte Erfahrung sammeln.");
     };
 
     SonjaAngebenLevel = other.level;
+};
+
+// ************************************************************
+// 			  				SCHEIDUNG
+// ************************************************************
+
+INSTANCE DIA_Sonja_SCHEIDUNG (C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 900;
+	condition	= DIA_Sonja_SCHEIDUNG_Condition;
+	information	= DIA_Sonja_SCHEIDUNG_Info;
+	permanent	= TRUE;
+	description = "Ich möchte die Scheidung.";
+};
+
+FUNC INT DIA_Sonja_SCHEIDUNG_Condition()
+{
+	return SonjaFolgt == TRUE && SonjaGeheiratet == TRUE;
+};
+
+FUNC VOID DIA_Sonja_SCHEIDUNG_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_SCHEIDUNG_15_00"); //Ich möchte die Scheidung.
+
+     AI_Output			(self, other, "DIA_Sonja_ANGEBEN_16_00"); //Berührt - geführt! Überleg dir lieber mal deinen nächsten Schachzug, damit wir zu mehr Gold kommen!
+    B_LogEntry ("Sonja", "Für Sonja kommt eine Scheidung nicht in Frage. Ich soll lieber mehr Gold verdienen.");
+};
+
+// ************************************************************
+// 			  				ADVICE
+// ************************************************************
+
+INSTANCE DIA_Sonja_ADVICE (C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 900;
+	condition	= DIA_Sonja_ADVICE_Condition;
+	information	= DIA_Sonja_ADVICE_Info;
+	permanent	= TRUE;
+	description = "Was soll ich als Nächstes tun?";
+};
+
+FUNC INT DIA_Sonja_ADVICE_Condition()
+{
+	return SonjaFolgt == TRUE;
+};
+
+FUNC VOID DIA_Sonja_ADVICE_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_ADVICE_15_00"); //Was soll ich als Nächstes tun?
+
+    if (Kapitel == 1)
+    {
+        AI_Output			(self, other, "DIA_Sonja_ADVICE_16_03"); //Geh zu Lord Hagen und hol dir das Auge Innos.
+        AI_Output			(self, other, "DIA_Sonja_ADVICE_16_02"); //Du redest doch immer im Schlaf davon.
+    }
+    else if (Kapitel == 2)
+	{
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_04"); //Geh ins Minental und hole dir alle Informationen für Lord Hagen.
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_02"); //Du redest doch immer im Schlaf davon.
+	}
+	else if (Kapitel == 3)
+	{
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_05"); //Kümmere dich um das Auge Innos.
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_02"); //Du redest doch immer im Schlaf davon.
+	}
+	else if (Kapitel == 4)
+	{
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_06"); //Sprich mit den Drachen und mache sie fertig!
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_02"); //Du redest doch immer im Schlaf davon.
+	}
+	else if (Kapitel == 5)
+	{
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_07"); //Besorg dir die Informationen im Kloster und weiter geht's!
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_02"); //Du redest doch immer im Schlaf davon.
+    }
+    else if (Kapitel == 6)
+	{
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_08"); //Vernichte die Diener Beliars!
+		AI_Output			(self, other, "DIA_Sonja_ADVICE_16_02"); //Du redest doch immer im Schlaf davon.
+    }
+	else
+	{
+        AI_Output			(self, other, "DIA_Sonja_ADVICE_16_00"); //Ich weiß es nicht.
+        B_LogEntry ("Sonja", "Sonja weiß auch nicht, was ich tun soll.");
+	};
 };
 
 // ************************************************************
