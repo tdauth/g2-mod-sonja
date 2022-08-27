@@ -28,6 +28,7 @@ Sonja provides the following features:
 * [B_GiveTradeInv_Sonja.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv_Sonja.d)
 * [B_GivePlayerXP.d](./_work/Data/Scripts/Content/Story/B_Story/B_GivePlayerXP.d)
 * [B_Enter_SonjaWorld.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_SonjaWorld.d)
+* [NPC_Globals.d](./_work/Data/Scripts/Content/Story/NPC_Globals.d)
 * [Text.d](./_work/Data/Scripts/Content/Story/Text.d)
 * [Startup.d](./_work/Data/Scripts/Content/Story/Startup.d)
 * [Gothic.src](./_work/Data/Scripts/Content/Gothic.src)

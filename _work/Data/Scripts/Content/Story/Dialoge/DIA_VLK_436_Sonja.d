@@ -2,6 +2,7 @@ var int SonjaFolgt;							//= TRUE Sonja folgt.
 var int SonjaGeheiratet;					//= TRUE Sonja geheiratet.
 var int SonjaGefragt;						//= TRUE Sonja nach Freikaufen gefragt.
 var int SonjaSummonDays;
+var int SonjaSexDays;
 var int SonjaProfitDays;
 var int SonjaRespawnDays;
 var int SonjaCookDays;
@@ -187,6 +188,7 @@ func void DIA_Sonja_BEZAHLEN_DoIt()
         B_LogEntry ("Sonja", "Sonja folgt mir nun und arbeitet für mich.");
         SonjaFolgt = TRUE;
         SonjaSummonDays = 0;
+        SonjaSexDays = 0;
         SonjaProfitDays = 0;
         SonjaRespawnDays = 0;
         SonjaCookDays = 0;
@@ -320,7 +322,7 @@ func void DIA_Sonja_PEOPLE_Hagen ()
 func void DIA_Sonja_PEOPLE_Richter ()
 {
     AI_Output (other, self, "DIA_Sonja_PEOPLE_Richter_15_00"); //Was hältst du vom Richter?
-    AI_Output (self, other, "DIA_Sonja_PEOPLE_Hagen_16_00"); //Über mich hat er jede Nacht gerichtet. Sein Urteil viel zu meinen Gunsten aus.
+    AI_Output (self, other, "DIA_Sonja_PEOPLE_Richter_16_00"); //Über mich hat er jede Nacht gerichtet. Sein Urteil viel zu meinen Gunsten aus.
 
     B_LogEntry ("Sonja", "Der Richter urteilte zu Sonjas gunsten.");
 
@@ -722,20 +724,33 @@ func void DIA_Sonja_DI_HEAL_Info ()
 {
 	AI_Output			(other, self, "DIA_Sonja_HEAL_15_00"); //Lass es uns tun!
 
-	if hero.attribute [ATR_HITPOINTS] < hero.attribute[ATR_HITPOINTS_MAX] || hero.attribute [ATR_MANA] < hero.attribute[ATR_MANA_MAX]
+    if (Wld_GetDay() - SonjaSexDays >= 3)
 	{
-		AI_Output			(self, other, "DIA_Sonja_HEAL_16_00"); //Endlich erobert mein Prinz sein Schloss zurück!
-		PlayVideo ("LOVESCENE.BIK");
-		hero.attribute [ATR_HITPOINTS] = hero.attribute[ATR_HITPOINTS_MAX];
-		hero.attribute [ATR_MANA] = hero.attribute[ATR_MANA_MAX];
-		PrintScreen (PRINT_FullyHealed, - 1, - 1, FONT_Screen, 2);
-		B_LogEntry ("Sonja", "Sonja hat gewisse Talente, die mich heilen und mein Mana regenerieren.");
-	}
-	else
-	{
-		AI_Output			(self, other,  "DIA_Sonja_HEAL_16_01"); //Ich habe Migräne.
-		B_LogEntry ("Sonja", "Sonja hat komischerweise öfter mal Migräne, wenn ich meine Wurst warm machen will.");
-	};
+        if (hero.attribute [ATR_HITPOINTS] < hero.attribute[ATR_HITPOINTS_MAX] || hero.attribute [ATR_MANA] < hero.attribute[ATR_MANA_MAX])
+        {
+            AI_Output			(self, other, "DIA_Sonja_HEAL_16_00"); //Endlich erobert mein Prinz sein Schloss zurück!
+            PlayVideo ("LOVESCENE.BIK");
+            hero.attribute [ATR_HITPOINTS] = hero.attribute[ATR_HITPOINTS_MAX];
+            hero.attribute [ATR_MANA] = hero.attribute[ATR_MANA_MAX];
+            PrintScreen (PRINT_FullyHealed, - 1, - 1, FONT_Screen, 2);
+            B_LogEntry ("Sonja", "Sonja hat gewisse Talente, die mich heilen und mein Mana regenerieren.");
+        }
+        else
+        {
+            AI_Output			(self, other,  "DIA_Sonja_HEAL_16_01"); //Ich habe Migräne.
+            B_LogEntry ("Sonja", "Sonja hat komischerweise öfter mal Migräne, wenn ich meine Wurst warm machen will.");
+        };
+        SonjaSexDays = Wld_GetDay();
+    }
+    else
+    {
+        AI_Output			(self, other,  "DIA_Sonja_HEAL_16_01"); //Ich habe Migräne.
+        B_LogEntry ("Sonja", "Sonja hat komischerweise öfter mal Migräne, wenn ich meine Wurst warm machen will.");
+
+        var String msg;
+        msg = ConcatStrings("Verbleibende Tage: ", IntToString(3 + SonjaSexDays - Wld_GetDay()));
+        PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
+    };
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -945,17 +960,17 @@ func int DIA_Sonja_PROFIT_Condition ()
 func void DIA_Sonja_PROFIT_Info ()
 {
 	AI_Output			(other, self, "DIA_Sonja_PROFIT_15_00"); //Warst du auch fleißig anschaffen?
-	AI_Output			(other, self, "DIA_Sonja_PROFIT_16_00"); //Mein Tor ist für jeden Zahlenden weit geöffnet.
+	AI_Output			(self, other, "DIA_Sonja_PROFIT_16_00"); //Mein Tor ist für jeden Zahlenden weit geöffnet.
 
 	if (Wld_GetDay() - SonjaProfitDays >= 5)
 	{
-        AI_Output			(other, self, "DIA_Sonja_PROFIT_16_01"); //Hier mein Prinz. 50 Goldstücke pro Kunde und du bekommst deine Hälfte!
-        B_GiveInvItems (self, other, ItMi_Gold, (Wld_GetDay() - SonjaProfitDays) * 25); // 1 Kunde pro Tag
+        AI_Output			(self, other, "DIA_Sonja_PROFIT_16_01"); //Hier mein Prinz. 50 Goldstücke pro Kunde und du bekommst deine Hälfte!
+        B_GiveInvItems (self, other, ItMi_Gold, (Wld_GetDay() - SonjaProfitDays) * 6 * 25); // 6 Kunden pro Tag
         SonjaProfitDays = Wld_GetDay();
 	}
 	else
 	{
-        AI_Output			(other, self, "DIA_Sonja_PROFIT_16_02"); //Komm in ein paar Tagen noch mal zu mir. Alle fünf Tage kann ich dir dein Gold geben.
+        AI_Output			(self, other, "DIA_Sonja_PROFIT_16_02"); //Komm in ein paar Tagen noch mal zu mir. Alle fünf Tage kann ich dir dein Gold geben.
         B_LogEntry ("Sonja", "Sonja gibt mir alle sieben Tage meinen Anteil an ihrem verdienten Gold.");
 
         var String msg;
@@ -983,12 +998,9 @@ FUNC INT DIA_Sonja_TRAINING_Condition()
 	return SonjaFolgt == TRUE;
 };
 
-FUNC VOID DIA_Sonja_TRAINING_Info()
+FUNC VOID DIA_Sonja_TRAINING_Info_Choices()
 {
-    AI_Output			(other, self, "DIA_Sonja_TRAINING_15_00"); //Lass mich dich trainieren!
-    B_LogEntry ("Sonja", "Ich kann Sonja mit ihrer eigenen gesammelten Erfahrung trainieren.");
-
-	Info_ClearChoices	(DIA_Sonja_TRAINING);
+    Info_ClearChoices	(DIA_Sonja_TRAINING);
 
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Weitere Talente"	,    DIA_Sonja_TRAINING_MORE);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Runenmagie"	,    DIA_Sonja_TRAINING_RUNES);
@@ -1001,6 +1013,14 @@ FUNC VOID DIA_Sonja_TRAINING_Info()
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Geschick"	,    DIA_Sonja_TRAINING_DEX);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Stärke"	,    DIA_Sonja_TRAINING_STR);
 	Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK 		, DIA_Sonja_TRAINING_BACK);
+};
+
+FUNC VOID DIA_Sonja_TRAINING_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_TRAINING_15_00"); //Lass mich dich trainieren!
+    B_LogEntry ("Sonja", "Ich kann Sonja mit ihrer eigenen gesammelten Erfahrung trainieren.");
+
+    DIA_Sonja_TRAINING_Info_Choices();
 };
 
 func void DIA_Sonja_TRAINING_BACK()
@@ -1018,7 +1038,7 @@ func void DIA_Sonja_TRAINING_STR ()
 
 FUNC VOID DIA_Sonja_Teach_Back ()
 {
-	DIA_Sonja_TRAINING_Info();
+	DIA_Sonja_TRAINING_Info_Choices();
 };
 
 FUNC VOID DIA_Sonja_Teach_STR_1 ()
@@ -1301,6 +1321,8 @@ FUNC VOID DIA_Sonja_WALKMODE_Action()
     };
 	Info_AddChoice		(DIA_Sonja_WALKMODE, "Gehe", DIA_Sonja_WALKMODE_WALK);
     Info_AddChoice		(DIA_Sonja_WALKMODE, "Renne (Standard)", DIA_Sonja_WALKMODE_RUN);
+    Info_AddChoice		(DIA_Sonja_WALKMODE, "Sprinte", DIA_Sonja_WALKMODE_SPRINT);
+
     Info_AddChoice 		(DIA_Sonja_WALKMODE,DIALOG_BACK,DIA_Sonja_WALKMODE_Back);
 
 };
@@ -1310,9 +1332,17 @@ func void DIA_Sonja_WALKMODE_Back ()
     Info_ClearChoices   (DIA_Sonja_WALKMODE);
 };
 
+func void DIA_Sonja_WALKMODE_SPRINT ()
+{
+    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_01");//Sprinte!
+    Mdl_ApplyOverlayMDSTimed	(self, "HUMANS_SPRINT.MDS", Time_Speed);
+
+    DIA_Sonja_WALKMODE_Action();
+};
+
 func void DIA_Sonja_WALKMODE_RUN ()
 {
-    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_01");//Renne!
+    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_02");//Renne!
     AI_SetWalkmode(self, NPC_RUN);
 
     DIA_Sonja_WALKMODE_Action();
@@ -1320,7 +1350,7 @@ func void DIA_Sonja_WALKMODE_RUN ()
 
 func void DIA_Sonja_WALKMODE_WALK ()
 {
-    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_02");//Gehe!
+    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_03");//Gehe!
     AI_SetWalkmode(self, NPC_WALK);
 
     DIA_Sonja_WALKMODE_Action();
@@ -1328,7 +1358,7 @@ func void DIA_Sonja_WALKMODE_WALK ()
 
 func void DIA_Sonja_WALKMODE_SNEAK ()
 {
-    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_03");//Schleiche!
+    AI_Output (other, self, "DIA_Sonja_WALKMODE_15_04");//Schleiche!
     AI_SetWalkmode(self, NPC_SNEAK);
 
     DIA_Sonja_WALKMODE_Action();
@@ -1968,16 +1998,37 @@ FUNC INT DIA_Sonja_KLEIDUNG_Condition()
 	return SonjaFolgt == TRUE;
 };
 
+func String BuildSonjaItemString(var String itemName, var int value)
+{
+    var String msg;
+    msg = "";
+    msg = ConcatStrings(" (", IntToString(value));
+    msg = ConcatStrings(msg, ")");
+    msg = ConcatStrings(itemName, msg);
+
+    return msg;
+};
+
 FUNC VOID DIA_Sonja_KLEIDUNG_Info()
 {
 	Info_ClearChoices	(DIA_Sonja_KLEIDUNG);
 
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Drachenjägerin (2000 Gold)"	,    DIA_Sonja_KLEIDUNG_DragonSlayer);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bäuerin (200 Gold)"	,    DIA_Sonja_KLEIDUNG_Farmer);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Schwerer Ast (1 Gold)"	,    DIA_Sonja_KLEIDUNG_Schwerer_Ast);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString(NAME_SPL_MassDeath, Value_Ru_MassDeath),   DIA_Sonja_KLEIDUNG_ItRu_MassDeath);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString(NAME_SPL_InstantFireball, Value_Ru_InstantFireball),   DIA_Sonja_KLEIDUNG_ItRu_InstantFireball);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Ring der Unbesiegbarkeit", Value_Ri_ProtTotal02),   DIA_Sonja_KLEIDUNG_ItRi_Prot_Total_02);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Ring der Unbezwingbarkeit", Value_Ri_ProtTotal),    DIA_Sonja_KLEIDUNG_ItRi_Prot_Total_01);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Rüstung Drachenjägerin", 2000)	,    DIA_Sonja_KLEIDUNG_DragonSlayer);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Kleidung Bäuerin", 200)	,    DIA_Sonja_KLEIDUNG_Farmer);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Schwerer Ast", 1),    DIA_Sonja_KLEIDUNG_Schwerer_Ast);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bester Gürtel aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestBelt);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Ringe aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestRings);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bestes Amulett aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestAmulet);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Spruchrolle aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestScroll);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Rune aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestRune);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Fernkampfwaffe aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestRangeWeapon);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Nahkampfwaffe aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestMeleeWeapon);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Rüstung aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestArmor);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Lege alle Ausrüstung ab"	,    DIA_Sonja_KLEIDUNG_Unequip);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Normal"	,    DIA_Sonja_KLEIDUNG_Normal);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, DIALOG_BACK 		, DIA_Sonja_KLEIDUNG_BACK);
 };
@@ -2059,9 +2110,25 @@ func void DIA_Sonja_KLEIDUNG_Normal ()
     DIA_Sonja_KLEIDUNG_Info();
 };
 
-func void DIA_Sonja_KLEIDUNG_BestRangeWeapon()
+func void DIA_Sonja_KLEIDUNG_Unequip ()
 {
-    AI_EquipBestRangedWeapon(self);
+    AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_04"); //Lege alles ab!
+    AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_03"); //Wie du meinst, Süßer.
+
+    AI_UnequipArmor(self);
+    AI_UnequipWeapons(self);
+    // TODO How to unequip rings and amulets etc.
+    //if (Npc_HasEquippedArmor(self, ItAm_Hp_Mana_01))
+    //{
+      //  AI_UseItem(self, ItAm_Hp_Mana_01);
+    //};
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_BestArmor()
+{
+    AI_EquipBestArmor(self);
     DIA_Sonja_KLEIDUNG_Info();
 };
 
@@ -2071,9 +2138,101 @@ func void DIA_Sonja_KLEIDUNG_BestMeleeWeapon()
     DIA_Sonja_KLEIDUNG_Info();
 };
 
-func void DIA_Sonja_KLEIDUNG_BestArmor()
+func void DIA_Sonja_KLEIDUNG_BestRangeWeapon()
 {
-    AI_EquipBestArmor(self);
+    AI_EquipBestRangedWeapon(self);
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_BestRune()
+{
+    AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_04"); //Lege deine beste Rune an!
+
+    if (Npc_HasItems(self, ItRu_InstantFireball))
+    {
+        EquipItem(self, ItRu_InstantFireball);
+    };
+
+    if (Npc_HasItems(self, ItRu_MassDeath))
+    {
+        EquipItem(self, ItRu_MassDeath);
+    };
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_BestScroll()
+{
+    AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_05"); //Lege deine beste Spruchrolle an!
+
+    if (Npc_HasItems(self, ItSc_Firebolt))
+    {
+        EquipItem(self, ItSc_Firebolt);
+    };
+
+    if (Npc_HasItems(self, ItSc_InstantFireball))
+    {
+        EquipItem(self, ItSc_InstantFireball);
+    };
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_BestAmulet()
+{
+    AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_05"); //Lege dein bestes Amulett an!
+
+    if (Npc_HasItems(self, ItAm_Hp_Mana_01))
+    {
+        EquipItem(self, ItAm_Hp_Mana_01);
+    };
+
+    if (Npc_HasItems(self, ItAm_Prot_Point_01))
+    {
+        EquipItem(self, ItAm_Prot_Point_01);
+    };
+
+    if (Npc_HasItems(self, ItAm_Hp_01))
+    {
+        EquipItem(self, ItAm_Hp_01);
+    };
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_BestRings()
+{
+    AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_06"); //Lege deine besten Ringe an!
+
+    if (Npc_HasItems(self, ItRi_Prot_Edge_01))
+    {
+        EquipItem(self, ItRi_Prot_Edge_01);
+        EquipItem(self, ItRi_Prot_Edge_01);
+    };
+
+    if (Npc_HasItems(self, ItRi_Prot_Total_01))
+    {
+        EquipItem(self, ItRi_Prot_Total_01);
+        EquipItem(self, ItRi_Prot_Total_01);
+    };
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_BestBelt()
+{
+    AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_07"); //Zieh deinen besten Gürtel an!
+
+    if (Npc_HasItems(self, ItBE_Addon_Leather_01))
+    {
+        EquipItem(self, ItBE_Addon_Leather_01);
+    };
+
+    if (Npc_HasItems(self, ItBE_Addon_MC))
+    {
+        EquipItem(self, ItBE_Addon_MC);
+    };
+
     DIA_Sonja_KLEIDUNG_Info();
 };
 
@@ -2097,6 +2256,50 @@ func void DIA_Sonja_KLEIDUNG_DragonSlayer ()
 
     DIA_Sonja_KLEIDUNG_Info();
 };
+
+func void DIA_Sonja_KLEIDUNG_ItRi_Prot_Total_01()
+{
+    Sonja_Equip(ItRi_Prot_Total_01, Value_Ri_ProtTotal);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ItRi_Prot_Total_02()
+{
+    Sonja_Equip(ItRi_Prot_Total_02, Value_Ri_ProtTotal02);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ItRu_InstantFireball()
+{
+    if (Npc_GetTalentSkill(self, NPC_TALENT_MAGE) >= 2)
+    {
+        Sonja_Equip(ItRu_InstantFireball, Value_Ru_InstantFireball);
+    }
+    else
+    {
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_03"); //Ich muss erst den zweiten Kreis der Magie erlernen.
+    };
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ItRu_MassDeath()
+{
+    if (Npc_GetTalentSkill(self, NPC_TALENT_MAGE) >= 6)
+    {
+        Sonja_Equip(ItRu_MassDeath, Value_Ru_MassDeath);
+    }
+    else
+    {
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_04"); //Ich muss erst den sechsten Kreis der Magie erlernen.
+    };
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+// RESPAWN
 
 func void SonjaRespawnMonsterKhorinis ()
 {
@@ -2329,6 +2532,56 @@ FUNC VOID DIA_Sonja_KOCHEN_Info()
     {
         AI_Output			(self, other, "DIA_Sonja_KOCHEN_16_02"); //Koch dir doch selbst was! Ich bin nicht deine Frau!
     };
+};
+
+// ************************************************************
+// 			  				IMMORTAL
+// ************************************************************
+INSTANCE DIA_Sonja_IMMORTAL (C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 900;
+	condition	= DIA_Sonja_IMMORTAL_Condition;
+	information	= DIA_Sonja_IMMORTAL_Info;
+	permanent	= TRUE;
+	description = "Werde unsterblich!";
+};
+
+FUNC INT DIA_Sonja_IMMORTAL_Condition()
+{
+	return SonjaFolgt == TRUE && self.flags != NPC_FLAG_IMMORTAL && self.aivar[AIV_PARTYMEMBER] == FALSE;
+};
+
+FUNC VOID DIA_Sonja_IMMORTAL_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_IMMORTAL_15_00"); //Werde unsterblich!
+    AI_Output			(self, other, "DIA_Sonja_IMMORTAL_16_00"); //Aber sicher mein Prinz. Eine Prinzessin kann niemals sterben, sie wird immer gerettet.
+
+    B_LogEntry ("Sonja", "Solange Sonja mir nicht folgt kann sie sich vor Feinden selbst schützen.");
+};
+
+// ************************************************************
+// 			  				MORTAL
+// ************************************************************
+INSTANCE DIA_Sonja_MORTAL (C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 900;
+	condition	= DIA_Sonja_MORTAL_Condition;
+	information	= DIA_Sonja_MORTAL_Info;
+	permanent	= TRUE;
+	description = "Werde unsterblich!";
+};
+
+FUNC INT DIA_Sonja_MORTAL_Condition()
+{
+	return SonjaFolgt == TRUE && self.flags == NPC_FLAG_IMMORTAL;
+};
+
+FUNC VOID DIA_Sonja_MORTAL_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_MORTAL_15_00"); //Werde sterblich!
+    AI_Output			(self, other, "DIA_Sonja_MORTAL_16_00"); //Wie du meinst, mein Prinz. Du wirst mich schon beschützen.
 };
 
 // ************************************************************

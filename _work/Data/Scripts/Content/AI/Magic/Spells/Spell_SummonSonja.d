@@ -40,7 +40,13 @@ func void Spell_Cast_SummonSonja()
 	var string wpName;
 	wpName = Npc_GetNearestWP(hero);
 
-	AI_Teleport(VLK_436_Sonja, wpName);
+	if (Npc_IsDead(Sonja))
+	{
+        Sonja.attribute[ATR_HITPOINTS] = Sonja.attribute[ATR_HITPOINTS_MAX];
+		PrintScreen ("Sonja wiederbelebt!", - 1, - 1, FONT_Screen, 2);
+	};
+
+	AI_Teleport(Sonja, wpName);
 	//AI_GotoNpc(VLK_436_Sonja, hero);
 
 	self.aivar[AIV_SelectSpell] += 1;

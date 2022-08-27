@@ -90,7 +90,7 @@ func void Use_SonjasList ()
 
 					Doc_PrintLine	( nDocID,  0, "Mit diesen Leuten lief noch nichts - Sonja"					);
                     Doc_PrintLine	( nDocID,  0, ""					);
-                    Doc_PrintLine	( nDocID,  0, "TIL - ist mir zu jung!"					);
+                    Doc_PrintLine	( nDocID,  0, "Till - ist mir zu jung!"					);
                     Doc_PrintLine	( nDocID,  0, ""					);
                     Doc_PrintLine	( nDocID,  0, "Valentino - bekam ihn nicht hoch, rannte weg."					);
                     Doc_PrintLine	( nDocID,  0, ""					);

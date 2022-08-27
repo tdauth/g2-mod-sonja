@@ -385,6 +385,12 @@ func void Spell_Cast_TeleportSonja()
     var string wpName;
 	wpName = Npc_GetNearestWP(VLK_436_Sonja);
 
+	if (Npc_IsDead(Sonja))
+	{
+        Sonja.attribute[ATR_HITPOINTS] = Sonja.attribute[ATR_HITPOINTS_MAX];
+		PrintScreen ("Sonja wiederbelebt!", - 1, - 1, FONT_Screen, 2);
+	};
+
 	AI_Teleport		(self, wpName);
 	AI_PlayAni		(self, "T_HEASHOOT_2_STAND" );
 };

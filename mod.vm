@@ -1,0 +1,9 @@
+[BEGINVDF]
+Comment=
+BaseDir=C:\Users\Tamino\Documents\Projekte\g2-mod-sonja
+VDFName=C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\Sonja.mod
+[FILES]
+*.d -r
+[EXCLUDE]
+[INCLUDE]
+[ENDVDF]

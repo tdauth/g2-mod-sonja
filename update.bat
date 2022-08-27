@@ -7,6 +7,7 @@ copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_GiveTradeInv\B_GiveTradeInv_Sonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_GiveTradeInv"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_GivePlayerXP.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_Enter_SonjaWorld.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\NPC_Globals.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Text.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Startup.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Gothic.src" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content"
