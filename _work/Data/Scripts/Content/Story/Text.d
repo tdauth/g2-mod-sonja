@@ -542,9 +542,9 @@ CONST STRING TXT_TALENTS [NPC_TALENT_MAX] =
 	"Tiere ausweiden",			//NPC_TALENT_TAKEANIMALTROPHY	= 16;
 	"Fremde Sprache lesen",		//NPC_TALENT_FOREIGNLANGUAGE	= 17;
 	"Irrlicht Fähigkeiten",		//NPC_TALENT_WISPDETECTOR		= 18;
-	"",							//NPC_TALENT_C					= 19;
-	"",							//NPC_TALENT_D					= 20;
-	""							//NPC_TALENT_E					= 21;
+	"Aufreißer",				//NPC_TALENT_C					= 19; // Sonja
+	"Lebensregeneration",		//NPC_TALENT_D					= 20;
+	"Manaregeneration"			//NPC_TALENT_E					= 21;
 };
 
 
@@ -569,9 +569,9 @@ CONST STRING TXT_TALENTS_SKILLS	[NPC_TALENT_MAX] =
 	"-|Gelernt",												//NPC_TALENT_TAKEANIMALTROPHY	= 16;
 	"-|Gelernt",												//NPC_TALENT_FOREIGNLANGUAGE	= 17;	//ADDON
 	"-|Gelernt",												//NPC_TALENT_WISPDETECTOR		= 18;
-	"-|Gelernt",												//NPC_TALENT_C					= 19;
-	"-|Gelernt",												//NPC_TALENT_D					= 20;
-	"-|Gelernt"													//NPC_TALENT_E					= 21;
+	"Anfänger|Schütze|Meister",									//NPC_TALENT_C					= 19; // Sonja
+	"-|0|1|2|3|4|5|6",											//NPC_TALENT_D					= 20;
+	"-|0|1|2|3|4|5|6"											//NPC_TALENT_E					= 21;
 };
 
 

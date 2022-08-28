@@ -5,6 +5,7 @@ var int SonjaSummonDays;
 var int SonjaSexDays;
 var int SonjaProfitDays;
 var int SonjaRespawnDays;
+var int SonjaRespawnItemsDays;
 var int SonjaCookDays;
 var int 	Sonja_SkinTexture; // 137 Frau
 var int 	Sonja_BodyTexture; // BodyTex_N
@@ -188,6 +189,7 @@ func void DIA_Sonja_BEZAHLEN_DoIt()
         B_LogEntry ("Sonja", "Sonja folgt mir nun und arbeitet für mich.");
         SonjaFolgt = TRUE;
         SonjaSummonDays = 0;
+        SonjaRespawnItemsDays = 0;
         SonjaSexDays = 0;
         SonjaProfitDays = 0;
         SonjaRespawnDays = 0;
@@ -352,8 +354,8 @@ func void DIA_Sonja_NOT_YET_Info ()
     AI_Output (other, self, "DIA_Sonja_NOT_YET_15_00"); //Gibt es überhaupt jemanden, der noch nicht Kunde bei dir war?
     AI_Output (self, other, "DIA_Sonja_NOT_YET_16_00"); //Hmm, nicht sehr viele Leute, aber ja. Ich kann dir eine Liste geben.
     B_LogEntry ("Sonja", "Sonja hat mir eine Liste von Leuten gegeben, die noch nicht Kunden bei ihr waren.");
-    CreateInvItems (self, ItWr_SonjasList, 1);
-    B_GiveInvItems (self, other, ItWr_SonjasList, 1);
+    CreateInvItems (self, ItWr_SonjasListMissing, 1);
+    B_GiveInvItems (self, other, ItWr_SonjasListMissing, 1);
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -856,9 +858,9 @@ func int DIA_Sonja_HEIRATEN_Condition ()
 func void DIA_Sonja_HEIRATEN_Info ()
 {
 	AI_Output			(other, self, "DIA_Sonja_HEIRATEN_15_00"); //Möchtest du meine Frau werden?
-	AI_Output			(other, self, "DIA_Sonja_HEIRATEN_16_00"); //Hmmm, hast du mir denn wirklich genug zu bieten? Wie sieht es mit Schmuck aus? Was ist mit schöner Kleidung? Die kostet Geld. Wo sollen wir wohnen, mein Prinz?
+	AI_Output			(self, other, "DIA_Sonja_HEIRATEN_16_00"); //Hmmm, hast du mir denn wirklich genug zu bieten? Wie sieht es mit Schmuck aus? Was ist mit schöner Kleidung? Die kostet Geld. Wo sollen wir wohnen, mein Prinz?
 	AI_Output			(other, self, "DIA_Sonja_HEIRATEN_15_01"); //Ich sorge für alles.
-	AI_Output			(other, self, "DIA_Sonja_HEIRATEN_16_01"); //Ich glaube an dich. Gib mir noch einmal 1000 Goldstücke und etwas Schmuck und wir können heiraten.
+	AI_Output			(self, other, "DIA_Sonja_HEIRATEN_16_01"); //Ich glaube an dich. Gib mir noch einmal 1000 Goldstücke und etwas Schmuck und wir können heiraten.
 
 	B_LogEntry ("Sonja", "Sonja wird meine Frau wenn ich ihr 1000 Goldstücke, einen goldenen Ring und eine Schatulle gebe.");
 };
@@ -885,19 +887,59 @@ func void DIA_Sonja_HOCHZEIT_Info ()
 {
 	AI_Output			(other, self, "DIA_Sonja_HOCHZEIT_15_00"); //Möchtest du meine Frau werden?
 
-	if (Npc_HasItems (other, ItMi_Gold) < 1000 || Npc_HasItems(other, ItMi_GoldRing) <= 0 || Npc_HasItems(other, ItMi_GoldChest) <= 0)
-	{
+    if (Npc_HasItems (other, ItMi_Gold) < 1000)
+    {
         AI_Output (self, other, "DIA_Sonja_HOCHZEIT_16_00"); //Willst du mich verarschen? Du hast nicht genug Gold dabei!
-	}
+    }
+    else if (Npc_HasItems(other, ItMi_GoldRing) <= 0)
+    {
+        AI_Output (self, other, "DIA_Sonja_HOCHZEIT_16_01"); //Willst du mich verarschen? Du hast keinen goldenen Ring dabei!
+    }
+    else if ( Npc_HasItems(other, ItMi_GoldChest) <= 0)
+    {
+        AI_Output (self, other, "DIA_Sonja_HOCHZEIT_16_02"); //Willst du mich verarschen? Du hast keine Schatulle dabei!
+    }
 	else
 	{
-        AI_Output (self, other, "DIA_Sonja_HOCHZEIT_16_01"); //Oh, mein Prinz, ich gebe dir das Ja-Wort. Wir sind nun Frau und Mann. Schnell gib, mir die Waren, damit ich sie für uns aufbewaren kann.
+        AI_Output (self, other, "DIA_Sonja_HOCHZEIT_16_03"); //Oh, mein Prinz, ich gebe dir das Ja-Wort. Wir sind nun Frau und Mann. Schnell gib, mir die Waren, damit ich sie für uns aufbewaren kann.
         B_GiveInvItems (other, self, ItMi_Gold, 1000);
         B_GiveInvItems (other, self, ItMi_GoldRing, 1);
         B_GiveInvItems (other, self, ItMi_GoldChest, 1);
         B_LogEntry ("Sonja", "Sonja und ich haben geheiratet. Wir sind nun Mann und Frau. Wenn mein alter Freund Xardas das nur wüsste!");
         SonjaGeheiratet = TRUE;
 	};
+};
+
+///////////////////////////////////////////////////////////////////////
+//	Info LIEBE
+///////////////////////////////////////////////////////////////////////
+instance DIA_Sonja_LIEBE		(C_INFO)
+{
+	npc			 = 	VLK_436_Sonja;
+	nr          = 	99;
+	condition	 = 	DIA_Sonja_LIEBE_Condition;
+	information	 = 	DIA_Sonja_LIEBE_Info;
+	permanent	 = 	FALSE;
+	description	 = 	"(Liebeserklärung)";
+};
+
+func int DIA_Sonja_LIEBE_Condition ()
+{
+	return SonjaFolgt == TRUE;
+};
+
+func void DIA_Sonja_LIEBE_Info ()
+{
+	AI_Output			(other, self, "DIA_Sonja_LIEBE_15_00"); //Oh du holde Maid, so schön ist dein Antlitz, wie das Feuer der Drachen glänzt es und Männer erblinden vor seiner Schönheit! Nur das Auge Innos kann dir stand halten.
+
+	AI_Output			(self, other, "DIA_Sonja_LIEBE_16_00"); //Hast du zu viel Sumpfkraut geraucht? Mach dich lieber nützlich!
+
+	if (SonjaGeheiratet)
+	{
+        AI_Output			(self, other, "DIA_Sonja_LIEBE_16_01"); //Und diesen "Mann" habe ich geheiratet ...
+	};
+
+	B_LogEntry ("Sonja", "Sonja war von meiner Liebeserklärung nicht sonderlich beeindruckt.");
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -967,10 +1009,15 @@ func void DIA_Sonja_PROFIT_Info ()
         AI_Output			(self, other, "DIA_Sonja_PROFIT_16_01"); //Hier mein Prinz. 50 Goldstücke pro Kunde und du bekommst deine Hälfte!
         B_GiveInvItems (self, other, ItMi_Gold, (Wld_GetDay() - SonjaProfitDays) * 6 * 25); // 6 Kunden pro Tag
         SonjaProfitDays = Wld_GetDay();
+
+        AI_Output			(self, other, "DIA_Sonja_PROFIT_16_02"); //Und hier ist die Liste meiner Kunden, damit du auch Bescheid weißt.
+
+        CreateInvItems (self, ItWr_SonjasListCustomers, 1);
+        B_GiveInvItems (self, other, ItWr_SonjasListCustomers, 1);
 	}
 	else
 	{
-        AI_Output			(self, other, "DIA_Sonja_PROFIT_16_02"); //Komm in ein paar Tagen noch mal zu mir. Alle fünf Tage kann ich dir dein Gold geben.
+        AI_Output			(self, other, "DIA_Sonja_PROFIT_16_03"); //Komm in ein paar Tagen noch mal zu mir. Alle fünf Tage kann ich dir dein Gold geben.
         B_LogEntry ("Sonja", "Sonja gibt mir alle sieben Tage meinen Anteil an ihrem verdienten Gold.");
 
         var String msg;
@@ -1496,6 +1543,179 @@ FUNC VOID DIA_Sonja_ein_Info()
 	ConcatText = ConcatStrings (ConcatText, " Prozent");
 	PrintScreen (concatText, -1, -1, FONT_ScreenSmall,2);
 };
+
+//---------------------------------------------------------------------
+//	Info AUFREISSER
+//---------------------------------------------------------------------
+INSTANCE DIA_Sonja_AUFREISSER   (C_INFO)
+{
+	npc         = VLK_436_Sonja;
+	nr          = 900;
+	condition   = DIA_Sonja_AUFREISSER_Condition;
+	information = DIA_Sonja_AUFREISSER_Info;
+	permanent   = TRUE;
+	description = "Kannst du meine Fähigkeit als Aufreißer einschätzen?";
+};
+
+FUNC INT DIA_Sonja_AUFREISSER_Condition()
+{
+	return SonjaFolgt == TRUE;
+};
+
+FUNC VOID DIA_Sonja_AUFREISSER_Info()
+{
+	AI_Output (other, self, "DIA_Sonja_AUFREISSER_15_00");//Kannst du meine Fähigkeit im Goldhacken einschätzen?
+
+	AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_00");//Bei dir würde ich sagen, du bist ein ...
+
+	if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 20)
+	{
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_01"); //blutiger Anfänger.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 40)
+	{
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_02"); //ganz passabler Aufreißer.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 55)
+	{
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_02"); //erfahrener Aufreißer.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 75)
+	{
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_03"); //wachechter Aufreißer.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 90)
+	{
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_04"); //verdammt guter Aufreißer.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 98)
+	{
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_03"); //Meister-Aufreißer.
+	}
+	else
+	{
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_04"); //Guru - unter den Aufreißern.
+	};
+
+
+	var string ConcatText;
+
+	ConcatText = ConcatStrings ("Aufreißer: ", IntToString (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER)));
+	ConcatText = ConcatStrings (ConcatText, " Prozent");
+	PrintScreen (concatText, -1, -1, FONT_ScreenSmall,2);
+};
+
+//*******************************************
+//	TeachPlayer
+//*******************************************
+
+INSTANCE DIA_Sonja_TEACHAUFREISSER(C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 99;
+	condition	= DIA_Sonja_TEACHAUFREISSER_Condition;
+	information	= DIA_Sonja_TEACHAUFREISSER_Info;
+	permanent	= TRUE;
+	description = "Zeig mir, wie ich Frauen besser aufreißen kann.";
+};
+
+FUNC INT DIA_Sonja_TEACHAUFREISSER_Condition()
+{
+	return SonjaFolgt == TRUE;
+};
+
+func int B_TeachAufreisserTalentPercent (var C_NPC slf, var C_NPC oth, var int percent, var int teacherMAX)
+{
+	var string concatText;
+
+	// ------ Kostenberechnung ------
+	var int kosten;
+	//kosten = (B_GetLearnCostTalent(oth, NPC_TALENT_AUFREISSER, 1) * percent);
+	kosten = percent; // 1 LP pro Aufreisser %
+
+	//EXIT IF...
+
+	// ------ Lernen NICHT über teacherMax ------
+	var int realHitChance;
+	realHitChance = Npc_GetTalentSkill(oth, NPC_TALENT_AUFREISSER);
+
+	if (realHitChance >= teacherMAX)
+	{
+		concatText = ConcatStrings (PRINT_NoLearnOverPersonalMAX, IntToString(teacherMAX));
+		PrintScreen	(concatText, -1, -1, FONT_SCREEN, 2);
+		B_Say (slf, oth, "$NOLEARNYOUREBETTER");
+
+		return FALSE;
+	};
+
+	if ((realHitChance + percent) > teacherMAX)
+	{
+		concatText = ConcatStrings (PRINT_NoLearnOverPersonalMAX, IntToString(teacherMAX));
+		PrintScreen	(concatText, -1, -1, FONT_SCREEN, 2);
+		B_Say (slf, oth, "$NOLEARNOVERPERSONALMAX");
+
+		return FALSE;
+	};
+
+	// ------ Player hat zu wenig Lernpunkte ------
+	if (oth.lp < kosten)
+	{
+		PrintScreen	(PRINT_NotEnoughLP, -1, -1, FONT_Screen, 2);
+		B_Say (slf, oth, "$NOLEARNNOPOINTS");
+
+		return FALSE;
+	};
+
+
+	// FUNC
+
+	// ------ Lernpunkte abziehen ------
+	oth.lp = oth.lp - kosten;
+
+	// ------ AUFREISSER steigern ------
+    Npc_SetTalentSkill (oth, NPC_TALENT_AUFREISSER, percent);	//Aufreisser
+
+    PrintScreen	("Verbessere: Aufreißen", -1, -1, FONT_Screen, 2);
+
+    return TRUE;
+};
+
+
+func void SonjaTeach()
+{
+    Info_ClearChoices (DIA_Sonja_TEACHAUFREISSER);
+    Info_AddChoice		(DIA_Sonja_TEACHAUFREISSER, B_BuildLearnString("Aufreißen +1"			, 1)			,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_1);
+    Info_AddChoice		(DIA_Sonja_TEACHAUFREISSER, B_BuildLearnString("Aufreißen +5"			, 5)		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_5);
+    Info_AddChoice		(DIA_Sonja_TEACHAUFREISSER, DIALOG_BACK, DIA_Sonja_TEACHAUFREISSER_Back);
+};
+
+FUNC VOID DIA_Sonja_TEACHAUFREISSER_Info()
+{
+	AI_Output (other,self ,"DIA_Sonja_AUFREISSER_15_00"); //Zeig mir, wie ich Frauen besser aufreißen kann.
+    AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_00"); //Ach du, als ob du jemals eine andere Frau beeindrucken wirst. Na gut, wir probieren es trotzdem.
+
+    SonjaTeach();
+};
+
+FUNC VOID DIA_Sonja_TEACHAUFREISSER_Back ()
+{
+	Info_ClearChoices (DIA_Sonja_TEACHAUFREISSER);
+};
+
+FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_1 ()
+{
+	B_TeachAufreisserTalentPercent (self, other, 1, T_MAX);
+
+	SonjaTeach();
+};
+
+FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_5 ()
+{
+	B_TeachAufreisserTalentPercent (self, other, 5, T_MAX);
+
+	SonjaTeach();
+};
+
 
 // ************************************************************
 // 			  				ROUTINE
@@ -2486,6 +2706,79 @@ FUNC VOID Sonja_RESPAWN_ShadowBeastsKhorinis()
     };
 
     DIA_Sonja_RESPAWN_Info();
+};
+
+func void SonjaRespawnItemsHerb()
+{
+    CreateInvItems (self, ItPl_Temp_Herb, 10);
+    CreateInvItems (self, ItPl_SwampHerb, 2);
+    CreateInvItems (self, ItPl_Health_Herb_01, 5);
+    CreateInvItems (self, ItPl_Health_Herb_02, 2);
+    CreateInvItems (self, ItPl_Mana_Herb_01, 5);
+    CreateInvItems (self, ItPl_Mushroom_01, 5);
+};
+
+// ************************************************************
+// 			  				RESPAWN ITEMS
+// ************************************************************
+INSTANCE DIA_Sonja_RESPAWN_ITEMS (C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 900;
+	condition	= DIA_Sonja_RESPAWN_ITEMS_Condition;
+	information	= DIA_Sonja_RESPAWN_ITEMS_Info;
+	permanent	= TRUE;
+	description = "Sammle Gegenstände für mich ...";
+};
+
+FUNC INT DIA_Sonja_RESPAWN_ITEMS_Condition()
+{
+	return SonjaFolgt == TRUE;
+};
+
+FUNC VOID DIA_Sonja_RESPAWN_ITEMS_Choices()
+{
+    Info_ClearChoices	(DIA_Sonja_RESPAWN_ITEMS);
+
+	Info_AddChoice		(DIA_Sonja_RESPAWN_ITEMS, "Sammle Kräuter für mich."	,Sonja_RESPAWN_ITEMS_Herb);
+	Info_AddChoice		(DIA_Sonja_RESPAWN_ITEMS, DIALOG_BACK 		, DIA_Sonja_RESPAWN_ITEMS_BACK);
+};
+
+FUNC VOID DIA_Sonja_RESPAWN_ITEMS_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_RESPAWN_ITEMS_15_00"); //Sammle Gegenstände für mich ...
+    DIA_Sonja_RESPAWN_ITEMS_Choices();
+};
+
+func void DIA_Sonja_RESPAWN_ITEMS_BACK()
+{
+	Info_ClearChoices (DIA_Sonja_RESPAWN_ITEMS);
+};
+
+FUNC VOID Sonja_RESPAWN_ITEMS_Herb()
+{
+    AI_Output			(other, self, "DIA_Sonja_RESPAWN_ITEMS_Herb_15_00"); //Sammle Kräuter für mich.
+
+    if (Wld_GetDay() - SonjaRespawnItemsDays < 7)
+    {
+        AI_Output			(self, other, "DIA_Sonja_RESPAWN_16_00"); //Das kann ich nur einmal in der Woche tun! Komm in ein paar Tagen wieder!
+        B_LogEntry ("Sonja", "Sonja kann nur einmal in der Woche Gegenstände für mich sammeln.");
+
+        var String msg;
+        msg = ConcatStrings("Verbleibende Tage: ", IntToString(7 + SonjaRespawnDays - Wld_GetDay()));
+        PrintScreen (msg, - 1, - 1, FONT_ScreenSmall, 5); // 2
+    }
+    else
+    {
+        AI_Output			(self, other, "DIA_Sonja_RESPAWN_16_01"); //Gerne, mein Ehemann!
+        SonjaRespawnItemsHerb();
+
+        PrintScreen ("Neues im Handelsinventar von Sonja!", - 1, - 1, FONT_Screen, 2);
+
+        SonjaRespawnItemsDays = 0;
+    };
+
+    DIA_Sonja_RESPAWN_ITEMS_Choices();
 };
 
 // ************************************************************

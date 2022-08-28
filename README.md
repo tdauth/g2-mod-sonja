@@ -16,6 +16,7 @@ Sonja provides the following features:
 * Sleep with her to regenerate and or to change the time of day.
 * New rune item to summon her anywhere.
 * Sonja has only 90 mana maximum since she supports the hero now.
+* Can check the newly added skill "Womanizer".
 
 ## Modified Files
 
@@ -28,9 +29,16 @@ Sonja provides the following features:
 * [B_GiveTradeInv_Sonja.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv_Sonja.d)
 * [B_GivePlayerXP.d](./_work/Data/Scripts/Content/Story/B_Story/B_GivePlayerXP.d)
 * [B_Enter_SonjaWorld.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_SonjaWorld.d)
+* [B_AAA_Aufreissen.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Aufreissen.d.d)
+* [B_AssignAmbientInfos_BAU_16.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_BAU_16.d)
+* [B_AssignAmbientInfos_VLK_16.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_VLK_16.d)
+* [B_AssignAmbientInfos_VLK_17.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_VLK_17.d)
 * [NPC_Globals.d](./_work/Data/Scripts/Content/Story/NPC_Globals.d)
 * [Text.d](./_work/Data/Scripts/Content/Story/Text.d)
 * [Startup.d](./_work/Data/Scripts/Content/Story/Startup.d)
+* [Menu_Opt_Sonja.d](./_work/Data/Scripts/System/MENU/Menu_Opt_Sonja.d)
+* [Menu_Status.d](./_work/Data/Scripts/System/MENU/Menu_Status.d)
+* [Constants.d](./_work/Data/Scripts/Content/_intern/Constants.d)
 * [Gothic.src](./_work/Data/Scripts/Content/Gothic.src)
 * [OUINFO.INF](./_work/Data/Scripts/_compiled/OUINFO.INF)
 * [OU.BIN](./_work/Data/Scripts/content/CUTSCENE/OU.BIN)
@@ -40,6 +48,10 @@ Sonja provides the following features:
 ## TODOs
 
 * Add a custom castle in a new world which can be bought for Sonja with guards etc.
+
+## Dependencies
+
+* neocromicon: [PatchMenu - Ein eigenes Menü für Feature-Patches](https://www.worldofgothic.de/modifikation/download_674.htm)
 
 ## Credits
 
