@@ -1,6 +1,8 @@
 // **************
 // B_GivePlayerXP
 // **************
+var int SonjasRemainingXP;
+
 func void B_GiveNPCXP (var C_NPC self, var int add_xp)
 {
     if (self.level == 0)
@@ -67,9 +69,24 @@ func void B_GivePlayerXP (var int add_xp)
 	};
 	B_Checklog ();
 
+	// Solange Sonja nicht freigekauft wurde, bekommt sie auch keine Erfahrung.
 	if (SonjaFolgt)
 	{
-        B_GiveNPCXP(VLK_436_Sonja, add_xp);
+        // Sonja ist in anderen Welten nicht verfuegbar. Die Erfahrung wird solange in SonjasRemainingXP gesammelt und dann bei der nächsten Erfahrung vergeben.
+        if (Hlp_IsValidNpc(Sonja))
+        {
+            if (SonjasRemainingXP > 0)
+            {
+                B_GiveNPCXP(Sonja, SonjasRemainingXP);
+                SonjasRemainingXP = 0;
+            };
+
+            B_GiveNPCXP(Sonja, add_xp);
+        }
+        else
+        {
+            SonjasRemainingXP = add_xp;
+        };
     };
 };
 

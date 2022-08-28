@@ -55,6 +55,7 @@ Sonja provides the following features:
 
 * Add Sonja to all other world and apply her stats, skills, XP, level, learn points and inventory when changing the world.
 * Add a custom castle in a new world which can be bought for Sonja with guards etc.
+* Add options to give her and make her use permanent potions or herbs.
 * The skill "Womanizer" needs to be more balanced and give some useful gold, XP and items. Add the dialog option to more ambient NPCs.
 * Add more items and collect item options to the dialog of Sonja.
 * Integrate the patch menu and let the user configure the days until you can do some actions in the dialog.

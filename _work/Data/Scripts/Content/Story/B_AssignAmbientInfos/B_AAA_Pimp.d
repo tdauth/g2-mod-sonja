@@ -25,7 +25,7 @@ FUNC VOID B_GivePimpGold()
     concatText = ConcatStrings ("Tage des Anschaffens: ", IntToString(B_GetNpcPimpDaysPast(self)));
     PrintScreen	(concatText, -1, -1, FONT_SCREEN, 2);
     B_GiveInvItems (self, other, ItMi_Gold, B_GetNpcPimpDaysPast(self) * Npc_GetTalentSkill (other,NPC_TALENT_PIMP) * 10);
-    B_SetNpcPimpDay(other, Wld_GetDay());
+    B_SetNpcPimpDay(self, Wld_GetDay());
 };
 
 func int B_Pimp ()

@@ -45,11 +45,13 @@ FUNC VOID DIA_PIMP_Info()
 
 func void B_AssignSonja(var C_NPC slf)
 {
-	DIA_AUFREISSEN.npc = Hlp_GetInstanceID(slf);
-	DIA_PIMP.npc = Hlp_GetInstanceID(slf);
+    // Keine Suchenden usw.
+    if (C_NpcBelongsToOldCamp(slf) || C_NpcBelongsToCity(slf) || C_NpcBelongsToMonastery(slf) || C_NpcBelongsToFarm(slf))
+    {
+        DIA_AUFREISSEN.npc = Hlp_GetInstanceID(slf);
+        DIA_PIMP.npc = Hlp_GetInstanceID(slf);
+    };
 };
-
-
 
 
 

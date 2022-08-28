@@ -174,11 +174,14 @@ func void Use_SonjasListCustomers ()
 
 					Doc_PrintLine	( nDocID,  0, "Diese Kunden haben mich zuletzt besucht - Sonja"					);
                     Doc_PrintLine	( nDocID,  0, ""					);
-                    Doc_PrintLine	( nDocID,  0, "Vatras - erzaehlt immer etwas von diesem Adanos, der uns zusieht."					);
+                    Doc_PrintLine	( nDocID,  0, "Vatras - erzählt immer etwas von diesem Adanos,"					);
+                    Doc_PrintLine	( nDocID,  0, "der uns zusieht."					);
                     Doc_PrintLine	( nDocID,  0, ""					);
-                    Doc_PrintLine	( nDocID,  0, "Lord Hagen - auch ein Diener Innos muss bedient werden."					);
+                    Doc_PrintLine	( nDocID,  0, "Lord Hagen - auch ein Diener Innos"					);
+                    Doc_PrintLine	( nDocID,  0, " muss bedient werden."					);
                     Doc_PrintLine	( nDocID,  0, ""					);
-                    Doc_PrintLine	( nDocID,  0, "Pyrokar - von seiner Zauberkraft war nichts zu spueren."	);
+                    Doc_PrintLine	( nDocID,  0, "Pyrokar - von seiner Zauberkraft war"	);
+                    Doc_PrintLine	( nDocID,  0, "nichts zu spüren.");
                     Doc_PrintLine	( nDocID,  0, "");
                     Doc_PrintLine	( nDocID,  0, "Orlan - in der Hose so tot wie seine Harpyie."					);
                     Doc_PrintLine	( nDocID,  0, "");
