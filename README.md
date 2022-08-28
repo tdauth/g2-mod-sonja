@@ -59,6 +59,7 @@ Sonja provides the following features:
 * Integrate the patch menu and let the user configure the days until you can do some actions in the dialog.
 * Fix the summon and teleport runes.
 * Add more companions to be purchased from Sonja like a mage, warrior, archer etc.
+* Add a real NSIS based installer (see [documentation](https://wiki.worldofgothic.de/doku.php?id=nsis)).
 
 ## Dependencies
 
