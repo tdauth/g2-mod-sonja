@@ -74,4 +74,4 @@ Sonja provides the following features:
 
 ## Links
 
-* [Announcement Thread](https://forum.worldofplayers.de/forum/threads/1596847-Gothic-II-Erweiterungsmod-Ank%C3%BCndigung-Sonja?p=27037960#post27037960)
+* [Announcement Thread on World of Gothic](https://forum.worldofplayers.de/forum/threads/1596847-Gothic-II-Erweiterungsmod-Ank%C3%BCndigung-Sonja?p=27037960#post27037960)
