@@ -6,17 +6,17 @@ Sonja provides the following features:
 
 * Follows the player as companion to fight with the player and increase the player's XP.
 * Change her look.
-* Work for the player which gives him extra gold.
-* Summon new females.
-* Do different routines and send her to different NPCs.
+* She works for the player which gives him extra gold.
+* Make her summon new females.
+* Make her do different routines and send her to different NPCs.
 * Buy her items.
-* Sells useful items.
+* She sells useful items.
 * Teach her skills with her own XP.
 * Marry her to cook for you.
 * Sleep with her to regenerate and or to change the time of day.
-* New rune item to summon her anywhere.
+* New rune items to summon her anywhere and to teleport to her from anywhere.
 * Sonja has only 90 mana maximum since she supports the hero now.
-* Can check the newly added skill "Womanizer".
+* Teaches the newly added skill "Womanizer".
 
 ## Modified Files
 
@@ -43,11 +43,16 @@ Sonja provides the following features:
 * [OUINFO.INF](./_work/Data/Scripts/_compiled/OUINFO.INF)
 * [OU.BIN](./_work/Data/Scripts/content/CUTSCENE/OU.BIN)
 * [CS.BIN](./_work/Data/Scripts/content/CUTSCENE/CS.BIN)
-* [DieGestrandeten.zen](./_work/Data/Worlds/Sonja/DieGestrandeten.zen)
+* Currently not used but maybe later for a custom home: [DieGestrandeten.zen](./_work/Data/Worlds/Sonja/DieGestrandeten.zen)
 
 ## TODOs
 
 * Add a custom castle in a new world which can be bought for Sonja with guards etc.
+* The skill "Womanizer" needs to be more balanced and give some useful gold, XP and items. Add the dialog option to more ambient NPCs.
+* Add more items and collect item options to the dialog of Sonja.
+* Allow buying her a pet which does not fight and cannot be attacked but walks with you and can be fed.
+* Integrate the patch menu and let the user configure the days until you can do some actions in the dialog.
+* Fix the summon and teleport runes.
 
 ## Dependencies
 
