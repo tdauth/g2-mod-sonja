@@ -1077,13 +1077,13 @@ func void DIA_Sonja_SUMMON_Info ()
 
 	if (Wld_GetDay() - SonjaSummonDays >= 3)
 	{
-        AI_Output			(other, self, "DIA_Sonja_SUMMON_16_00"); //Ich kenne ein Bäurin, die Interesse haben könnte. Aber nur damit du mit ihr mehr Gold verdienen kannst, verstanden?
+        AI_Output			(self, other, "DIA_Sonja_SUMMON_16_00"); //Ich kenne ein Bäurin, die Interesse haben könnte. Aber nur damit du mit ihr mehr Gold verdienen kannst, verstanden?
         Wld_SpawnNpcRange	(self,	BAU_915_Baeuerin,	1,	500);
         SonjaSummonDays = Wld_GetDay();
     }
     else
     {
-        AI_Output			(other, self, "DIA_Sonja_SUMMON_16_01"); //Komm in ein paar Tagen noch mal zu mir. Alle drei Tage kann ich dir eine Frau beschaffen.
+        AI_Output			(self, other, "DIA_Sonja_SUMMON_16_01"); //Komm in ein paar Tagen noch mal zu mir. Alle drei Tage kann ich dir eine Frau beschaffen.
         B_LogEntry ("Sonja", "Sonja kann mir alle drei Tage eine neue Frau beschaffen.");
 
         var String msg;
@@ -1121,7 +1121,7 @@ func void DIA_Sonja_PROFIT_Info ()
         B_GiveInvItems (self, other, ItMi_Gold, (Wld_GetDay() - SonjaProfitDays) * 6 * 25); // 6 Kunden pro Tag
         SonjaProfitDays = Wld_GetDay();
 
-        AI_Output			(self, other, "DIA_Sonja_PROFIT_16_02"); //Und hier ist die Liste meiner Kunden, damit du auch Bescheid weißt.
+        AI_Output			(self, other, "DIA_Sonja_PROFIT_16_02"); //Und hier ist die Liste meiner letzten Kunden, damit du auch Bescheid weißt.
 
         CreateInvItems (self, ItWr_SonjasListCustomers, 1);
         B_GiveInvItems (self, other, ItWr_SonjasListCustomers, 1);
@@ -1129,7 +1129,7 @@ func void DIA_Sonja_PROFIT_Info ()
 	else
 	{
         AI_Output			(self, other, "DIA_Sonja_PROFIT_16_03"); //Komm in ein paar Tagen noch mal zu mir. Alle fünf Tage kann ich dir dein Gold geben.
-        B_LogEntry ("Sonja", "Sonja gibt mir alle sieben Tage meinen Anteil an ihrem verdienten Gold.");
+        B_LogEntry ("Sonja", "Sonja gibt mir alle fünf Tage meinen Anteil an ihrem verdienten Gold.");
 
         var String msg;
         msg = ConcatStrings("Verbleibende Tage: ", IntToString(5 + SonjaProfitDays - Wld_GetDay()));
@@ -1801,8 +1801,8 @@ func void SonjaTeachAufreisser()
 
 FUNC VOID DIA_Sonja_TEACHAUFREISSER_Info()
 {
-	AI_Output (other,self ,"DIA_Sonja_AUFREISSER_15_00"); //Zeig mir, wie ich andere besser aufreißen kann.
-    AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_00"); //Ach du, als ob du jemals eine andere Frau beeindrucken wirst. Na gut, wir probieren es trotzdem.
+	AI_Output (other,self ,"DIA_Sonja_TEACHAUFREISSER_15_00"); //Zeig mir, wie ich andere besser aufreißen kann.
+    AI_Output (self, other, "DIA_Sonja_TEACHAUFREISSER_16_00"); //Ach du, als ob du jemals eine andere Frau beeindrucken wirst. Na gut, wir probieren es trotzdem.
 
     SonjaTeachAufreisser();
 };
@@ -1856,27 +1856,27 @@ FUNC VOID DIA_Sonja_PIMP_Info()
 	}
 	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 2)
 	{
-		AI_Output (self, other, "DIA_Sonja_PIMP_16_02"); //ganz passabler Aufreißer.
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_02"); //ganz passabler Zuhälter.
 	}
 	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 3)
 	{
-		AI_Output (self, other, "DIA_Sonja_PIMP_16_03"); //erfahrener Aufreißer.
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_03"); //erfahrener Zuhälter.
 	}
 	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 4)
 	{
-		AI_Output (self, other, "DIA_Sonja_PIMP_16_04"); //wachechter Aufreißer.
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_04"); //wachechter Zuhälter.
 	}
 	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 5)
 	{
-		AI_Output (self, other, "DIA_Sonja_PIMP_16_05"); //verdammt guter Aufreißer.
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_05"); //verdammt guter Zuhälter.
 	}
 	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 6)
 	{
-		AI_Output (self, other, "DIA_Sonja_PIMP_16_06"); //Meister-Aufreißer.
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_06"); //Meister-Zuhälter.
 	}
 	else
 	{
-		AI_Output (self, other, "DIA_Sonja_PIMP_16_07"); //Guru - unter den Aufreißern.
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_07"); //Guru - unter den Zuhältern.
 	};
 
 
@@ -2227,7 +2227,7 @@ INSTANCE DIA_Sonja_Choose_HeadMesh (C_INFO)
 	condition		= DIA_Sonja_Choose_HeadMesh_Condition;
 	information		= DIA_Sonja_Choose_HeadMesh_Info;
 	permanent		= 1;
-	description		= "(Schönheits-Operation für Kopf)";
+	description		= "(Schönheits-OP für Kopf)";
 };
 
 FUNC INT DIA_Sonja_Choose_HeadMesh_Condition()
@@ -2331,7 +2331,7 @@ INSTANCE DIA_Sonja_Choose_BodyTex (C_INFO)
 	condition		= DIA_Sonja_Choose_BodyTex_Condition;
 	information		= DIA_Sonja_Choose_BodyTex_Info;
 	permanent		= 1;
-	description		= "(Schönheits-Operation für Haut)";
+	description		= "(Schönheits-OP für Hautfarbe)";
 };
 
 FUNC INT DIA_Sonja_Choose_BodyTex_Condition()
@@ -2398,7 +2398,7 @@ INSTANCE DIA_Sonja_Choose_Face (C_INFO)
 	condition		= DIA_Sonja_Choose_Face_Condition;
 	information		= DIA_Sonja_Choose_Face_Info;
 	permanent		= TRUE;
-	description		= "(Schönheits-Operation für Gesicht und Frisur)";
+	description		= "(Schönheits-OP für Gesicht und Frisur)";
 };
 
 FUNC INT DIA_Sonja_Choose_Face_Condition()
@@ -3355,7 +3355,7 @@ func void DIA_Sonja_BuyHans_Info ()
 		{
             B_LogEntry ("Sonja", "Bei Sonja kann ich eine Fleischwanze kaufen, damit wir ein gemeinsames Haustier haben.");
 
-			AI_Output (self, other, "DIA_Sonja_BuyHans_03_01"); //Gut. Dann nimm dir die Hans mit.
+			AI_Output (self, other, "DIA_Sonja_BuyHans_03_01"); //Gut. Dann nimm dir Hans mit.
 			AI_Output (self, other, "DIA_Sonja_BuyHans_03_02"); //Sag ihm einfach, er soll dir folgen. Er ist ziemlich klug für eine Fleischwanze. Behandele ihn gut!
 			AI_Output (self, other, "DIA_Sonja_BuyHans_03_03"); //Endlich haben wir ein gemeinsames Haustier!
 		}
@@ -3363,8 +3363,7 @@ func void DIA_Sonja_BuyHans_Info ()
 		{
 			AI_Output (self, other, "DIA_Sonja_BuyHans_03_03"); //Schon wieder? Na schön. Nimm dir die Hans mit.
 			AI_Output (other, self, "DIA_Sonja_BuyHans_15_04"); //Hans? Die letzte Fleischwanze hieß schon Hans ...
-			AI_Output (self, other, "DIA_Sonja_BuyHans_03_05"); //Alle Fleischwanzen heißen Hans.
-			AI_Output (self, other, "DIA_Sonja_BuyHans_03_06"); //Pass lieber besser auf unser Haustier auf!
+			AI_Output (self, other, "DIA_Sonja_BuyHans_03_05"); //Ja und wer weiß was du mit der vor hattest? Mein Haustier heißt immer Hans und jetzt pass besser auf ihn auf als das letzte Mal!
 		};
 
 		Sonja_Meatbugekauft = Sonja_Meatbugekauft + 1;

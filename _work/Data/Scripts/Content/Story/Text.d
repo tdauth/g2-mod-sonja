@@ -570,8 +570,8 @@ CONST STRING TXT_TALENTS_SKILLS	[NPC_TALENT_MAX] =
 	"-|Gelernt",												//NPC_TALENT_TAKEANIMALTROPHY	= 16;
 	"-|Gelernt",												//NPC_TALENT_FOREIGNLANGUAGE	= 17;	//ADDON
 	"-|Gelernt",												//NPC_TALENT_WISPDETECTOR		= 18;
-	"Anfänger|Schütze|Meister",									//NPC_TALENT_C					= 19; // Sonja
-	"-|0|1|2|3|4|5|6",											//NPC_TALENT_D					= 20;
+	"Anfänger|Player|Guru",							            //NPC_TALENT_C					= 19; // Sonja NPC_TALENT_WOMANIZER
+	"0|1|2|3|4|5|6",											//NPC_TALENT_D					= 20; // Sonja NPC_TALENT_PIMP
 	""											                //NPC_TALENT_E					= 21;
 };
 

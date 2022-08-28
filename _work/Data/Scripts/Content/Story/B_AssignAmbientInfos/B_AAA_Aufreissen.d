@@ -50,13 +50,14 @@ func void B_Aufreissen ()
 
 	if (Npc_GetTalentSkill (other,NPC_TALENT_WOMANIZER) > random)
 	{
-        AI_UnequipArmor(other);
+        AI_UnequipArmor(self);
 		B_GiveAufreisserXP();//B_GivePlayerXP (XP_Ambient);
 		//Snd_Play ("Geldbeutel");
 		AI_OutputSVM(self,other, "TOUGHGUY_ATTACKWON"); // ADDON_WRONGARMOR SC_HeyWaitASecond
 	}
 	else
 	{
+        AI_EquipBestArmor(self);
 		B_ResetAufreisserLevel();
 		AI_StopProcessInfos	(self);
 		B_Attack (self, other, AR_UseMob, 1); //reagiert trotz IGNORE_Theft mit NEWS

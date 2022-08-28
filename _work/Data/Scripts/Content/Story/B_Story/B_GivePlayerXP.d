@@ -28,8 +28,8 @@ func void B_GiveNPCXP (var C_NPC self, var int add_xp)
 		self.LP = self.LP + LP_PER_LEVEL;
 
 		concatText = PRINT_LevelUp;
-		concatText = ConcatStrings (concatText,	" ");
-		concatText = ConcatStrings (concatText,	self.name);
+		concatText = ConcatStrings (self.name, " ist eine ");
+		concatText = ConcatStrings (concatText, PRINT_LevelUp);
 
 		PrintScreen (concatText, -1, YPOS_LevelUp, FONT_Screen, 2);
 		Snd_Play ("LevelUp");

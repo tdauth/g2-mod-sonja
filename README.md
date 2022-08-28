@@ -4,20 +4,20 @@ Allows to buy NPC Sonja (VLK_436_Sonja) as a companion with special services.
 
 Sonja provides the following features:
 
-* Follows the player as companion to fight with the player and increase the player's XP.
-* Change her look.
-* She works for the player which gives him extra gold.
-* Make her summon new females.
-* Make her do different routines and send her to different NPCs.
-* Buy her items.
-* She sells useful items.
+* Follows the player's hero as companion to fight with him and increase his XP.
+* Sells useful items.
+* Works for the player's hero which gives him extra gold.
 * Teach her skills with her own XP.
-* Marry her to cook for you.
-* Sleep with her to regenerate and or to change the time of day.
+* Buy her better equipment.
+* Change her look.
+* Make her summon new females.
+* Make her do different routines and send her to different locations.
+* Marry her to cook for the player's hero.
+* Sleep with her to regenerate life and mana and or to change the time of day.
 * New rune items to summon her anywhere and to teleport to her from anywhere.
-* Sonja has only 90 mana maximum since she supports the hero now.
+* She has only 90 mana maximum now instead of 1000 since she supports the hero now.
 * Teaches the newly added skills "Womanizer" and "Pimp".
-* Can sell a Meatbug pet Hans.
+* Can sell the Meatbug pet Hans.
 
 ## Modified Files
 
@@ -56,9 +56,9 @@ Sonja provides the following features:
 * Add a custom castle in a new world which can be bought for Sonja with guards etc.
 * The skill "Womanizer" needs to be more balanced and give some useful gold, XP and items. Add the dialog option to more ambient NPCs.
 * Add more items and collect item options to the dialog of Sonja.
-* Allow buying her a pet which does not fight and cannot be attacked but walks with you and can be fed.
 * Integrate the patch menu and let the user configure the days until you can do some actions in the dialog.
 * Fix the summon and teleport runes.
+* Add more companions to be purchased from Sonja like a mage, warrior, archer etc.
 
 ## Dependencies
 
