@@ -16,7 +16,8 @@ Sonja provides the following features:
 * Sleep with her to regenerate and or to change the time of day.
 * New rune items to summon her anywhere and to teleport to her from anywhere.
 * Sonja has only 90 mana maximum since she supports the hero now.
-* Teaches the newly added skill "Womanizer".
+* Teaches the newly added skills "Womanizer" and "Pimp".
+* Can sell a Meatbug pet Hans.
 
 ## Modified Files
 
@@ -29,7 +30,12 @@ Sonja provides the following features:
 * [B_GiveTradeInv_Sonja.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv_Sonja.d)
 * [B_GivePlayerXP.d](./_work/Data/Scripts/Content/Story/B_Story/B_GivePlayerXP.d)
 * [B_Enter_SonjaWorld.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_SonjaWorld.d)
-* [B_AAA_Aufreissen.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Aufreissen.d.d)
+* [AI_Constants.d](./_work/Data/Scripts/Content/AI/AI_Intern/AI_Constants.d)
+* [ZS_Talk.d](./_work/Data/Scripts/Content/AI/Human/ZS_Human/ZS_Talk.d)
+* [B_AAA_AssignSonja.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_AssignSonja.d)
+* [B_AAA_Aufreissen.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Aufreissen.d)
+* [B_AAA_Pimp.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Pimp.d)
+* [MST_Meatbug.d](./_work/Data/Scripts/Content/Story/NPC/Monster/MST_Meatbug.d)
 * [B_AssignAmbientInfos_BAU_16.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_BAU_16.d)
 * [B_AssignAmbientInfos_VLK_16.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_VLK_16.d)
 * [B_AssignAmbientInfos_VLK_17.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_VLK_17.d)

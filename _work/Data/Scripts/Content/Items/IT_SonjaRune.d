@@ -57,6 +57,35 @@ INSTANCE ItRu_TeleportSonja (C_Item)
 
 };
 
+INSTANCE ItRu_TeleportRoteLaterne (C_Item)
+{
+	name 				=	"Zur Roten Laterne teleportieren";
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	0;
+
+	visual 				=	"ItRu_PalTeleportSecret.3DS";
+	material 			=	MAT_STONE;
+
+	spell				= 	SPL_TeleportRoteLaterne;
+	mag_circle			=	0;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER_RED";
+
+	description			=	"Teleport zur Roten Laterne";
+
+	TEXT	[1]			=	NAME_Manakosten;
+	COUNT	[1]			=	SPL_Cost_TeleportRoteLaterne;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+
+
+};
+
 //**********************************************************************************
 //	ItWr_SonjasListMissing
 //**********************************************************************************
@@ -100,7 +129,7 @@ func void Use_SonjasListMissing ()
                     Doc_PrintLine	( nDocID,  0, "");
                     Doc_PrintLine	( nDocID,  0, "Bosper - auch zu nett."					);
                     Doc_PrintLine	( nDocID,  0, "");
-                    Doc_PrintLine	( nDocID,  0, "Moe - schlaegt Leute und waescht sich nicht."					);
+                    Doc_PrintLine	( nDocID,  0, "Moe - schlägt Leute und wäscht sich nicht."					);
                     Doc_PrintLine	( nDocID,  0, "");
                     Doc_PrintLine	( nDocID,  0, "Ignaz - fand den Eingang nicht."					);
                     Doc_PrintLine	( nDocID,  0, "");
@@ -167,4 +196,140 @@ func void Use_SonjasListCustomers ()
 
 					Doc_Show		( nDocID );
 
+};
+
+//**********************************************************************************
+//	ItWr_Womanizer
+//**********************************************************************************
+
+INSTANCE ItWr_Womanizer (C_ITEM)
+{
+	name 					=	"Das Manifest der Aufreißer";
+
+	mainflag 				=	ITEM_KAT_DOCS;
+	flags 					=	ITEM_MISSION;
+
+	value 					=	400;
+
+	visual 					=	"ItWr_Book_02_02.3ds";  					//BUCH VARIATIONEN: ItWr_Book_01.3DS , ItWr_Book_02_01.3DS, ItWr_Book_02_02.3DS, ItWr_Book_02_03.3DS, ItWr_Book_02_04.3DS, ItWr_Book_02_05.3DS
+	material 				=	MAT_LEATHER;
+
+	description			    =	"Erhöht das Talent Aufreißer um maximal 20%. Die Grenze von 100% kann nicht überschritten werden.";
+
+	scemeName				=	"MAP";
+	description				= 	name;
+	TEXT[5]					= 	NAME_Value;
+	COUNT[5]				= 	value;
+	on_state[0]				=	Use_Womanizer;
+};
+
+var int Womanizer_once;
+
+FUNC VOID Use_Womanizer()
+{
+		if (Womanizer_once == FALSE)
+		{
+            var int realBonus;
+            realBonus = 20;
+
+            if (realBonus + Npc_GetTalentSkill(self, NPC_TALENT_WOMANIZER) > 100)
+            {
+                realBonus = 100 - Npc_GetTalentSkill(self, NPC_TALENT_WOMANIZER);
+            };
+
+            // ------ AUFREISSER steigern ------
+            Npc_SetTalentSkill (self, NPC_TALENT_WOMANIZER, Npc_GetTalentSkill(self, NPC_TALENT_WOMANIZER) + realBonus);	//Aufreisser
+            PrintScreen	("Verbessere: Aufreißen", -1, -1, FONT_Screen, 2);
+
+			Print ("Manifest der Aufreißer gelesen.");
+			Womanizer_once = TRUE;
+		};
+		var int nDocID;
+
+		nDocID = 	Doc_Create		()			  ;								// DocManager
+					Doc_SetPages	( nDocID,  2 );                         //wieviel Pages
+					Doc_SetPage 	( nDocID,  0, "Book_Mage_L.tga"  , 0 	); // VARIATIONEN: BOOK_BROWN_L.tga , BOOK_MAGE_L.tga , BOOK_RED_L.tga
+					Doc_SetPage 	( nDocID,  1, "Book_Mage_R.tga" , 0	); // VARIATIONEN: BOOK_BROWN_R.tga , BOOK_MAGE_R.tga , BOOK_RED_R.tga
+
+					//1.Seite
+					Doc_SetFont 	( nDocID,  -1, FONT_Book	   			); 	// -1 -> all pages
+ 					Doc_SetMargins	( nDocID,  0,  275, 20, 30, 20, 1   		);  //  0 -> margins are in pixels
+					Doc_PrintLine	( nDocID,  0, ""					);
+					Doc_PrintLines	( nDocID,  0, "...sprich die Person an und frage nach dem Wetter. ");
+					//2.Seite
+					Doc_SetMargins	( nDocID,  -1, 30, 20, 275, 20, 1   		);
+					Doc_PrintLine	( nDocID,  1, ""					);
+					Doc_PrintLines	( nDocID,  1, "Manchmal klappt es. "	);
+					Doc_PrintLines	( nDocID,  1, "- Valentino"	);
+					Doc_PrintLine	( nDocID,  1, "");
+					Doc_PrintLines	( nDocID,  1, "");
+					Doc_Show		( nDocID );
+};
+
+//**********************************************************************************
+//	ItWr_Pimp
+//**********************************************************************************
+
+INSTANCE ItWr_Pimp (C_ITEM)
+{
+	name 					=	"Zuhälterei für Fortgeschrittene";
+
+	mainflag 				=	ITEM_KAT_DOCS;
+	flags 					=	ITEM_MISSION;
+
+	value 					=	400;
+
+	visual 					=	"ItWr_Book_02_02.3ds";  					//BUCH VARIATIONEN: ItWr_Book_01.3DS , ItWr_Book_02_01.3DS, ItWr_Book_02_02.3DS, ItWr_Book_02_03.3DS, ItWr_Book_02_04.3DS, ItWr_Book_02_05.3DS
+	material 				=	MAT_LEATHER;
+
+	description			    =	"Erhöht das Talent Zuhälter um einen Kreis. Die Grenze von 6 kann nicht überschritten werden.";
+
+	scemeName				=	"MAP";
+	description				= 	name;
+	TEXT[5]					= 	NAME_Value;
+	COUNT[5]				= 	value;
+	on_state[0]				=	Use_Pimp;
+};
+
+var int Pimp_once;
+
+FUNC VOID Use_Pimp()
+{
+		if (Pimp_once == FALSE)
+		{
+            var int realBonus;
+            realBonus = 1;
+
+            if (realBonus + Npc_GetTalentSkill(self, NPC_TALENT_PIMP) > 6)
+            {
+                realBonus = 6 - Npc_GetTalentSkill(self, NPC_TALENT_PIMP);
+            };
+
+            // ------ Pimp steigern ------
+            Npc_SetTalentSkill (self, NPC_TALENT_PIMP, Npc_GetTalentSkill(self, NPC_TALENT_PIMP) + realBonus);	//Pimp
+            PrintScreen	("Verbessere: Zuhälter", -1, -1, FONT_Screen, 2);
+
+			Print ("Zuhälterei für Fortgeschrittene gelesen.");
+			Pimp_once = TRUE;
+		};
+		var int nDocID;
+
+		nDocID = 	Doc_Create		()			  ;								// DocManager
+					Doc_SetPages	( nDocID,  2 );                         //wieviel Pages
+					Doc_SetPage 	( nDocID,  0, "Book_Mage_L.tga"  , 0 	); // VARIATIONEN: BOOK_BROWN_L.tga , BOOK_MAGE_L.tga , BOOK_RED_L.tga
+					Doc_SetPage 	( nDocID,  1, "Book_Mage_R.tga" , 0	); // VARIATIONEN: BOOK_BROWN_R.tga , BOOK_MAGE_R.tga , BOOK_RED_R.tga
+
+					//1.Seite
+					Doc_SetFont 	( nDocID,  -1, FONT_Book	   			); 	// -1 -> all pages
+ 					Doc_SetMargins	( nDocID,  0,  275, 20, 30, 20, 1   		);  //  0 -> margins are in pixels
+					Doc_PrintLine	( nDocID,  0, ""					);
+					Doc_PrintLines	( nDocID,  0, "...versprich den Damen Reichtum und nutze sie aus. ");
+					//2.Seite
+					Doc_SetMargins	( nDocID,  -1, 30, 20, 275, 20, 1   		);
+					Doc_PrintLine	( nDocID,  1, ""					);
+					Doc_PrintLines	( nDocID,  1, "Das Gold hat alles gut gemacht. "	);
+					Doc_PrintLines	( nDocID,  1, "- Bromor"	);
+					Doc_PrintLine	( nDocID,  1, "");
+					Doc_PrintLines	( nDocID,  1, "");
+					Doc_Show		( nDocID );
 };

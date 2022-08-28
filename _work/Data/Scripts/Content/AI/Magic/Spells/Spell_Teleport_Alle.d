@@ -395,6 +395,45 @@ func void Spell_Cast_TeleportSonja()
 	AI_PlayAni		(self, "T_HEASHOOT_2_STAND" );
 };
 
+const int SPL_Cost_TeleportRoteLaterne		= 5;
+
+func int Spell_Logic_TeleportRoteLaterne (var int manaInvested)
+{
+	if (Npc_GetActiveSpellIsScroll(self) && (self.attribute[ATR_MANA] >= SPL_Cost_Scroll))
+	{
+		return SPL_SENDCAST;
+	}
+	else if (self.attribute[ATR_MANA] >= SPL_Cost_Teleport)
+	{
+		return SPL_SENDCAST;
+	};
+
+	return SPL_NEXTLEVEL;
+};
+
+func void Spell_Cast_TeleportRoteLaterne()
+{
+	B_PrintTeleportTooFarAway (NEWWORLD_ZEN);
+
+	if (Npc_GetActiveSpellIsScroll(self))
+	{
+		self.attribute[ATR_MANA] = self.attribute[ATR_MANA] - SPL_Cost_Scroll;
+	}
+	else
+	{
+		self.attribute[ATR_MANA] = self.attribute[ATR_MANA] - SPL_Cost_Teleport;
+	};
+
+	if (Npc_IsDead(Sonja))
+	{
+        Sonja.attribute[ATR_HITPOINTS] = Sonja.attribute[ATR_HITPOINTS_MAX];
+		PrintScreen ("Sonja wiederbelebt!", - 1, - 1, FONT_Screen, 2);
+	};
+
+	AI_Teleport		(self, "ROTELATERNE");
+	AI_PlayAni		(self, "T_HEASHOOT_2_STAND" );
+};
+
 // ----- neu 1.21 Verteiler für die Cast-Funcs -------
 func void Spell_Cast_Teleport()
 {
@@ -412,6 +451,7 @@ func void Spell_Cast_Teleport()
 
     // Sonja
     if (Npc_GetActiveSpell(self) == SPL_TeleportSonja		)	{	Spell_Cast_TeleportSonja		(); };
+    if (Npc_GetActiveSpell(self) == SPL_TeleportRoteLaterne		)	{	Spell_Cast_TeleportRoteLaterne		(); };
 
 };
 

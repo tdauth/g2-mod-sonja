@@ -224,6 +224,7 @@ var C_NPC  Sumpfi_03;
   
   var C_NPC Magic_Golem;
   var C_Npc Liesel;
+  var C_Npc Hans;
   var C_Npc Igaraz;
   var C_Npc Agon; 
   var C_Npc	Opolos;
@@ -637,6 +638,7 @@ func void  B_InitNpcGlobals ()
  
 	Magic_Golem		= Hlp_GetNpc (MagicGolem);
 	Liesel			= Hlp_GetNpc (Follow_Sheep);
+	Hans			= Hlp_GetNpc (Follow_Meatbug);
 	Igaraz			= Hlp_GetNpc (NOV_601_Igaraz);
 	Agon			= Hlp_GetNpc (NOV_603_Agon);
 	Opolos			= Hlp_GetNpc (NOV_605_Opolos);

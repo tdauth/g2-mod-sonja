@@ -6,7 +6,7 @@ instance VLK_436_Sonja (Npc_Default)
 	guild 		= GIL_VLK;
 	id 			= 436;
 	voice 		= 16;
-	flags       = 0;																
+	flags       = NPC_FLAG_IMMORTAL;	//Joly: NPC_FLAG_IMMORTAL
 	npctype		= NPCTYPE_MAIN;
 	
 	//-----------AIVARS----------------
@@ -40,6 +40,8 @@ instance VLK_436_Sonja (Npc_Default)
 	B_GiveNpcTalents (self);
 	// Sonja soll noch etwas vom Helden lernen.
 	Npc_SetTalentSkill	(self, NPC_TALENT_MAGE, 			0);
+	Npc_SetTalentSkill	(self, NPC_TALENT_WOMANIZER, 		100);
+	Npc_SetTalentSkill	(self, NPC_TALENT_PIMP, 			6);
 
 	// ------ Sonstige Talente ------
 	Npc_SetTalentSkill	(self, NPC_TALENT_PICKLOCK, 		0); //hängt ab von DEX (auf Programmebene)
@@ -82,5 +84,30 @@ FUNC VOID Rtn_Dance_436 ()
 {
     var string wpName;
 	wpName = Npc_GetNearestWP(self);
-    TA_Dance				(0, 0, 23, 59, "XXX");
+    TA_Dance				(0, 0, 23, 59, wpName);
+};
+
+FUNC VOID Rtn_Vatras_436 ()
+{
+    TA_Dance				(0, 0, 23, 59, "MARKT");
+};
+
+FUNC VOID Rtn_Pyrokar_436 ()
+{
+    TA_Dance				(0, 0, 23, 59, "KLOSTER");
+};
+
+FUNC VOID Rtn_Xardas_436 ()
+{
+    TA_Dance				(0, 0, 23, 59, "XARDAS");
+};
+
+FUNC VOID Rtn_Lee_436 ()
+{
+    TA_Dance				(0, 0, 23, 59, "BIGFARM");
+};
+
+FUNC VOID Rtn_Orlan_436 ()
+{
+    TA_Dance				(0, 0, 23, 59, "TAVERNE");
 };

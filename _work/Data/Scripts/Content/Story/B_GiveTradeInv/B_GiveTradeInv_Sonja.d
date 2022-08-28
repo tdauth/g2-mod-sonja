@@ -64,6 +64,10 @@ FUNC VOID B_GiveTradeInv_Sonja (var C_NPC slf)
 		CreateInvItems (slf,ItRw_Addon_FireArrow	,100);
 		CreateInvItems (slf,ItRw_Addon_MagicBolt	,100);
 
+		// Talente
+		CreateInvItems (slf,ItWr_Womanizer	,1);
+		CreateInvItems (slf,ItWr_Pimp	,1);
+
 		Sonja_ItemsGiven_Chapter_1 = TRUE;
 	};
 

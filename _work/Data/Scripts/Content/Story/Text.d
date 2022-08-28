@@ -371,8 +371,9 @@ const string TXT_SPELLS[MAX_SPELL] =
 	"TXT_SPL_RESERVED_99",		// 99	SPL_Reserved_99
 
 	// Sonja
-	"Sonja herbeirufen",		// 100	SPL_SummonSonja
-	"Zu Sonja"		             // 101	SPL_teleportSonja
+	"Sonja herbeirufen",		 // 100	SPL_SummonSonja
+	"Zu Sonja",		             // 101	SPL_teleportSonja
+	"Zur Roten Laterne"		     // 102	SPL_TeleportRoteLaterne
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -543,8 +544,8 @@ CONST STRING TXT_TALENTS [NPC_TALENT_MAX] =
 	"Fremde Sprache lesen",		//NPC_TALENT_FOREIGNLANGUAGE	= 17;
 	"Irrlicht Fähigkeiten",		//NPC_TALENT_WISPDETECTOR		= 18;
 	"Aufreißer",				//NPC_TALENT_C					= 19; // Sonja
-	"Lebensregeneration",		//NPC_TALENT_D					= 20;
-	"Manaregeneration"			//NPC_TALENT_E					= 21;
+	"Zuhälter",		            //NPC_TALENT_D					= 20;
+	""			                //NPC_TALENT_E					= 21;
 };
 
 
@@ -571,7 +572,7 @@ CONST STRING TXT_TALENTS_SKILLS	[NPC_TALENT_MAX] =
 	"-|Gelernt",												//NPC_TALENT_WISPDETECTOR		= 18;
 	"Anfänger|Schütze|Meister",									//NPC_TALENT_C					= 19; // Sonja
 	"-|0|1|2|3|4|5|6",											//NPC_TALENT_D					= 20;
-	"-|0|1|2|3|4|5|6"											//NPC_TALENT_E					= 21;
+	""											                //NPC_TALENT_E					= 21;
 };
 
 

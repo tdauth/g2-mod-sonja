@@ -645,8 +645,9 @@ const int SPL_Reserved_99			= 99;
 
 const int SPL_SummonSonja			= 100;
 const int SPL_TeleportSonja			= 101;
+const int SPL_TeleportRoteLaterne   = 102;
 
-const int MAX_SPELL					= 102;   // 59 (Gothic), 68 (Gothic2), 100 (G2Addon), 102 (Sonja)
+const int MAX_SPELL					= 103;   // 59 (Gothic), 68 (Gothic2), 100 (G2Addon), 103 (Sonja)
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -794,7 +795,8 @@ const string spellFxInstanceNames[MAX_SPELL] =
 
 	// Sonja
 	"SummonGolem",				// 100	SPL_SummonSonja
-	"Teleport"				// 101	SPL_TeleportSonja
+	"Teleport",				// 101	SPL_TeleportSonja
+	"Teleport"				// 102	SPL_TeleportRoteLaterne
 };
 
 
@@ -943,7 +945,8 @@ const string spellFxAniLetters[MAX_SPELL] =
 
 	// Sonja
 	"SUM",  				// 100	SPL_SummonSonja Sonja herbeirufen
-	"HEA"  				// 101	SPL_TeleportSonja Zu Sonja teleportieren
+	"HEA",  				// 101	SPL_TeleportSonja Zu Sonja teleportieren
+	"HEA"  				    // 102	SPL_TeleportRoteLaterne Zu Sonja teleportieren
 };
 
 
@@ -985,9 +988,8 @@ const int NPC_TALENT_D					= 20;
 const int NPC_TALENT_E					= 21;
 
 // Sonja
-const int NPC_TALENT_AUFREISSER		    = 19;
-const int NPC_TALENT_LIFE_REG		    = 20;
-const int NPC_TALENT_MANA_REG		    = 21;
+const int NPC_TALENT_WOMANIZER		    = 19;
+const int NPC_TALENT_PIMP		        = 20;
 
 const int NPC_TALENT_MAX				= 22;	//ehem. 12
 

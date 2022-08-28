@@ -100,13 +100,9 @@ instance MENU_STATUS (C_MENU_DEF)
 	items[58]	= "MENU_ITEM_TALENT_19_TITLE";
 	items[59]	= "MENU_ITEM_TALENT_19_SKILL";
 
-	// --- Lebensregeneration ------------------------------------------
+	// --- Zuhälter ------------------------------------------
 	items[60]	= "MENU_ITEM_TALENT_20_TITLE";
 	items[61]	= "MENU_ITEM_TALENT_20_SKILL";
-
-	// --- Manaregeneration ------------------------------------------
-	items[62]	= "MENU_ITEM_TALENT_21_TITLE";
-	items[63]	= "MENU_ITEM_TALENT_21_SKILL";
 
 	// ------ Eigenschaften ------
 		
@@ -487,16 +483,10 @@ INSTANCE MENU_ITEM_TALENT_19_TITLE(C_MENU_ITEM_DEF)  { posx = STAT_B_X1;posy = S
 instance MENU_ITEM_TALENT_19_SKILL(C_MENU_ITEM_DEF)  { posx = STAT_B_X2;posy = STAT_TAL_Y + 11*STAT_DY;	fontName = STAT_FONT_DEFAULT;flags=flags & ~IT_SELECTABLE; };
 INSTANCE MENU_ITEM_TALENT_19(C_MENU_ITEM_DEF) 	   { posx = STAT_B_X3;posy = STAT_TAL_Y +  11*STAT_DY;	fontName = STAT_FONT_DEFAULT;flags=flags & ~IT_SELECTABLE; };
 
-// ------ Lebensregeneration ------ // Talent 20
+// ------ Zuhälter ------ // Talent 20
 INSTANCE MENU_ITEM_TALENT_20_TITLE(C_MENU_ITEM_DEF)  { posx = STAT_B_X1;posy = STAT_TAL_Y + 12*STAT_DY;	fontName = STAT_FONT_DEFAULT;flags=flags & ~IT_SELECTABLE; };
 instance MENU_ITEM_TALENT_20_SKILL(C_MENU_ITEM_DEF)  { posx = STAT_B_X2;posy = STAT_TAL_Y + 12*STAT_DY;	fontName = STAT_FONT_DEFAULT;flags=flags & ~IT_SELECTABLE; };
 INSTANCE MENU_ITEM_TALENT_20(C_MENU_ITEM_DEF) 	   { posx = STAT_B_X3;posy = STAT_TAL_Y +  12*STAT_DY;	fontName = STAT_FONT_DEFAULT;flags=flags & ~IT_SELECTABLE; };
-
-// ------ Manaregeneration ------ // Talent 21
-INSTANCE MENU_ITEM_TALENT_21_TITLE(C_MENU_ITEM_DEF)  { posx = STAT_B_X1;posy = STAT_TAL_Y + 13*STAT_DY;	fontName = STAT_FONT_DEFAULT;flags=flags & ~IT_SELECTABLE; };
-instance MENU_ITEM_TALENT_21_SKILL(C_MENU_ITEM_DEF)  { posx = STAT_B_X2;posy = STAT_TAL_Y + 13*STAT_DY;	fontName = STAT_FONT_DEFAULT;flags=flags & ~IT_SELECTABLE; };
-INSTANCE MENU_ITEM_TALENT_21(C_MENU_ITEM_DEF) 	   { posx = STAT_B_X3;posy = STAT_TAL_Y +  13*STAT_DY;	fontName = STAT_FONT_DEFAULT;flags=flags & ~IT_SELECTABLE; };
-
 
 
 

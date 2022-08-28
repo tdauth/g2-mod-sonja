@@ -7,7 +7,7 @@ const int AufreisserXP = 30;
 FUNC VOID B_GiveAufreisserXP()
 {
 
-	AufreisserLevel = (AufreisserLevel +1);//zÃ¤hl die Opfer
+	AufreisserLevel = (AufreisserLevel +1);//zähl die Opfer
 
 
 	if (AufreisserLevel == 0)
@@ -20,7 +20,7 @@ FUNC VOID B_GiveAufreisserXP()
 		//----------------Kalkulation-----------------
 
 		AufreisserLevel = (AufreisserLevel +1);
-		AufreisserVictimLevel =(AufreisserVictimLevel  + AufreisserLevel); //ErhÃ¶he die Anzahl der nÃ¶tigen Opfer zum nÃ¤chsten Level (aktuelleOpfer + aktueller Level)
+		AufreisserVictimLevel =(AufreisserVictimLevel  + AufreisserLevel); //Erhöhe die Anzahl der ständigen Opfer zum nächsten Level (aktuelleOpfer + aktueller Level)
 
 		//Platz fÃ¼r Goodies (Items, Attributes...)
 	};
@@ -48,7 +48,7 @@ func void B_Aufreissen ()
     random = Hlp_Random(100);
 
 
-	if (Npc_GetTalentSkill (other,NPC_TALENT_AUFREISSER) > random)
+	if (Npc_GetTalentSkill (other,NPC_TALENT_WOMANIZER) > random)
 	{
         AI_UnequipArmor(other);
 		B_GiveAufreisserXP();//B_GivePlayerXP (XP_Ambient);

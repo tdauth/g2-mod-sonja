@@ -173,6 +173,7 @@ func void SonjaComeOn()
     self.aivar[AIV_PARTYMEMBER] = TRUE;
     Npc_ExchangeRoutine	(self,"FOLLOW");
     self.aivar[AIV_PARTYMEMBER] = TRUE;
+    self.flags = 0; // NPC_FLAG_IMMORTAL
 };
 
 func void DIA_Sonja_BEZAHLEN_DoIt()
@@ -587,6 +588,7 @@ FUNC VOID DIA_Sonja_WarteHier_Info()
 	AI_Output (self ,other, "DIA_Sonja_WARTEHIER_16_00"); //Wie du meinst, mein S¸ﬂer!
 
 	self.aivar[AIV_PARTYMEMBER] = FALSE;
+	self.flags = NPC_FLAG_IMMORTAL;
 
 	AI_StopProcessInfos	(self);
 };
@@ -617,6 +619,7 @@ FUNC VOID DIA_Sonja_GoHome_Info()
 	AI_Output (self, other, "DIA_Sonja_GoHome_16_00"); // Arschloch!
 
 	self.aivar[AIV_PARTYMEMBER] = FALSE;
+    self.flags = NPC_FLAG_IMMORTAL;
 	Npc_ExchangeRoutine	(self,"START");
 };
 
@@ -806,22 +809,102 @@ func int DIA_Sonja_WAREZ_Condition ()
 	return SonjaFolgt;
 };
 
+var int SonjaSummonHint;
+var int SonjaTeleportHint;
+var int SonjaArrowHint;
+
 func void DIA_Sonja_WAREZ_Info ()
 {
     if (Npc_HasItems (self, ItRu_SummonSonja) <= 0)
     {
         CreateInvItems (self, ItRu_SummonSonja, 1);
+
+        if (SonjaSummonHint == FALSE)
+        {
+            B_LogEntry ("Sonja", "Bei Sonja gibt es eine Rune, um sie jederzeit herbeizurufen.");
+            SonjaSummonHint = TRUE;
+        };
     };
 
-    if (Npc_HasItems (self, ItRu_TeleportSonja) <= 0)
+    if (Kapitel >= 3)
     {
-        CreateInvItems (self, ItRu_TeleportSonja, 1);
+        if (Npc_HasItems (self, ItRu_TeleportSonja) <= 0)
+        {
+            CreateInvItems (self, ItRu_TeleportSonja, 1);
+        };
+
+        if (Npc_HasItems (self, ItRu_TeleportRoteLaterne) <= 0)
+        {
+            CreateInvItems (self, ItRu_TeleportRoteLaterne, 1);
+        };
+
+        if (SonjaTeleportHint == FALSE)
+        {
+            B_LogEntry ("Sonja", "Bei Sonja gibt es n¸tzliche Teleportrunen.");
+            SonjaTeleportHint = TRUE;
+        };
     };
 
     // Immer neuen Rohstahl
     if (Npc_HasItems (self, ItMiSwordraw) <= 0)
     {
         CreateInvItems (self, ItMiSwordraw, 5);
+    };
+
+    // Immer Pfeile und Bolzen auch f¸r sich selbst.
+    if (Npc_HasItems (self, ItRw_Arrow) <= 0)
+    {
+        CreateInvItems (self, ItRw_Arrow, 100);
+
+        if (SonjaArrowHint == FALSE)
+        {
+            B_LogEntry ("Sonja", "Sonja f¸llt ihre Pfeile und Bolzen auf, wenn ich mit ihr mir ihre Ware ansehe.");
+            SonjaArrowHint = TRUE;
+        };
+    };
+
+    if (Npc_HasItems (self, ItRw_Bolt) <= 0)
+    {
+        CreateInvItems (self, ItRw_Bolt, 100);
+
+        if (SonjaArrowHint == FALSE)
+        {
+            B_LogEntry ("Sonja", "Sonja f¸llt ihre Pfeile und Bolzen auf, wenn ich mit ihr mir ihre Ware ansehe.");
+            SonjaArrowHint = TRUE;
+        };
+    };
+
+    if (Npc_HasItems (self, ItRw_Addon_MagicArrow) <= 0)
+    {
+        CreateInvItems (self, ItRw_Addon_MagicArrow, 100);
+
+        if (SonjaArrowHint == FALSE)
+        {
+            B_LogEntry ("Sonja", "Sonja f¸llt ihre Pfeile und Bolzen auf, wenn ich mit ihr mir ihre Ware ansehe.");
+            SonjaArrowHint = TRUE;
+        };
+    };
+
+    if (Npc_HasItems (self, ItRw_Addon_FireArrow) <= 0)
+    {
+        CreateInvItems (self, ItRw_Addon_FireArrow, 100);
+
+        if (SonjaArrowHint == FALSE)
+        {
+            B_LogEntry ("Sonja", "Sonja f¸llt ihre Pfeile und Bolzen auf, wenn ich mit ihr mir ihre Ware ansehe.");
+            SonjaArrowHint = TRUE;
+        };
+    };
+
+    if (Npc_HasItems (self, ItRw_Addon_MagicBolt) <= 0)
+    {
+        CreateInvItems (self, ItRw_Addon_MagicBolt, 100);
+
+        if (SonjaArrowHint == FALSE)
+        {
+            B_LogEntry ("Sonja", "Sonja f¸llt ihre Pfeile und Bolzen auf, wenn ich mit ihr mir ihre Ware ansehe.");
+            SonjaArrowHint = TRUE;
+        };
     };
 
     // Wir platzieren es hier, um die Datei B_GiveTradeInv.d nicht zu veraendern.
@@ -930,7 +1013,7 @@ func int DIA_Sonja_LIEBE_Condition ()
 
 func void DIA_Sonja_LIEBE_Info ()
 {
-	AI_Output			(other, self, "DIA_Sonja_LIEBE_15_00"); //Oh du holde Maid, so schˆn ist dein Antlitz, wie das Feuer der Drachen gl‰nzt es und M‰nner erblinden vor seiner Schˆnheit! Nur das Auge Innos kann dir stand halten.
+	AI_Output			(other, self, "DIA_Sonja_LIEBE_15_00"); //Oh du holde Maid, welch wunderbares Antlitz! Wie das Feuer der Drachen gl‰nzt es und M‰nner erblinden vor seiner Schˆnheit! Nur das Auge Innos kann ihm stand halten.
 
 	AI_Output			(self, other, "DIA_Sonja_LIEBE_16_00"); //Hast du zu viel Sumpfkraut geraucht? Mach dich lieber n¸tzlich!
 
@@ -941,6 +1024,34 @@ func void DIA_Sonja_LIEBE_Info ()
 
 	B_LogEntry ("Sonja", "Sonja war von meiner Liebeserkl‰rung nicht sonderlich beeindruckt.");
 };
+
+///////////////////////////////////////////////////////////////////////
+//	Info FAMILIE
+///////////////////////////////////////////////////////////////////////
+instance DIA_Sonja_FAMILIE		(C_INFO)
+{
+	npc			 = 	VLK_436_Sonja;
+	nr          = 	99;
+	condition	 = 	DIA_Sonja_FAMILIE_Condition;
+	information	 = 	DIA_Sonja_FAMILIE_Info;
+	permanent	 = 	FALSE;
+	description	 = 	"Mˆchtest du eine Familie mit mir gr¸nden?";
+};
+
+func int DIA_Sonja_FAMILIE_Condition ()
+{
+	return SonjaFolgt == TRUE && SonjaGeheiratet == TRUE;
+};
+
+func void DIA_Sonja_FAMILIE_Info ()
+{
+	AI_Output			(other, self, "DIA_Sonja_FAMILIE_15_00"); //Mˆchtest du eine Familie mit mir gr¸nden?
+
+	AI_Output			(self, other, "DIA_Sonja_FAMILIE_16_00"); //Du meinst mit Haus, Kindern und Haustier? Dann fang erst mal mit dem Haus an!
+
+	B_LogEntry ("Sonja", "Sonja w¸rde eine Familie mit mir gr¸nden, wenn ich ein Haus habe.");
+};
+
 
 ///////////////////////////////////////////////////////////////////////
 //	Info SUMMON
@@ -1564,49 +1675,49 @@ FUNC INT DIA_Sonja_AUFREISSER_Condition()
 
 FUNC VOID DIA_Sonja_AUFREISSER_Info()
 {
-	AI_Output (other, self, "DIA_Sonja_AUFREISSER_15_00");//Kannst du meine F‰higkeit im Goldhacken einsch‰tzen?
+	AI_Output (other, self, "DIA_Sonja_AUFREISSER_15_00");//Kannst du meine F‰higkeit als Aufreiﬂer einsch‰tzen?
 
 	AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_00");//Bei dir w¸rde ich sagen, du bist ein ...
 
-	if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 20)
+	if (Npc_GetTalentSkill(other, NPC_TALENT_WOMANIZER) < 20)
 	{
 		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_01"); //blutiger Anf‰nger.
 	}
-	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 40)
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_WOMANIZER) < 40)
 	{
 		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_02"); //ganz passabler Aufreiﬂer.
 	}
-	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 55)
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_WOMANIZER) < 55)
 	{
-		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_02"); //erfahrener Aufreiﬂer.
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_03"); //erfahrener Aufreiﬂer.
 	}
-	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 75)
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_WOMANIZER) < 75)
 	{
-		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_03"); //wachechter Aufreiﬂer.
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_04"); //wachechter Aufreiﬂer.
 	}
-	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 90)
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_WOMANIZER) < 90)
 	{
-		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_04"); //verdammt guter Aufreiﬂer.
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_05"); //verdammt guter Aufreiﬂer.
 	}
-	else if (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER) < 98)
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_WOMANIZER) < 98)
 	{
-		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_03"); //Meister-Aufreiﬂer.
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_06"); //Meister-Aufreiﬂer.
 	}
 	else
 	{
-		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_04"); //Guru - unter den Aufreiﬂern.
+		AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_07"); //Guru - unter den Aufreiﬂern.
 	};
 
 
 	var string ConcatText;
 
-	ConcatText = ConcatStrings ("Aufreiﬂer: ", IntToString (Npc_GetTalentSkill(other, NPC_TALENT_AUFREISSER)));
+	ConcatText = ConcatStrings ("Aufreiﬂer: ", IntToString (Npc_GetTalentSkill(other, NPC_TALENT_WOMANIZER)));
 	ConcatText = ConcatStrings (ConcatText, " Prozent");
 	PrintScreen (concatText, -1, -1, FONT_ScreenSmall,2);
 };
 
 //*******************************************
-//	TeachPlayer
+//	TeachPlayerAufreisser
 //*******************************************
 
 INSTANCE DIA_Sonja_TEACHAUFREISSER(C_INFO)
@@ -1616,7 +1727,7 @@ INSTANCE DIA_Sonja_TEACHAUFREISSER(C_INFO)
 	condition	= DIA_Sonja_TEACHAUFREISSER_Condition;
 	information	= DIA_Sonja_TEACHAUFREISSER_Info;
 	permanent	= TRUE;
-	description = "Zeig mir, wie ich Frauen besser aufreiﬂen kann.";
+	description = "Zeig mir, wie ich andere besser aufreiﬂen kann.";
 };
 
 FUNC INT DIA_Sonja_TEACHAUFREISSER_Condition()
@@ -1630,14 +1741,14 @@ func int B_TeachAufreisserTalentPercent (var C_NPC slf, var C_NPC oth, var int p
 
 	// ------ Kostenberechnung ------
 	var int kosten;
-	//kosten = (B_GetLearnCostTalent(oth, NPC_TALENT_AUFREISSER, 1) * percent);
+	//kosten = (B_GetLearnCostTalent(oth, NPC_TALENT_WOMANIZER, 1) * percent);
 	kosten = percent; // 1 LP pro Aufreisser %
 
 	//EXIT IF...
 
 	// ------ Lernen NICHT ¸ber teacherMax ------
 	var int realHitChance;
-	realHitChance = Npc_GetTalentSkill(oth, NPC_TALENT_AUFREISSER);
+	realHitChance = Npc_GetTalentSkill(oth, NPC_TALENT_WOMANIZER);
 
 	if (realHitChance >= teacherMAX)
 	{
@@ -1673,15 +1784,14 @@ func int B_TeachAufreisserTalentPercent (var C_NPC slf, var C_NPC oth, var int p
 	oth.lp = oth.lp - kosten;
 
 	// ------ AUFREISSER steigern ------
-    Npc_SetTalentSkill (oth, NPC_TALENT_AUFREISSER, percent);	//Aufreisser
+    Npc_SetTalentSkill (oth, NPC_TALENT_WOMANIZER, percent);	//Aufreisser
 
     PrintScreen	("Verbessere: Aufreiﬂen", -1, -1, FONT_Screen, 2);
 
     return TRUE;
 };
 
-
-func void SonjaTeach()
+func void SonjaTeachAufreisser()
 {
     Info_ClearChoices (DIA_Sonja_TEACHAUFREISSER);
     Info_AddChoice		(DIA_Sonja_TEACHAUFREISSER, B_BuildLearnString("Aufreiﬂen +1"			, 1)			,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_1);
@@ -1691,10 +1801,10 @@ func void SonjaTeach()
 
 FUNC VOID DIA_Sonja_TEACHAUFREISSER_Info()
 {
-	AI_Output (other,self ,"DIA_Sonja_AUFREISSER_15_00"); //Zeig mir, wie ich Frauen besser aufreiﬂen kann.
+	AI_Output (other,self ,"DIA_Sonja_AUFREISSER_15_00"); //Zeig mir, wie ich andere besser aufreiﬂen kann.
     AI_Output (self, other, "DIA_Sonja_AUFREISSER_16_00"); //Ach du, als ob du jemals eine andere Frau beeindrucken wirst. Na gut, wir probieren es trotzdem.
 
-    SonjaTeach();
+    SonjaTeachAufreisser();
 };
 
 FUNC VOID DIA_Sonja_TEACHAUFREISSER_Back ()
@@ -1706,16 +1816,181 @@ FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_1 ()
 {
 	B_TeachAufreisserTalentPercent (self, other, 1, T_MAX);
 
-	SonjaTeach();
+	SonjaTeachAufreisser();
 };
 
 FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_5 ()
 {
 	B_TeachAufreisserTalentPercent (self, other, 5, T_MAX);
 
-	SonjaTeach();
+	SonjaTeachAufreisser();
 };
 
+//---------------------------------------------------------------------
+//	Info PIMP
+//---------------------------------------------------------------------
+INSTANCE DIA_Sonja_PIMP   (C_INFO)
+{
+	npc         = VLK_436_Sonja;
+	nr          = 900;
+	condition   = DIA_Sonja_PIMP_Condition;
+	information = DIA_Sonja_PIMP_Info;
+	permanent   = TRUE;
+	description = "Kannst du meine F‰higkeit als Zuh‰lter einsch‰tzen?";
+};
+
+FUNC INT DIA_Sonja_PIMP_Condition()
+{
+	return SonjaFolgt == TRUE;
+};
+
+FUNC VOID DIA_Sonja_PIMP_Info()
+{
+	AI_Output (other, self, "DIA_Sonja_PIMP_15_00");//Kannst du meine F‰higkeit als Zuh‰lter einsch‰tzen?
+
+	AI_Output (self, other, "DIA_Sonja_PIMP_16_00");//Bei dir w¸rde ich sagen, du bist ein ...
+
+	if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 1)
+	{
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_01"); //blutiger Anf‰nger.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 2)
+	{
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_02"); //ganz passabler Aufreiﬂer.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 3)
+	{
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_03"); //erfahrener Aufreiﬂer.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 4)
+	{
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_04"); //wachechter Aufreiﬂer.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 5)
+	{
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_05"); //verdammt guter Aufreiﬂer.
+	}
+	else if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 6)
+	{
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_06"); //Meister-Aufreiﬂer.
+	}
+	else
+	{
+		AI_Output (self, other, "DIA_Sonja_PIMP_16_07"); //Guru - unter den Aufreiﬂern.
+	};
+
+
+	var string ConcatText;
+
+	ConcatText = ConcatStrings ("Zuh‰lter: ", IntToString (Npc_GetTalentSkill(other, NPC_TALENT_PIMP)));
+	PrintScreen (concatText, -1, -1, FONT_ScreenSmall,2);
+};
+
+//*******************************************
+//	TeachPlayerPimp
+//*******************************************
+
+INSTANCE DIA_Sonja_TEACHPIMP(C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 99;
+	condition	= DIA_Sonja_TEACHPIMP_Condition;
+	information	= DIA_Sonja_TEACHPIMP_Info;
+	permanent	= TRUE;
+	description = "Zeig mir, wie ich ein besserer Zuh‰lter werde.";
+};
+
+FUNC INT DIA_Sonja_TEACHPIMP_Condition()
+{
+	return SonjaFolgt == TRUE && Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 6;
+};
+
+func int B_TeachPimpTalent (var C_NPC slf, var C_NPC oth, var int circle, var int teacherMAX)
+{
+	var string concatText;
+
+	// ------ Kostenberechnung ------
+	var int kosten;
+	//kosten = (B_GetLearnCostTalent(oth, NPC_TALENT_WOMANIZER, 1) * circle);
+	kosten = circle; // 1 LP pro Aufreisser %
+
+	//EXIT IF...
+
+	// ------ Lernen NICHT ¸ber teacherMax ------
+	var int realHitChance;
+	realHitChance = Npc_GetTalentSkill(oth, NPC_TALENT_PIMP);
+
+	if (realHitChance >= teacherMAX)
+	{
+		concatText = ConcatStrings (PRINT_NoLearnOverPersonalMAX, IntToString(teacherMAX));
+		PrintScreen	(concatText, -1, -1, FONT_SCREEN, 2);
+		B_Say (slf, oth, "$NOLEARNYOUREBETTER");
+
+		return FALSE;
+	};
+
+	if (circle > teacherMAX)
+	{
+		concatText = ConcatStrings (PRINT_NoLearnOverPersonalMAX, IntToString(teacherMAX));
+		PrintScreen	(concatText, -1, -1, FONT_SCREEN, 2);
+		B_Say (slf, oth, "$NOLEARNOVERPERSONALMAX");
+
+		return FALSE;
+	};
+
+	// ------ Player hat zu wenig Lernpunkte ------
+	if (oth.lp < kosten)
+	{
+		PrintScreen	(PRINT_NotEnoughLP, -1, -1, FONT_Screen, 2);
+		B_Say (slf, oth, "$NOLEARNNOPOINTS");
+
+		return FALSE;
+	};
+
+
+	// FUNC
+
+	// ------ Lernpunkte abziehen ------
+	oth.lp = oth.lp - kosten;
+
+	// ------ ZUHƒLTER steigern ------
+    Npc_SetTalentSkill (oth, NPC_TALENT_PIMP, circle);	//Pimp
+
+    PrintScreen	("Verbessere: Zuh‰lter", -1, -1, FONT_Screen, 2);
+
+    return TRUE;
+};
+
+
+func void SonjaTeachPimp()
+{
+    Info_ClearChoices (DIA_Sonja_TEACHPIMP);
+    if (Npc_GetTalentSkill(other, NPC_TALENT_PIMP) < 6)
+    {
+        Info_AddChoice		(DIA_Sonja_TEACHPIMP, B_BuildLearnString("Zuh‰lter n‰chster Kreis"			, Npc_GetTalentSkill(other, NPC_TALENT_PIMP) + 1)			,DIA_Sonja_TEACHPIMP_1);
+    };
+    Info_AddChoice		(DIA_Sonja_TEACHPIMP, DIALOG_BACK, DIA_Sonja_TEACHPIMP_Back);
+};
+
+FUNC VOID DIA_Sonja_TEACHPIMP_Info()
+{
+	AI_Output (other,self ,"DIA_Sonja_TEACHPIMP_15_00"); //Zeig mir, wie ich ein besserer Zuh‰lter werde.
+    AI_Output (self, other, "DIA_Sonja_TEACHPIMP_16_00"); //Das ist ein schwieriges Handwerk. Mal schauen ob es dir liegt.
+
+    SonjaTeachPimp();
+};
+
+FUNC VOID DIA_Sonja_TEACHPIMP_Back ()
+{
+	Info_ClearChoices (DIA_Sonja_TEACHPIMP);
+};
+
+FUNC VOID DIA_Sonja_TEACHPIMP_1 ()
+{
+	B_TeachPimpTalent (self, other, Npc_GetTalentSkill(other, NPC_TALENT_PIMP) + 1, 6);
+
+	SonjaTeachPimp();
+};
 
 // ************************************************************
 // 			  				ROUTINE
@@ -1739,12 +2014,15 @@ FUNC INT DIA_Sonja_ROUTINE_Condition()
 FUNC VOID DIA_Sonja_ROUTINE_Info()
 {
 	Info_ClearChoices	(DIA_Sonja_ROUTINE);
-	Info_AddChoice		(DIA_Sonja_ROUTINE, "Gehe zu Xardas"	,    DIA_Sonja_ROUTINE_Xardas);
-	Info_AddChoice		(DIA_Sonja_ROUTINE, "Gehe zu Vatras"	,    DIA_Sonja_ROUTINE_Vatras);
-	Info_AddChoice		(DIA_Sonja_ROUTINE, "Gehe zu Pyrokar"	,    DIA_Sonja_ROUTINE_Pyrokar);
-	Info_AddChoice		(DIA_Sonja_ROUTINE, "Tanzen"	,    DIA_Sonja_ROUTINE_Dance);
-	Info_AddChoice		(DIA_Sonja_ROUTINE, "F¸r kleine M‰dchen"	,    DIA_Sonja_ROUTINE_Pee);
-	Info_AddChoice		(DIA_Sonja_ROUTINE, DIALOG_BACK 		, DIA_Sonja_ROUTINE_BACK);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, "Gehe zu Orlan's Taverne"	,        DIA_Sonja_ROUTINE_Orlan);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, "Gehe zu Onars Hof"	,        DIA_Sonja_ROUTINE_Lee);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, "Gehe zu Xardas Turm"	,    DIA_Sonja_ROUTINE_Xardas);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, "Gehe zum Kloster"	,    DIA_Sonja_ROUTINE_Pyrokar);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, "Gehe zum Marktplaz"	,    DIA_Sonja_ROUTINE_Vatras);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, "Tanzen"	,            DIA_Sonja_ROUTINE_Dance);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, "F¸r kleine M‰dchen",    DIA_Sonja_ROUTINE_Pee);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, "Sitze in der Roten Laterne (Standard)",    DIA_Sonja_ROUTINE_Start);
+	Info_AddChoice		(DIA_Sonja_ROUTINE, DIALOG_BACK 		,    DIA_Sonja_ROUTINE_BACK);
 };
 
 func void DIA_Sonja_ROUTINE_BACK()
@@ -1752,9 +2030,17 @@ func void DIA_Sonja_ROUTINE_BACK()
 	Info_ClearChoices (DIA_Sonja_ROUTINE);
 };
 
+func void DIA_Sonja_ROUTINE_Start()
+{
+    AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_00"); //Setz dich in die Rote Laterne!
+	Npc_ExchangeRoutine	(self,"START");
+
+	DIA_Sonja_ROUTINE_Info();
+};
+
 func void DIA_Sonja_ROUTINE_Pee ()
 {
-	AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_00"); //Geh mal f¸r kleine M‰dchen!
+	AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_01"); //Geh mal f¸r kleine M‰dchen!
 	Npc_ExchangeRoutine	(self,"PEE");
 
 	DIA_Sonja_ROUTINE_Info();
@@ -1762,7 +2048,7 @@ func void DIA_Sonja_ROUTINE_Pee ()
 
 func void DIA_Sonja_ROUTINE_Dance ()
 {
-	AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_01"); //Tanz!
+	AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_02"); //Tanz!
 	Npc_ExchangeRoutine	(self,"DANCE");
 
 	DIA_Sonja_ROUTINE_Info();
@@ -1770,29 +2056,42 @@ func void DIA_Sonja_ROUTINE_Dance ()
 
 func void DIA_Sonja_ROUTINE_Vatras()
 {
-    self.aivar[AIV_PARTYMEMBER] = FALSE;
-    AI_StopProcessInfos (self);
-    // Der Dialog wird sonst nicht geschlossen:
-    AI_Wait(self, 10);
-    AI_GotoNpc(self, Vatras);
+    AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_03"); //Gehe zum Marktplatz!
+	Npc_ExchangeRoutine	(self,"VATRAS");
+
+	DIA_Sonja_ROUTINE_Info();
 };
 
 func void DIA_Sonja_ROUTINE_Pyrokar()
 {
-    self.aivar[AIV_PARTYMEMBER] = FALSE;
-    AI_StopProcessInfos (self);
-    // Der Dialog wird sonst nicht geschlossen:
-    AI_Wait(self, 10);
-    AI_GotoNpc(self, Pyrokar);
+    AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_04"); //Gehe zum Kloster!
+	Npc_ExchangeRoutine	(self,"PYROKAR");
+
+	DIA_Sonja_ROUTINE_Info();
 };
 
 func void DIA_Sonja_ROUTINE_Xardas()
 {
-    self.aivar[AIV_PARTYMEMBER] = FALSE;
-    AI_StopProcessInfos (self);
-    // Der Dialog wird sonst nicht geschlossen:
-    AI_Wait(self, 10);
-    AI_GotoNpc(self, Xardas);
+    AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_05"); //Gehe zu Xardas Turm!
+	Npc_ExchangeRoutine	(self,"XARDAS");
+
+	DIA_Sonja_ROUTINE_Info();
+};
+
+func void DIA_Sonja_ROUTINE_Lee()
+{
+    AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_06"); //Gehe zu Onars Hof!
+	Npc_ExchangeRoutine	(self,"LEE");
+
+	DIA_Sonja_ROUTINE_Info();
+};
+
+func void DIA_Sonja_ROUTINE_Orlan()
+{
+    AI_Output			(other, self, "DIA_Sonja_ROUTINE_15_07"); //Gehe zu Orlan's Taverne!
+	Npc_ExchangeRoutine	(self,"ORLAN");
+
+	DIA_Sonja_ROUTINE_Info();
 };
 
 //S_INNOS_S1
@@ -2044,11 +2343,10 @@ FUNC VOID DIA_Sonja_Choose_BodyTex_Info()
 {
 	Info_ClearChoices	(DIA_Sonja_Choose_BodyTex);
 
-	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "BodyTex_B" 	, DIA_Sonja_Choose_BodyTex_B);
-	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "BodyTexBabe_P" 	, DIA_Sonja_Choose_BodyTexBabe_P);
-	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "BodyTexBabe_N" 	, DIA_Sonja_Choose_BodyTexBabe_N);
-	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "BodyTexBabe_L" 	, DIA_Sonja_Choose_BodyTexBabe_L);
-	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "BodyTexBabe_B" 	, DIA_Sonja_Choose_BodyTexBabe_B);
+	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "K‰seweiﬂ" 	, DIA_Sonja_Choose_BodyTexBabe_P);
+	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "Weiﬂ" 	,    DIA_Sonja_Choose_BodyTexBabe_N);
+	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "Latino" 	, DIA_Sonja_Choose_BodyTexBabe_L);
+	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, "Farbig" 	, DIA_Sonja_Choose_BodyTexBabe_B);
 
 	Info_AddChoice		(DIA_Sonja_Choose_BodyTex, DIALOG_BACK 				, DIA_Sonja_Choose_BodyTex_BACK);
 };
@@ -2081,13 +2379,6 @@ func void DIA_Sonja_Choose_BodyTexBabe_P()
 
 	DIA_Sonja_Choose_BodyTex_Info();
 };
-func void DIA_Sonja_Choose_BodyTex_B()
-{
-	Sonja_BodyTexture 	=BodyTex_B;
-	Change_Sonja_Visual();
-
-	DIA_Sonja_Choose_BodyTex_Info();
-};
 
 // ------------------------------------------------
 
@@ -2107,7 +2398,7 @@ INSTANCE DIA_Sonja_Choose_Face (C_INFO)
 	condition		= DIA_Sonja_Choose_Face_Condition;
 	information		= DIA_Sonja_Choose_Face_Info;
 	permanent		= TRUE;
-	description		= "(Schˆnheits-Operation f¸r Gesicht)";
+	description		= "(Schˆnheits-Operation f¸r Gesicht und Frisur)";
 };
 
 FUNC INT DIA_Sonja_Choose_Face_Condition()
@@ -2145,11 +2436,12 @@ const int FaceBabe_L_Charlotte2		= 	158 ;
 
 	Info_ClearChoices	(DIA_Sonja_Choose_Face);
 
-	Info_AddChoice		(DIA_Sonja_Choose_Face, "FaceBabe_L_Charlotte" 	, DIA_Sonja_Choose_FaceBabe_L_Charlotte);
-	Info_AddChoice		(DIA_Sonja_Choose_Face, "FaceBabe_N_PinkHair" 	, DIA_Sonja_Choose_FaceBabe_N_PinkHair);
-	Info_AddChoice		(DIA_Sonja_Choose_Face, "FaceBabe_N_BlondTattoo" 	, DIA_Sonja_Choose_FaceBabe_N_BlondTattoo);
-	Info_AddChoice		(DIA_Sonja_Choose_Face, "FaceBabe_N_Blondie" 	, DIA_Sonja_Choose_FaceBabe_N_Blondie);
-	Info_AddChoice		(DIA_Sonja_Choose_Face, "FaceBabe_N_BlackHair" 	, DIA_Sonja_Choose_FaceBabe_N_BlackHair);
+	Info_AddChoice		(DIA_Sonja_Choose_Face, "Freudendame" 	, DIA_Sonja_Choose_FaceBabe_N_Hure);
+	Info_AddChoice		(DIA_Sonja_Choose_Face, "Charlotte" 	, DIA_Sonja_Choose_FaceBabe_L_Charlotte);
+	Info_AddChoice		(DIA_Sonja_Choose_Face, "Pinke Haare" 	, DIA_Sonja_Choose_FaceBabe_N_PinkHair);
+	Info_AddChoice		(DIA_Sonja_Choose_Face, "Blondine mit Tatoos" 	, DIA_Sonja_Choose_FaceBabe_N_BlondTattoo);
+	Info_AddChoice		(DIA_Sonja_Choose_Face, "Blondine" 	, DIA_Sonja_Choose_FaceBabe_N_Blondie);
+	Info_AddChoice		(DIA_Sonja_Choose_Face, "Schwarze Haare" 	, DIA_Sonja_Choose_FaceBabe_N_BlackHair);
 
 	Info_AddChoice		(DIA_Sonja_Choose_Face, DIALOG_BACK 				, DIA_Sonja_Choose_Face_BACK);
 };
@@ -2191,6 +2483,14 @@ func void DIA_Sonja_Choose_FaceBabe_L_Charlotte()
 	DIA_Sonja_Choose_Face_Info();
 };
 
+func void DIA_Sonja_Choose_FaceBabe_N_Hure()
+{
+    Sonja_BodyTexture 	=FaceBabe_N_Hure;
+	Change_Sonja_Visual();
+
+	DIA_Sonja_Choose_Face_Info();
+};
+
 // ------------------------------------------------
 
 func void DIA_Sonja_Choose_Face_BACK()
@@ -2223,7 +2523,7 @@ func String BuildSonjaItemString(var String itemName, var int value)
     var String msg;
     msg = "";
     msg = ConcatStrings(" (", IntToString(value));
-    msg = ConcatStrings(msg, ")");
+    msg = ConcatStrings(msg, " Gold)");
     msg = ConcatStrings(itemName, msg);
 
     return msg;
@@ -2233,24 +2533,35 @@ FUNC VOID DIA_Sonja_KLEIDUNG_Info()
 {
 	Info_ClearChoices	(DIA_Sonja_KLEIDUNG);
 
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString(NAME_SPL_MassDeath, Value_Ru_MassDeath),   DIA_Sonja_KLEIDUNG_ItRu_MassDeath);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString(NAME_SPL_InstantFireball, Value_Ru_InstantFireball),   DIA_Sonja_KLEIDUNG_ItRu_InstantFireball);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Ring der Unbesiegbarkeit", Value_Ri_ProtTotal02),   DIA_Sonja_KLEIDUNG_ItRi_Prot_Total_02);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Ring der Unbezwingbarkeit", Value_Ri_ProtTotal),    DIA_Sonja_KLEIDUNG_ItRi_Prot_Total_01);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("R¸stung Drachenj‰gerin", 2000)	,    DIA_Sonja_KLEIDUNG_DragonSlayer);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Kleidung B‰uerin", 200)	,    DIA_Sonja_KLEIDUNG_Farmer);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Schwerer Ast", 1),    DIA_Sonja_KLEIDUNG_Schwerer_Ast);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bester G¸rtel aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestBelt);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Ringe aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestRings);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bestes Amulett aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestAmulet);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Spruchrolle aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestScroll);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Rune aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestRune);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Fernkampfwaffe aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestRangeWeapon);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Nahkampfwaffe aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestMeleeWeapon);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste R¸stung aus ihrem Inventar"	,    DIA_Sonja_KLEIDUNG_BestArmor);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Lege alle Ausr¸stung ab"	,    DIA_Sonja_KLEIDUNG_Unequip);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Normal"	,    DIA_Sonja_KLEIDUNG_Normal);
-	Info_AddChoice		(DIA_Sonja_KLEIDUNG, DIALOG_BACK 		, DIA_Sonja_KLEIDUNG_BACK);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString(NAME_SPL_MassDeath, Value_Ru_MassDeath),                 DIA_Sonja_KLEIDUNG_ItRu_MassDeath);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString(NAME_SPL_ArmyOfDarkness, Value_Ru_ArmyofDarkness),       DIA_Sonja_KLEIDUNG_ItRu_ArmyOfDarkness);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString(NAME_SPL_InstantFireball, Value_Ru_InstantFireball),     DIA_Sonja_KLEIDUNG_ItRu_InstantFireball);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Ring der Unbesiegbarkeit", Value_Ri_ProtTotal02),       DIA_Sonja_KLEIDUNG_ItRi_Prot_Total_02);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Ring der Unbezwingbarkeit", Value_Ri_ProtTotal),        DIA_Sonja_KLEIDUNG_ItRi_Prot_Total_01);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Wassermagierrobe", VALUE_ITAR_KDW_H),                   DIA_Sonja_KLEIDUNG_ITAR_KDW_H);
+	if (Kapitel >= 5)
+	{
+        Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Schwere Drachenj‰gerr¸stung", VALUE_ITAR_DJG_H),        DIA_Sonja_KLEIDUNG_ITAR_DJG_H);
+    };
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("R¸stung Drachenj‰gerin", 2000),          DIA_Sonja_KLEIDUNGITAR_DJG_BABE);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Kleidung B‰uerin", 200),                                DIA_Sonja_KLEIDUNG_Farmer);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Leichte Armbrust", Value_LeichteArmbrust),              DIA_Sonja_KLEIDUNG_ItRw_Crossbow_L_02);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Buchenbogen", Value_Buchenbogen),                       DIA_Sonja_KLEIDUNG_ItRw_Bow_M_04);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Kompositbogen", Value_Kompositbogen),                   DIA_Sonja_KLEIDUNG_ItRw_Bow_M_01);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Folteraxt", Value_Folteraxt),                           DIA_Sonja_KLEIDUNG_ItMw_Folteraxt);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Kurzschwert", Value_ShortSword3),                       DIA_Sonja_KLEIDUNG_ItMw_ShortSword3);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Schwerer Ast", Value_BauMace),                          DIA_Sonja_KLEIDUNG_Schwerer_Ast);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bester G¸rtel aus ihrem Inventar",                                           DIA_Sonja_KLEIDUNG_BestBelt);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Ringe aus ihrem Inventar",                                             DIA_Sonja_KLEIDUNG_BestRings);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bestes Amulett aus ihrem Inventar",                                          DIA_Sonja_KLEIDUNG_BestAmulet);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Spruchrolle aus ihrem Inventar",                                       DIA_Sonja_KLEIDUNG_BestScroll);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Rune aus ihrem Inventar",                                              DIA_Sonja_KLEIDUNG_BestRune);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Fernkampfwaffe aus ihrem Inventar",                                    DIA_Sonja_KLEIDUNG_BestRangeWeapon);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Nahkampfwaffe aus ihrem Inventar",                                     DIA_Sonja_KLEIDUNG_BestMeleeWeapon);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste R¸stung aus ihrem Inventar",                                           DIA_Sonja_KLEIDUNG_BestArmor);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Lege alle Ausr¸stung ab",                                                    DIA_Sonja_KLEIDUNG_Unequip);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Normal",                                                                     DIA_Sonja_KLEIDUNG_Normal);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, DIALOG_BACK,                                                                  DIA_Sonja_KLEIDUNG_BACK);
 };
 
 func void DIA_Sonja_KLEIDUNG_BACK()
@@ -2463,6 +2774,41 @@ func void DIA_Sonja_KLEIDUNG_Schwerer_Ast()
     DIA_Sonja_KLEIDUNG_Info();
 };
 
+func void DIA_Sonja_KLEIDUNG_ItMw_ShortSword3()
+{
+    Sonja_Equip(ItMw_ShortSword3, Value_ShortSword3);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ItMw_Folteraxt()
+{
+    Sonja_Equip(ItMw_Folteraxt, Value_Folteraxt);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ItRw_Bow_M_01()
+{
+    Sonja_Equip(ItRw_Bow_M_01, Value_Kompositbogen);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ItRw_Bow_M_04()
+{
+    Sonja_Equip(ItRw_Bow_M_04, Value_Buchenbogen);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ItRw_Crossbow_L_02()
+{
+    Sonja_Equip(ItRw_Crossbow_L_02, Value_LeichteArmbrust);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
 func void DIA_Sonja_KLEIDUNG_Farmer ()
 {
     Sonja_Bekleiden(ITAR_BauBabe_M, 200);
@@ -2470,9 +2816,23 @@ func void DIA_Sonja_KLEIDUNG_Farmer ()
     DIA_Sonja_KLEIDUNG_Info();
 };
 
-func void DIA_Sonja_KLEIDUNG_DragonSlayer ()
+func void DIA_Sonja_KLEIDUNGITAR_DJG_BABE ()
 {
     Sonja_Bekleiden(ITAR_DJG_BABE, 2000);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ITAR_DJG_H()
+{
+    Sonja_Bekleiden(ITAR_DJG_H, VALUE_ITAR_DJG_H);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ITAR_KDW_H()
+{
+    Sonja_Bekleiden(ITAR_KDW_H, VALUE_ITAR_KDW_H);
 
     DIA_Sonja_KLEIDUNG_Info();
 };
@@ -2500,6 +2860,20 @@ func void DIA_Sonja_KLEIDUNG_ItRu_InstantFireball()
     else
     {
         AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_03"); //Ich muss erst den zweiten Kreis der Magie erlernen.
+    };
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ItRu_ArmyOfDarkness()
+{
+    if (Npc_GetTalentSkill(self, NPC_TALENT_MAGE) >= 6)
+    {
+        Sonja_Equip(ItRu_ArmyOfDarkness, Value_Ru_ArmyofDarkness);
+    }
+    else
+    {
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_04"); //Ich muss erst den sechsten Kreis der Magie erlernen.
     };
 
     DIA_Sonja_KLEIDUNG_Info();
@@ -2828,56 +3202,6 @@ FUNC VOID DIA_Sonja_KOCHEN_Info()
 };
 
 // ************************************************************
-// 			  				IMMORTAL
-// ************************************************************
-INSTANCE DIA_Sonja_IMMORTAL (C_INFO)
-{
-	npc			= VLK_436_Sonja;
-	nr			= 900;
-	condition	= DIA_Sonja_IMMORTAL_Condition;
-	information	= DIA_Sonja_IMMORTAL_Info;
-	permanent	= TRUE;
-	description = "Werde unsterblich!";
-};
-
-FUNC INT DIA_Sonja_IMMORTAL_Condition()
-{
-	return SonjaFolgt == TRUE && self.flags != NPC_FLAG_IMMORTAL && self.aivar[AIV_PARTYMEMBER] == FALSE;
-};
-
-FUNC VOID DIA_Sonja_IMMORTAL_Info()
-{
-    AI_Output			(other, self, "DIA_Sonja_IMMORTAL_15_00"); //Werde unsterblich!
-    AI_Output			(self, other, "DIA_Sonja_IMMORTAL_16_00"); //Aber sicher mein Prinz. Eine Prinzessin kann niemals sterben, sie wird immer gerettet.
-
-    B_LogEntry ("Sonja", "Solange Sonja mir nicht folgt kann sie sich vor Feinden selbst sch¸tzen.");
-};
-
-// ************************************************************
-// 			  				MORTAL
-// ************************************************************
-INSTANCE DIA_Sonja_MORTAL (C_INFO)
-{
-	npc			= VLK_436_Sonja;
-	nr			= 900;
-	condition	= DIA_Sonja_MORTAL_Condition;
-	information	= DIA_Sonja_MORTAL_Info;
-	permanent	= TRUE;
-	description = "Werde unsterblich!";
-};
-
-FUNC INT DIA_Sonja_MORTAL_Condition()
-{
-	return SonjaFolgt == TRUE && self.flags == NPC_FLAG_IMMORTAL;
-};
-
-FUNC VOID DIA_Sonja_MORTAL_Info()
-{
-    AI_Output			(other, self, "DIA_Sonja_MORTAL_15_00"); //Werde sterblich!
-    AI_Output			(self, other, "DIA_Sonja_MORTAL_16_00"); //Wie du meinst, mein Prinz. Du wirst mich schon besch¸tzen.
-};
-
-// ************************************************************
 // 			  				ANGEBEN
 // ************************************************************
 var int SonjaAngebenLevel;
@@ -3000,6 +3324,84 @@ FUNC VOID DIA_Sonja_ADVICE_Info()
         AI_Output			(self, other, "DIA_Sonja_ADVICE_16_00"); //Ich weiﬂ es nicht.
         B_LogEntry ("Sonja", "Sonja weiﬂ auch nicht, was ich tun soll.");
 	};
+};
+
+// ************************************************************
+// 			  				Buy Hans
+// ************************************************************
+var int Sonja_Meatbugekauft;
+var int HansIsDeadSaid;
+
+instance DIA_Sonja_BuyLHans	(C_INFO)
+{
+	npc			 = 	VLK_436_Sonja;
+	nr			 = 	8;
+	condition	 = 	DIA_Sonja_BuyHans_Condition;
+	information	 = 	DIA_Sonja_BuyHans_Info;
+	permanent	 = 	TRUE;
+	description	 = 	"Hier sind 100 Goldst¸cke. Gib mir eine Fleischwanze.";
+};
+func int DIA_Sonja_BuyHans_Condition ()
+{
+	return SonjaFolgt == TRUE;
+};
+func void DIA_Sonja_BuyHans_Info ()
+{
+	AI_Output (other, self, "DIA_Sonja_BuyHans_15_00"); //Hier sind 100 Goldst¸cke. Gib mir ein Schaf.
+
+	if (B_GiveInvItems  (other, self, ItMi_Gold, 100))
+	{
+		if (Sonja_Meatbugekauft == 0)
+		{
+            B_LogEntry ("Sonja", "Bei Sonja kann ich eine Fleischwanze kaufen, damit wir ein gemeinsames Haustier haben.");
+
+			AI_Output (self, other, "DIA_Sonja_BuyHans_03_01"); //Gut. Dann nimm dir die Hans mit.
+			AI_Output (self, other, "DIA_Sonja_BuyHans_03_02"); //Sag ihm einfach, er soll dir folgen. Er ist ziemlich klug f¸r eine Fleischwanze. Behandele ihn gut!
+			AI_Output (self, other, "DIA_Sonja_BuyHans_03_03"); //Endlich haben wir ein gemeinsames Haustier!
+		}
+		else
+		{
+			AI_Output (self, other, "DIA_Sonja_BuyHans_03_03"); //Schon wieder? Na schˆn. Nimm dir die Hans mit.
+			AI_Output (other, self, "DIA_Sonja_BuyHans_15_04"); //Hans? Die letzte Fleischwanze hieﬂ schon Hans ...
+			AI_Output (self, other, "DIA_Sonja_BuyHans_03_05"); //Alle Fleischwanzen heiﬂen Hans.
+			AI_Output (self, other, "DIA_Sonja_BuyHans_03_06"); //Pass lieber besser auf unser Haustier auf!
+		};
+
+		Sonja_Meatbugekauft = Sonja_Meatbugekauft + 1;
+		Wld_SpawnNpcRange	(self,	Follow_Meatbug,	1,	500);
+        Hans			= Hlp_GetNpc (Follow_Meatbug);
+        HansIsDeadSaid = FALSE;
+
+		AI_StopProcessInfos (self);
+	}
+	else
+	{
+		AI_Output (self, other, "DIA_Sonja_BuyHans_03_09"); //Soviel Gold hast du nicht. Billiger kann ich dir keins geben.
+	};
+};
+
+// ************************************************************
+// 			  				Hans is dead
+// ************************************************************
+instance DIA_Sonja_HansIsDead	(C_INFO)
+{
+	npc			 = 	VLK_436_Sonja;
+	nr			 = 	8;
+	condition	 = 	DIA_Sonja_HansIsDead_Condition;
+	information	 = 	DIA_Sonja_HansIsDead_Info;
+	permanent	 = 	TRUE;
+	important    =  TRUE;
+};
+func int DIA_Sonja_HansIsDead_Condition ()
+{
+	return SonjaFolgt == TRUE && Sonja_Meatbugekauft > 0 && Npc_IsDead(Hans) && HansIsDeadSaid == FALSE;
+};
+func void DIA_Sonja_HansIsDead_Info ()
+{
+    HansIsDeadSaid = TRUE;
+	AI_Output (self, other, "DIA_Sonja_HansIsDead_16_00"); //Was hast du getan? Hans ist gestorben! Du hast nicht gut genug auf ihn aufgepasst! Ich hasse dich!
+	AI_Output (self, other, "DIA_Sonja_HansIsDead_16_01"); //Kauf mir ein neues Haustier!
+	B_LogEntry ("Sonja", "Sonja will, dass ich uns ein neues Haustier kaufe und dies mal besser darauf aufpasse.");
 };
 
 // ************************************************************
