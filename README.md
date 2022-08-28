@@ -53,6 +53,7 @@ Sonja provides the following features:
 
 ## TODOs
 
+* Add Sonja to all other world and apply her stats, skills, XP, level, learn points and inventory when changing the world.
 * Add a custom castle in a new world which can be bought for Sonja with guards etc.
 * The skill "Womanizer" needs to be more balanced and give some useful gold, XP and items. Add the dialog option to more ambient NPCs.
 * Add more items and collect item options to the dialog of Sonja.
@@ -60,6 +61,7 @@ Sonja provides the following features:
 * Fix the summon and teleport runes.
 * Add more companions to be purchased from Sonja like a mage, warrior, archer etc.
 * Add a real NSIS based installer (see [documentation](https://wiki.worldofgothic.de/doku.php?id=nsis)).
+* German dubbing. Find German voice actors for Sonja and the hero after completing all dialogs.
 
 ## Dependencies
 
