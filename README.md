@@ -68,3 +68,7 @@ Sonja provides the following features:
 ## Credits
 
 * nneka.: [Insel Zen](https://www.worldofgothic.de/?go=moddb&action=view&fileID=429&cat=18&page=2&order=0)
+
+## Links
+
+* [Announcement Thread](https://forum.worldofplayers.de/forum/threads/1596847-Gothic-II-Erweiterungsmod-Ank%C3%BCndigung-Sonja?p=27037960#post27037960)
