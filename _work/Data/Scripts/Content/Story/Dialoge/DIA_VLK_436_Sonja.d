@@ -171,7 +171,24 @@ func void SonjaComeOn()
         B_TurnToNpc (self,other);
     };
     self.aivar[AIV_PARTYMEMBER] = TRUE;
-    Npc_ExchangeRoutine	(self,"FOLLOW");
+
+    if (CurrentLevel == OLDWORLD_ZEN)
+    {
+        Npc_ExchangeRoutine	(self,"FOLLOWOLDWORLD");
+    }
+    else if (CurrentLevel == NEWWORLD_ZEN)
+    {
+        Npc_ExchangeRoutine	(self,"FOLLOW");
+    }
+    else if (CurrentLevel == ADDONWORLD_ZEN)
+    {
+        Npc_ExchangeRoutine	(self, "FOLLOWADDONWORLD");
+    }
+    else if (CurrentLevel == DRAGONISLAND_ZEN)
+    {
+        Npc_ExchangeRoutine	(self,"FOLLOWDRAGONISLAND");
+    };
+
     self.aivar[AIV_PARTYMEMBER] = TRUE;
     self.flags = 0; // NPC_FLAG_IMMORTAL
 };
@@ -261,6 +278,7 @@ func void DIA_Sonja_PEOPLE_Info ()
     Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du vom Richter?"	,     DIA_Sonja_PEOPLE_Richter);
     Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Lord Hagen?"	,     DIA_Sonja_PEOPLE_Hagen);
     Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Vatras?"	,     DIA_Sonja_PEOPLE_Vatras);
+    Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Vanja?"	,     DIA_Sonja_PEOPLE_Vanja);
 	Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Nadja?"	,     DIA_Sonja_PEOPLE_Nadja);
     Info_AddChoice		(DIA_Sonja_PEOPLE, "Was hältst du von Bromor?"	,     DIA_Sonja_PEOPLE_Bromor);
     Info_AddChoice		(DIA_Sonja_PEOPLE, DIALOG_BACK 		,                 DIA_Sonja_PEOPLE_BACK);
@@ -269,6 +287,22 @@ func void DIA_Sonja_PEOPLE_Info ()
 func void DIA_Sonja_PEOPLE_BACK ()
 {
     Info_ClearChoices	(DIA_Sonja_PEOPLE);
+};
+
+
+func void DIA_Sonja_PEOPLE_Bromor ()
+{
+    AI_Output (other, self, "DIA_Sonja_PEOPLE_Bromor_15_00"); //Was hältst du von Bromor?
+    AI_Output (self, other, "DIA_Sonja_PEOPLE_Bromor_16_00"); //Bromor ist ein mieser Halsabschneider. Er nimmt den meisten Ertrag der Frauen für sich.
+
+    if (SonjaFolgt == TRUE)
+    {
+        AI_Output (self, other, "DIA_Sonja_PEOPLE_Bromor_16_01"); //Aber was soll's? Meinen Prinzen habe ich ja jetzt gefunden!
+    };
+
+    B_LogEntry ("Sonja", "Sonja hält Bromor für einen miesen Halsabschneider.");
+
+    DIA_Sonja_PEOPLE_Info();
 };
 
 func void DIA_Sonja_PEOPLE_Nadja ()
@@ -286,18 +320,11 @@ func void DIA_Sonja_PEOPLE_Nadja ()
     DIA_Sonja_PEOPLE_Info();
 };
 
-
-func void DIA_Sonja_PEOPLE_Bromor ()
+func void DIA_Sonja_PEOPLE_Vanja ()
 {
-    AI_Output (other, self, "DIA_Sonja_PEOPLE_Bromor_15_00"); //Was hältst du von Bromor?
-    AI_Output (self, other, "DIA_Sonja_PEOPLE_Bromor_16_00"); //Bromor ist ein mieser Halsabschneider. Er nimmt den meisten Ertrag der Frauen für sich.
-
-    if (SonjaFolgt == TRUE)
-    {
-        AI_Output (self, other, "DIA_Sonja_PEOPLE_Bromor_16_01"); //Aber was soll's? Meinen Prinzen habe ich ja jetzt gefunden!
-    };
-
-    B_LogEntry ("Sonja", "Sonja hält Bromor für einen miesen Halsabschneider.");
+    AI_Output (other, self, "DIA_Sonja_PEOPLE_Vanja_15_00"); //Was hältst du von Vanja?
+    AI_Output (self, other, "DIA_Sonja_PEOPLE_Vanja_16_00"); //Vanja? Die treibt es ganz schön wild mit diesem Peck. Der kriegt aber auch nicht genug von ihr. Eigentlich ist sie ganz nett.
+    B_LogEntry ("Sonja", "Sonja hält Vanja für eine Nette, die es mit Peck ganz schön wild treibt.");
 
     DIA_Sonja_PEOPLE_Info();
 };
@@ -604,6 +631,7 @@ FUNC VOID DIA_Sonja_WarteHier_Info()
 
 	self.aivar[AIV_PARTYMEMBER] = FALSE;
 	self.flags = NPC_FLAG_IMMORTAL;
+	Npc_ExchangeRoutine	(self,"WAIT");
 
 	AI_StopProcessInfos	(self);
 };
@@ -622,10 +650,7 @@ INSTANCE DIA_Sonja_GoHome(C_INFO)
 };
 FUNC INT DIA_Sonja_GoHome_Condition()
 {
-	if (self.aivar[AIV_PARTYMEMBER] == TRUE)
-	{
-		return TRUE;
-	};
+	return self.aivar[AIV_PARTYMEMBER];
 };
 
 FUNC VOID DIA_Sonja_GoHome_Info()
@@ -712,15 +737,15 @@ func void DIA_Sonja_HEILUNG_heiltrankLow ()
 {
 	if (B_GiveInvItems (other, self, ItPo_Health_01,1))
 	{
-	B_UseItem (self, ItPo_Health_01);
+        B_UseItem (self, ItPo_Health_01);
 	}
 	else if (B_GiveInvItems (other, self, ItPo_Health_02,1))
 	{
-	B_UseItem (self, ItPo_Health_02);
+        B_UseItem (self, ItPo_Health_02);
 	}
 	else if (B_GiveInvItems (other, self, ItPo_Health_03,1))
 	{
-	B_UseItem (self, ItPo_Health_03);
+        B_UseItem (self, ItPo_Health_03);
 	}
 	else
 	{
@@ -735,7 +760,7 @@ func void DIA_Sonja_HEILUNG_spaeter ()
 	AI_Output			(other, self, "DIA_Biff_HEILUNG_spaeter_15_00"); //Ich werde dir später etwas geben.
 	AI_Output			(self ,other, "DIA_Sonja_HEILUNG_16_03"); //Vergiss es aber nicht.
 
-	AI_StopProcessInfos (self);
+	Info_ClearChoices	(DIA_Sonja_HEILUNG);
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -819,6 +844,200 @@ func void DIA_Sonja_FEELINGS_Info ()
     {
         AI_Output			(self, other, "DIA_Sonja_FEELINGS_16_01"); //Das Wetter ist heute schön!
     };
+};
+
+///////////////////////////////////////////////////////////////////////
+//	Info VIDEOS
+///////////////////////////////////////////////////////////////////////
+instance DIA_Sonja_VIDEOS		(C_INFO)
+{
+	npc		 = 	VLK_436_Sonja;
+	nr		 = 	99;
+	condition	 = 	DIA_Sonja_VIDEOS_Condition;
+	information	 = 	DIA_Sonja_VIDEOS_Info;
+	permanent	 = 	TRUE;
+
+	description	 = 	"Zeige mir ...";
+};
+
+func int DIA_Sonja_VIDEOS_Condition ()
+{
+    return SonjaFolgt;
+};
+
+func void DIA_Sonja_VIDEOS_Info ()
+{
+    Info_ClearChoices	(DIA_Sonja_VIDEOS);
+
+    if (UndeadDragonIsDead)
+    {
+        Info_AddChoice	(DIA_Sonja_VIDEOS, "... den Tod des Untoten Drachen.", DIA_Sonja_VIDEOS_UndeadDragonDeath );
+    };
+
+    if (Kapitel >= 6)
+    {
+        Info_AddChoice	(DIA_Sonja_VIDEOS, "... die Abfahrt nach Irdorath.", DIA_Sonja_VIDEOS_Ship );
+    };
+
+    if (RavenIsDead)
+    {
+        Info_AddChoice	(DIA_Sonja_VIDEOS, "... Raven's Tod.", DIA_Sonja_VIDEOS_RavenDeath );
+    };
+
+    if (B_RAVENSESCAPEINTOTEMPELAVI_OneTime)
+    {
+        Info_AddChoice	(DIA_Sonja_VIDEOS, "... Raven's Flucht in den Tempel.", DIA_Sonja_VIDEOS_RavenEscape );
+    };
+
+    if (Npc_KnowsInfo (other, DIA_Addon_Saturas_Hallo))
+    {
+        Info_AddChoice	(DIA_Sonja_VIDEOS, "... das magische Erz im Minental.", DIA_Sonja_VIDEOS_OreHeap );
+    };
+
+    if (ENTER_OLDWORLD_FIRSTTIME_TRIGGER_ONETIME)
+    {
+        Info_AddChoice	(DIA_Sonja_VIDEOS, "... den Drachenangriff im Minental.", DIA_Sonja_VIDEOS_DragonAttack );
+    };
+
+    if (MIS_OCGateOpen)
+    {
+        Info_AddChoice	(DIA_Sonja_VIDEOS, "... den Orkangriff im Minental.", DIA_Sonja_VIDEOS_OrcAttack );
+    };
+
+    Info_AddChoice	(DIA_Sonja_VIDEOS, "... die Vorgeschichte der Insel.", DIA_Sonja_VIDEOS_Intro_Beliar );
+    Info_AddChoice	(DIA_Sonja_VIDEOS, "... meine Vorgeschichte.", DIA_Sonja_VIDEOS_Intro );
+    Info_AddChoice	(DIA_Sonja_VIDEOS, DIALOG_BACK, DIA_Sonja_VIDEOS_Back );
+};
+
+func void DIA_Sonja_VIDEOS_Back()
+{
+    Info_ClearChoices	(DIA_Sonja_VIDEOS);
+};
+
+func void DIA_Sonja_VIDEOS_Intro ()
+{
+	PlayVideo ("INTRO.BIK");
+
+	DIA_Sonja_VIDEOS_Info();
+};
+
+func void DIA_Sonja_VIDEOS_Intro_Beliar ()
+{
+	PlayVideo ("Addon_Title.BIK");
+
+	DIA_Sonja_VIDEOS_Info();
+};
+
+func void DIA_Sonja_VIDEOS_DragonAttack ()
+{
+    PlayVideo ( "DRAGONATTACK.BIK");
+
+	DIA_Sonja_VIDEOS_Info();
+};
+
+func void DIA_Sonja_VIDEOS_OrcAttack() {
+    PlayVideo ( "ORCATTACK.BIK");
+
+	DIA_Sonja_VIDEOS_Info();
+
+};
+
+func void DIA_Sonja_VIDEOS_OreHeap ()
+{
+    PlayVideo ("oreheap.bik");
+
+    DIA_Sonja_VIDEOS_Info();
+};
+
+func void DIA_Sonja_VIDEOS_RavenEscape ()
+{
+    PlayVideoEx	("PORTAL_RAVEN.BIK", TRUE,FALSE);
+
+    DIA_Sonja_VIDEOS_Info();
+};
+
+func void DIA_Sonja_VIDEOS_Ship()
+{
+    PlayVideo ("SHIP.BIK");
+
+    DIA_Sonja_VIDEOS_Info();
+};
+
+func void DIA_Sonja_VIDEOS_RavenDeath ()
+{
+    PlayVideoEx	("EXTRO_RAVEN.BIK", TRUE,FALSE);
+
+    DIA_Sonja_VIDEOS_Info();
+};
+
+func void DIA_Sonja_VIDEOS_UndeadDragonDeath()
+{
+    if ((hero.guild == GIL_MIL) || (hero.guild == GIL_PAL))
+    {
+        PlayVideoEx	("EXTRO_PAL.BIK", TRUE,FALSE);
+    }
+    else if ((hero.guild == GIL_SLD) || (hero.guild == GIL_DJG))
+    {
+        PlayVideoEx	("EXTRO_DJG.BIK", TRUE,FALSE);
+    }
+    else
+    {
+        PlayVideoEx	("EXTRO_KDF.BIK", TRUE,FALSE);
+    };
+
+    DIA_Sonja_VIDEOS_Info();
+};
+
+
+///////////////////////////////////////////////////////////////////////
+//	Info ESCAPE
+///////////////////////////////////////////////////////////////////////
+instance DIA_Sonja_ESCAPE		(C_INFO)
+{
+	npc		 = 	VLK_436_Sonja;
+	nr		 = 	99;
+	condition	 = 	DIA_Sonja_ESCAPE_Condition;
+	information	 = 	DIA_Sonja_ESCAPE_Info;
+	permanent	 = 	TRUE;
+
+	description	 = 	"Lass uns abhauen ...";
+};
+
+func int DIA_Sonja_ESCAPE_Condition ()
+{
+    return SonjaFolgt;
+};
+
+func void DIA_Sonja_ESCAPE_Info ()
+{
+    Info_ClearChoices	(DIA_Sonja_ESCAPE);
+
+    if (CurrentLevel == DRAGONISLAND_ZEN)
+    {
+        Info_AddChoice	(DIA_Sonja_ESCAPE, "Zurück nach Khorinis ...", DIA_Sonja_ESCAPE_Khorinis);
+    }
+    else if (CurrentLevel == NEWWORLD_ZEN && Kapitel >= 6)
+    {
+        Info_AddChoice	(DIA_Sonja_ESCAPE, "Zurück nach Irdorath ...", DIA_Sonja_ESCAPE_Irdorath);
+    };
+
+    Info_AddChoice	(DIA_Sonja_ESCAPE, DIALOG_BACK, DIA_Sonja_ESCAPE_Back );
+};
+
+func void DIA_Sonja_ESCAPE_Back()
+{
+    Info_ClearChoices	(DIA_Sonja_ESCAPE);
+};
+
+func void DIA_Sonja_ESCAPE_Irdorath()
+{
+
+    DIA_Sonja_ESCAPE_Info();
+};
+
+func void DIA_Sonja_ESCAPE_Khorinis ()
+{
+    DIA_Sonja_ESCAPE_Info();
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -3047,16 +3266,20 @@ func void SonjaRespawnShadowBeastsKhorinis ()
     Wld_InsertNpc 	(Shadowbeast, 	"NW_TROLLAREA_RIVERSIDECAVE_07");
 };
 
-FUNC VOID DIA_Sonja_RESPAWN_Info()
+FUNC VOID DIA_Sonja_RESPAWN_Choices()
 {
-    AI_Output			(other, self, "DIA_Sonja_RESPAWN_15_00"); //Rufe alle wilden Tiere herbei ...
-
     Info_ClearChoices	(DIA_Sonja_HELP);
 
     Info_AddChoice		(DIA_Sonja_HELP, "Alle Schattenläufer in Khorinis"	,Sonja_RESPAWN_ShadowBeastsKhorinis);
     Info_AddChoice		(DIA_Sonja_HELP, "Alle Trolle in Khorinis"	,Sonja_RESPAWN_TrolleKhorinis);
 	Info_AddChoice		(DIA_Sonja_HELP, "Alle Tiere in Khorinis"	,Sonja_RESPAWN_Khorinis);
 	Info_AddChoice		(DIA_Sonja_HELP, DIALOG_BACK 		, DIA_Sonja_RESPAWN_BACK);
+};
+
+FUNC VOID DIA_Sonja_RESPAWN_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_RESPAWN_15_00"); //Rufe alle wilden Tiere herbei ...
+    DIA_Sonja_RESPAWN_Choices();
 };
 
 func void DIA_Sonja_RESPAWN_BACK()
@@ -3084,7 +3307,7 @@ FUNC VOID Sonja_RESPAWN_Khorinis()
         SonjaRespawnDays = 0;
     };
 
-    DIA_Sonja_RESPAWN_Info();
+    DIA_Sonja_RESPAWN_Choices();
 };
 
 FUNC VOID Sonja_RESPAWN_TrolleKhorinis()
@@ -3107,7 +3330,7 @@ FUNC VOID Sonja_RESPAWN_TrolleKhorinis()
         SonjaRespawnDays = 0;
     };
 
-    DIA_Sonja_RESPAWN_Info();
+    DIA_Sonja_RESPAWN_Choices();
 };
 
 FUNC VOID Sonja_RESPAWN_ShadowBeastsKhorinis()
@@ -3130,7 +3353,7 @@ FUNC VOID Sonja_RESPAWN_ShadowBeastsKhorinis()
         SonjaRespawnDays = 0;
     };
 
-    DIA_Sonja_RESPAWN_Info();
+    DIA_Sonja_RESPAWN_Choices();
 };
 
 func void SonjaRespawnItemsHerb()

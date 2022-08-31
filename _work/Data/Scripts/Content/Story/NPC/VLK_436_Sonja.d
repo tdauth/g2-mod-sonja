@@ -91,12 +91,30 @@ FUNC VOID Rtn_Follow_436 ()
 	TA_Follow_Player (20,00,08,00,"NW_CITY_PUFF_THRONE");
 };
 
+FUNC VOID Rtn_FollowOldWorld_436 ()
+{
+	TA_Follow_Player (08,00,20,00,"OC_CENTER_GUARD_03");
+	TA_Follow_Player (20,00,08,00,"OC_CENTER_GUARD_03");
+};
+
+FUNC VOID Rtn_FollowAddOnWorld_436 ()
+{
+	TA_Follow_Player (08,00,20,00,"ADW_ENTRANCE");
+	TA_Follow_Player (20,00,08,00,"ADW_ENTRANCE");
+};
+
+FUNC VOID Rtn_FollowDragonIsland_436 ()
+{
+	TA_Follow_Player (08,00,20,00,"SHIP");
+	TA_Follow_Player (20,00,08,00,"SHIP");
+};
+
 FUNC VOID Rtn_Wait_436 ()
 {
 	var string wpName;
 	wpName = Npc_GetNearestWP(self);
-	TA_Follow_Player (08,00,20,00,wpName);
-	TA_Follow_Player (20,00,08,00,wpName);
+	TA_Stand_Guarding (08,00,20,00,wpName);
+	TA_Stand_Guarding (20,00,08,00,wpName);
 };
 
 FUNC VOID Rtn_Pee_436 ()

@@ -82,9 +82,9 @@ func void B_ResetSonjaAttributesStartingFrom(var C_NPC slf, var int attrib)
 	var int next;
     next = attrib + 1;
 
-    if (attrib < ATR_INDEX_MAX)
+    if (next < ATR_INDEX_MAX)
     {
-        B_ResetSonjaAttributesStartingFrom(slf, attrib);
+        B_ResetSonjaAttributesStartingFrom(slf, next);
     };
 };
 

@@ -135,7 +135,8 @@ func void Use_SonjasListMissing ()
                     Doc_PrintLine	( nDocID,  0, "");
                     Doc_PrintLine	( nDocID,  0, "Alwin - will seine Frau nicht betruegen."					);
                     Doc_PrintLine	( nDocID,  0, "");
-                    Doc_PrintLine	( nDocID,  0, "Fellan - haemmern kann er, aber vom Nageln versteht er nichts."					);
+                    Doc_PrintLine	( nDocID,  0, "Fellan - hämmern kann er, aber vom Nageln"					);
+                    Doc_PrintLine	( nDocID,  0, "versteht er nichts.");
 
 					Doc_Show		( nDocID );
 
