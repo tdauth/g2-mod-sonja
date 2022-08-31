@@ -893,6 +893,11 @@ const string PRINT_LearnBow5				= "Bogen + 5";
 const string PRINT_LearnCrossBow1			= "Armbrust + 1";
 const string PRINT_LearnCrossBow5			= "Armbrust + 5";
 
+// Sonja
+
+const string PRINT_LearnHITPOINTS1			= "Leben + 1";
+const string PRINT_LearnHITPOINTS5			= "Leben + 5";
+
 
 
 // ************************************

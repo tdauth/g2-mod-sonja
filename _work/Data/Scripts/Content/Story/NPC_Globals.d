@@ -529,6 +529,26 @@ func void  B_InitNpcGlobals ()
  //----NewWorld----
     Sonja			= Hlp_GetNpc (VLK_436_Sonja);
 
+    if (Hlp_IsValidNpc(Sonja))
+    {
+        if (CurrentLevel == OLDWORLD_ZEN)
+        {
+            Npc_ExchangeRoutine	(Sonja,"STARTOLDWORLD");
+        }
+        else if (CurrentLevel == NEWWORLD_ZEN)
+        {
+            Npc_ExchangeRoutine	(Sonja,"START");
+        }
+        else if (CurrentLevel == ADDONWORLD_ZEN)
+        {
+            Npc_ExchangeRoutine	(Sonja,"STARTADDONWORLD");
+        }
+        else if (CurrentLevel == DRAGONISLAND_ZEN)
+        {
+            Npc_ExchangeRoutine	(Sonja,"STARTDRAGONISLAND");
+        };
+    };
+
 	Xardas 			= Hlp_GetNpc (NONE_100_Xardas);
 	Pyrokar 		= Hlp_GetNpc (KDF_500_Pyrokar);
 

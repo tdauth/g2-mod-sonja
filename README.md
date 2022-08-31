@@ -21,24 +21,24 @@ Sonja provides the following features:
 
 ## Modified Files
 
-* [VLK_436_Sonja.d](./_work/Data/Scripts/Content/Story/Dialoge/VLK_436_Sonja.d)
-* [DIA_VLK_436_Sonja.d](./_work/Data/Scripts/Content/Story/NPC/DIA_VLK_436_Sonja.d)
+* [VLK_436_Sonja.d](./_work/Data/Scripts/Content/Story/NPC/VLK_436_Sonja.d)
+* [DIA_VLK_436_Sonja.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_436_Sonja.d)
 * [IT_SonjaRune.d](./_work/Data/Scripts/Content/Items/IT_SonjaRune.d)
 * [Spell_SummonSonja.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_SummonSonja.d)
 * [Spell_Teleport_Alle.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_Teleport_Alle.d)
 * [Spell_ProcessMana.d](./_work/Data/Scripts/Content/AI/Magic/Spell_ProcessMana.d)
 * [B_GiveTradeInv_Sonja.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv_Sonja.d)
+* [B_AAA_ApplySonjaStats.d](./_work/Data/Scripts/Content/Story/B_Story/B_AAA_ApplySonjaStats.d)
 * [B_GivePlayerXP.d](./_work/Data/Scripts/Content/Story/B_Story/B_GivePlayerXP.d)
+* [B_Enter_DragonIsland.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_DragonIsland.d)
 * [B_Enter_SonjaWorld.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_SonjaWorld.d)
+* [B_TeachAttributePoints.d](./_work/Data/Scripts/Content/Story/B_Story/B_TeachAttributePoints.d)
 * [AI_Constants.d](./_work/Data/Scripts/Content/AI/AI_Intern/AI_Constants.d)
 * [ZS_Talk.d](./_work/Data/Scripts/Content/AI/Human/ZS_Human/ZS_Talk.d)
 * [B_AAA_AssignSonja.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_AssignSonja.d)
 * [B_AAA_Aufreissen.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Aufreissen.d)
 * [B_AAA_Pimp.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Pimp.d)
 * [MST_Meatbug.d](./_work/Data/Scripts/Content/Story/NPC/Monster/MST_Meatbug.d)
-* [B_AssignAmbientInfos_BAU_16.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_BAU_16.d)
-* [B_AssignAmbientInfos_VLK_16.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_VLK_16.d)
-* [B_AssignAmbientInfos_VLK_17.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AssignAmbientInfos_VLK_17.d)
 * [NPC_Globals.d](./_work/Data/Scripts/Content/Story/NPC_Globals.d)
 * [Text.d](./_work/Data/Scripts/Content/Story/Text.d)
 * [Startup.d](./_work/Data/Scripts/Content/Story/Startup.d)
@@ -63,10 +63,6 @@ Sonja provides the following features:
 * Add more companions to be purchased from Sonja like a mage, warrior, archer etc.
 * Add a real NSIS based installer (see [documentation](https://wiki.worldofgothic.de/doku.php?id=nsis)).
 * German dubbing. Find German voice actors for Sonja and the hero after completing all dialogs.
-
-## Dependencies
-
-* neocromicon: [PatchMenu - Ein eigenes Menü für Feature-Patches](https://www.worldofgothic.de/modifikation/download_674.htm)
 
 ## Credits
 

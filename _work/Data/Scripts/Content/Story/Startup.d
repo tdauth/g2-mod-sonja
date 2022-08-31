@@ -355,6 +355,9 @@ func void INIT_ADDON_PART_CANYON_01 ()
 //------------------------------------------------------------
 func void STARTUP_ADDON_PART_ENTRANCE_01 ()
 {
+    // Sonja
+	Wld_InsertNpc (VLK_436_Sonja	 	, "ADW_ENTRANCE");	//???
+
 	Wld_InsertNpc (KDW_14000_Addon_Saturas_ADW   ,"ADW_ENTRANCE");
 	Wld_InsertNpc (KDW_14010_Addon_Cronos_ADW    ,"ADW_ENTRANCE");
 	Wld_InsertNpc (KDW_14020_Addon_Nefarius_ADW  ,"ADW_ENTRANCE");
@@ -1420,6 +1423,9 @@ func void STARTUP_SURFACE ()
 //*******************************************************
 //		NSCs
 //*******************************************************
+
+    // Sonja
+	Wld_InsertNpc (VLK_436_Sonja	 	, "OC1");	//???
 	
 	//ITEMS
 
@@ -2502,6 +2508,8 @@ FUNC VOID INIT_SURFACE ()
 // ------  OLDWORLD.zen ------
 FUNC VOID INIT_OLDWORLD ()
 {
+    B_StoreSonjaStats(Sonja);
+
 	INIT_SUB_Oldcamp();
 	INIT_SUB_Demontower();
 	INIT_SUB_Surface();
@@ -2517,6 +2525,8 @@ FUNC VOID INIT_OLDWORLD ()
 		B_Kapitelwechsel (4, OLDWORLD_ZEN);
 		B_Chapter4_OneTime = TRUE;
 	};
+
+	B_ApplySonjaStats(Sonja);
 };
 
 FUNC VOID STARTUP_OLDWORLD ()
@@ -3928,7 +3938,7 @@ FUNC VOID INIT_NewWorld_Part_GreatPeasant_01 ()
 FUNC VOID STARTUP_NewWorld_Part_Pass_To_OW_01 ()
 {
 	// ------NSCs --------
-	
+
 	Wld_InsertNpc 	(PAL_297_Ritter, "NW_PASS_01");
 	Wld_InsertNpc 	(PAL_298_Ritter, "NW_PASS_01");
 	Wld_InsertItem 	(ItWr_HitPointStonePlate2_Addon, "FP_ITEM_PASS_01");

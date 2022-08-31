@@ -16,7 +16,8 @@ func void B_GiveNPCXP (var C_NPC self, var int add_xp)
 	var string concatText;
 	concatText = PRINT_XPGained;
 	concatText = ConcatStrings (concatText,	IntToString(add_xp));
-	PrintScreen	(concatText, -1, YPOS_XPGained, FONT_ScreenSmall, 2);
+	concatText = ConcatStrings (concatText,	" für Sonja");
+	PrintScreen	(concatText, -1, YPOS_XPGained + 5, FONT_ScreenSmall, 2);
 
 	//----------------------------------------------------------------------------
 	if ( self.exp >= self.exp_next ) // ( XP > (500*((hero.level+2)/2)*(hero.level+1)) )
@@ -36,6 +37,15 @@ func void B_GiveNPCXP (var C_NPC self, var int add_xp)
 		PrintScreen (concatText, -1, YPOS_LevelUp, FONT_Screen, 2);
 		Snd_Play ("LevelUp");
 	};
+};
+
+func void B_GiveSonjaRemainingXP()
+{
+     if (SonjasRemainingXP > 0)
+    {
+        B_GiveNPCXP(Sonja, SonjasRemainingXP);
+        SonjasRemainingXP = 0;
+    };
 };
 
 func void B_GivePlayerXP (var int add_xp)
@@ -72,14 +82,10 @@ func void B_GivePlayerXP (var int add_xp)
 	// Solange Sonja nicht freigekauft wurde, bekommt sie auch keine Erfahrung.
 	if (SonjaFolgt)
 	{
-        // Sonja ist in anderen Welten nicht verfuegbar. Die Erfahrung wird solange in SonjasRemainingXP gesammelt und dann bei der nÃ¤chsten Erfahrung vergeben.
+        // Sonja ist in anderen Welten nicht verfuegbar. Die Erfahrung wird solange in SonjasRemainingXP gesammelt und dann bei der nächsten Erfahrung vergeben.
         if (Hlp_IsValidNpc(Sonja))
         {
-            if (SonjasRemainingXP > 0)
-            {
-                B_GiveNPCXP(Sonja, SonjasRemainingXP);
-                SonjasRemainingXP = 0;
-            };
+            B_GiveSonjaRemainingXP();
 
             B_GiveNPCXP(Sonja, add_xp);
         }
@@ -87,6 +93,10 @@ func void B_GivePlayerXP (var int add_xp)
         {
             SonjasRemainingXP = add_xp;
         };
+    }
+    else
+    {
+        SonjasRemainingXP = add_xp;
     };
 };
 

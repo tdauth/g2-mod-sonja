@@ -384,6 +384,7 @@ func void DIA_Sonja_SKILL_Info ()
     Info_AddChoice		(DIA_Sonja_SKILL, "Talente"	,     DIA_Sonja_SKILL_Exact_Info);
 	Info_AddChoice		(DIA_Sonja_SKILL, "Attribute"	,     DIA_Sonja_STATS_Info);
     Info_AddChoice		(DIA_Sonja_SKILL, "Erfahrung"	,     DIA_Sonja_XP_Info);
+    Info_AddChoice		(DIA_Sonja_SKILL, "(Verbleibende Erfahrung geben)"	,     DIA_Sonja_XP_Add_Remaining);
     Info_AddChoice		(DIA_Sonja_SKILL, DIALOG_BACK 		,                 DIA_Sonja_SKILL_BACK);
 };
 
@@ -392,10 +393,24 @@ func void DIA_Sonja_SKILL_BACK ()
     Info_ClearChoices	(DIA_Sonja_SKILL);
 };
 
+func void DIA_Sonja_XP_Add_Remaining ()
+{
+    if (SonjasRemainingXP > 0)
+    {
+        B_GiveSonjaRemainingXP();
+    }
+    else
+    {
+        AI_Output (self, other, "DIA_Sonja_XP_16_00"); //Das weiß ich alles schon.
+    };
+
+    DIA_Sonja_SKILL_Info();
+};
+
 func void DIA_Sonja_XP_Info ()
 {
     AI_Output (other, self, "DIA_Sonja_XP_15_00"); //Wie erfahren bist du?
-    AI_Output (self, other, "DIA_Sonja_XP_16_00"); //Finde es heraus!
+    AI_Output (self, other, "DIA_Sonja_XP_16_01"); //Finde es heraus!
 
     var String levelText;
     var String lpText;
@@ -423,7 +438,7 @@ func void DIA_Sonja_XP_Info ()
 func void DIA_Sonja_STATS_Info ()
 {
     AI_Output (other, self, "DIA_Sonja_STATS_15_00"); //Wie stark bist du?
-    AI_Output (self, other, "DIA_Sonja_STATS_16_00"); //Finde es heraus!
+    AI_Output (self, other, "DIA_Sonja_STATS_16_01"); //Finde es heraus!
 
     var String hpText;
     var String manaText;
@@ -451,7 +466,7 @@ func void DIA_Sonja_STATS_Info ()
 func void DIA_Sonja_SKILL_Exact_Info ()
 {
     AI_Output (other, self, "DIA_Sonja_SKILL_15_00"); //Wie gut bist du ausgebildet?
-    AI_Output (self, other, "DIA_Sonja_SKILL_16_00"); //Finde es heraus!
+    AI_Output (self, other, "DIA_Sonja_STATS_16_01"); //Finde es heraus!
 
     var String text1H;
     var String text2H;
@@ -620,7 +635,23 @@ FUNC VOID DIA_Sonja_GoHome_Info()
 
 	self.aivar[AIV_PARTYMEMBER] = FALSE;
     self.flags = NPC_FLAG_IMMORTAL;
-	Npc_ExchangeRoutine	(self,"START");
+
+    if (CurrentLevel == OLDWORLD_ZEN)
+    {
+        Npc_ExchangeRoutine	(self,"STARTOLDWORLD");
+    }
+    else if (CurrentLevel == NEWWORLD_ZEN)
+    {
+        Npc_ExchangeRoutine	(self,"START");
+    }
+    else if (CurrentLevel == ADDONWORLD_ZEN)
+    {
+        Npc_ExchangeRoutine	(self,"STARTADDONWORLD");
+    }
+    else if (CurrentLevel == DRAGONISLAND_ZEN)
+    {
+        Npc_ExchangeRoutine	(self,"STARTDRAGONISLAND");
+    };
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -1124,12 +1155,19 @@ FUNC VOID DIA_Sonja_TRAINING_Info_Choices()
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Runenmagie"	,    DIA_Sonja_TRAINING_RUNES);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Alchemie"	,    DIA_Sonja_TRAINING_ALCHEMY);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Mana"	,    DIA_Sonja_TRAINING_MANA);
+	Info_AddChoice		(DIA_Sonja_TRAINING, "Leben"	,    DIA_Sonja_TRAINING_HITPOINTS);
+			//oth.attribute[ATR_HITPOINTS_MAX] = oth.attribute[ATR_HITPOINTS_MAX] + points;
+		//oth.attribute[ATR_HITPOINTS] = oth.attribute[ATR_HITPOINTS_MAX];
+
+		//concatText = ConcatStrings(PRINT_BlessHitpoints_MAX, IntToString(points));
+		//PrintScreen	(concatText, -1, -1, FONT_SCREEN, 2);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Armbrust"	,    DIA_Sonja_TRAINING_CROSSBOW);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Bogen"	,    DIA_Sonja_TRAINING_BOW);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Zweihandwaffen"	,    DIA_Sonja_TRAINING_TWO_HAND);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Einhandwaffen"	,    DIA_Sonja_TRAINING_ONE_HAND);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Geschick"	,    DIA_Sonja_TRAINING_DEX);
 	Info_AddChoice		(DIA_Sonja_TRAINING, "Stärke"	,    DIA_Sonja_TRAINING_STR);
+	Info_AddChoice		(DIA_Sonja_TRAINING, "(Alles Verlernen)"	,    DIA_Sonja_TRAINING_RESET);
 	Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK 		, DIA_Sonja_TRAINING_BACK);
 };
 
@@ -1146,17 +1184,28 @@ func void DIA_Sonja_TRAINING_BACK()
 	Info_ClearChoices (DIA_Sonja_TRAINING);
 };
 
+func void DIA_Sonja_TRAINING_RESET ()
+{
+    Info_ClearChoices (DIA_Sonja_TRAINING);
+    Info_AddChoice		(DIA_Sonja_TRAINING, "Ja"			,DIA_Sonja_Teach_Reset);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Info_Choices);
+};
+
+func void DIA_Sonja_Teach_Reset ()
+{
+    AI_Output			(other, self, "DIA_Sonja_TRAINING_15_01"); //Verlerne alles was ich dir beigebracht habe.
+
+    B_ResetSonja(self);
+
+    DIA_Sonja_TRAINING_Info_Choices();
+};
+
 func void DIA_Sonja_TRAINING_STR ()
 {
     Info_ClearChoices (DIA_Sonja_TRAINING);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnSTR1			, B_GetLearnCostAttribute(other, ATR_STRENGTH))			,DIA_Sonja_Teach_STR_1);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnSTR5			, B_GetLearnCostAttribute(other, ATR_STRENGTH)*5)		,DIA_Sonja_Teach_STR_5);
-    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Teach_Back);
-};
-
-FUNC VOID DIA_Sonja_TRAINING_Teach_Back ()
-{
-	DIA_Sonja_TRAINING_Info_Choices();
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Info_Choices);
 };
 
 FUNC VOID DIA_Sonja_Teach_STR_1 ()
@@ -1178,7 +1227,7 @@ func void DIA_Sonja_TRAINING_DEX ()
 	Info_ClearChoices (DIA_Sonja_TRAINING);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnDEX1			, B_GetLearnCostAttribute(other, ATR_DEXTERITY))			,DIA_Sonja_Teach_DEX_1);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnDEX5			, B_GetLearnCostAttribute(other, ATR_DEXTERITY)*5)		,DIA_Sonja_Teach_DEX_5);
-    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Teach_Back);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Info_Choices);
 };
 
 FUNC VOID DIA_Sonja_Teach_DEX_1 ()
@@ -1200,7 +1249,7 @@ func void DIA_Sonja_TRAINING_ONE_HAND ()
 	Info_ClearChoices (DIA_Sonja_TRAINING);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_Learn1h1	, B_GetLearnCostTalent(other, NPC_TALENT_1H, 1))			,DIA_Sonja_Teach_1H_1);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_Learn1h5	, B_GetLearnCostTalent(other, NPC_TALENT_1H, 1)*5)		,DIA_Sonja_Teach_1H_5);
-    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Teach_Back);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Info_Choices);
 };
 
 func VOID DIA_Sonja_Teach_1H_1()
@@ -1223,7 +1272,7 @@ func void DIA_Sonja_TRAINING_TWO_HAND ()
 	Info_ClearChoices (DIA_Sonja_TRAINING);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_Learn2h1	, B_GetLearnCostTalent(other, NPC_TALENT_2H, 1))			,DIA_Sonja_Teach_2H_1);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_Learn2h5	, B_GetLearnCostTalent(other, NPC_TALENT_2H, 1)*5)		,DIA_Sonja_Teach_2H_5);
-    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Teach_Back);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Info_Choices);
 };
 
 func VOID DIA_Sonja_Teach_2H_1()
@@ -1245,7 +1294,7 @@ func void DIA_Sonja_TRAINING_BOW ()
 	Info_ClearChoices (DIA_Sonja_TRAINING);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnBow1	, B_GetLearnCostTalent(other, NPC_TALENT_BOW, 1))			,DIA_Sonja_Teach_Bow_1);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnBow5	, B_GetLearnCostTalent(other, NPC_TALENT_BOW, 1)*5)		,DIA_Sonja_Teach_Bow_5);
-    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Teach_Back);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Info_Choices);
 };
 
 func VOID DIA_Sonja_Teach_Bow_1()
@@ -1267,7 +1316,7 @@ func void DIA_Sonja_TRAINING_CROSSBOW ()
 	Info_ClearChoices (DIA_Sonja_TRAINING);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnCrossBow1	, B_GetLearnCostTalent(other, NPC_TALENT_CROSSBOW, 1))			,DIA_Sonja_Teach_CrossBow_1);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnCrossBow5	, B_GetLearnCostTalent(other, NPC_TALENT_CROSSBOW, 1)*5)		,DIA_Sonja_Teach_CrossBow_5);
-    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Teach_Back);
+    Info_AddChoice		(DIA_Sonja_TRAINING, DIALOG_BACK, DIA_Sonja_TRAINING_Info_Choices);
 };
 
 func VOID DIA_Sonja_Teach_CrossBow_1()
@@ -1284,13 +1333,35 @@ FUNC VOID DIA_Sonja_Teach_CrossBow_5()
 	DIA_Sonja_TRAINING_CROSSBOW();
 };
 
+func void DIA_Sonja_TRAINING_HITPOINTS ()
+{
+    Info_ClearChoices   (DIA_Sonja_TRAINING);
+
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnHITPOINTS1			, B_GetLearnCostAttribute(other, ATR_HITPOINTS_MAX))			,DIA_Sonja_TEACH_HITPOINTS_1);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnHITPOINTS5			, B_GetLearnCostAttribute(other, ATR_HITPOINTS_MAX)*5)		,DIA_Sonja_TEACH_HITPOINTS_5);
+    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_TRAINING_Info_Choices);
+};
+
+FUNC VOID DIA_Sonja_TEACH_HITPOINTS_1()
+{
+	B_TeachAttributePoints (other, self, ATR_HITPOINTS_MAX, 1, T_MEGA);
+
+	DIA_Sonja_TRAINING_HITPOINTS();
+};
+FUNC VOID DIA_Sonja_TEACH_HITPOINTS_5()
+{
+	B_TeachAttributePoints (other, self, ATR_HITPOINTS_MAX, 5, T_MEGA);
+
+	DIA_Sonja_TRAINING_HITPOINTS();
+};
+
 func void DIA_Sonja_TRAINING_MANA ()
 {
 	Info_ClearChoices   (DIA_Sonja_TRAINING);
 
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnMANA1			, B_GetLearnCostAttribute(other, ATR_MANA_MAX))			,DIA_Sonja_TEACH_MANA_1);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnMANA5			, B_GetLearnCostAttribute(other, ATR_MANA_MAX)*5)		,DIA_Sonja_TEACH_MANA_5);
-    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_TRAINING_Teach_Back);
+    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_TRAINING_Info_Choices);
 };
 
 FUNC VOID DIA_Sonja_TEACH_MANA_1()
@@ -1317,14 +1388,14 @@ func void DIA_Sonja_TRAINING_RUNES ()
     Info_AddChoice		(DIA_Sonja_TRAINING, PRINT_LearnCircle_2, DIA_Sonja_TEACH_MAGIC_CIRCLE_2);
     Info_AddChoice		(DIA_Sonja_TRAINING, PRINT_LearnCircle_1, DIA_Sonja_TEACH_MAGIC_CIRCLE_1);
 
-    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_TRAINING_Teach_Back);
+    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_TRAINING_Info_Choices);
 };
 
 func void DIA_Sonja_TEACH_MAGIC_CIRCLE_1 ()
 {
     if (B_TeachMagicCircle (other,self, 1))
     {
-        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_01"); //Du bist bist nun im ersten Kreis der Magie.
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_02"); //Du bist bist nun im ersten Kreis der Magie.
     };
 
 	DIA_Sonja_TRAINING_RUNES();
@@ -1334,7 +1405,7 @@ func void DIA_Sonja_TEACH_MAGIC_CIRCLE_2 ()
 {
     if (B_TeachMagicCircle (other,self, 2))
     {
-        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_02"); //Du bist bist nun im zweiten Kreis der Magie.
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_03"); //Du bist bist nun im zweiten Kreis der Magie.
     };
 
 	DIA_Sonja_TRAINING_RUNES();
@@ -1344,7 +1415,7 @@ func void DIA_Sonja_TEACH_MAGIC_CIRCLE_3 ()
 {
     if (B_TeachMagicCircle (other,self, 3))
     {
-        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_03"); //Du bist bist nun im dritten Kreis der Magie.
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_04"); //Du bist bist nun im dritten Kreis der Magie.
     };
 
 	DIA_Sonja_TRAINING_RUNES();
@@ -1354,7 +1425,7 @@ func void DIA_Sonja_TEACH_MAGIC_CIRCLE_4 ()
 {
     if (B_TeachMagicCircle (other,self, 4))
     {
-        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_04"); //Du bist bist nun im vierten Kreis der Magie.
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_05"); //Du bist bist nun im vierten Kreis der Magie.
     };
 
 	DIA_Sonja_TRAINING_RUNES();
@@ -1364,7 +1435,7 @@ func void DIA_Sonja_TEACH_MAGIC_CIRCLE_5 ()
 {
     if (B_TeachMagicCircle (other,self, 5))
     {
-        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_05"); //Du bist bist nun im fünften Kreis der Magie.
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_06"); //Du bist bist nun im fünften Kreis der Magie.
     };
 
 	DIA_Sonja_TRAINING_RUNES();
@@ -1374,7 +1445,7 @@ func void DIA_Sonja_TEACH_MAGIC_CIRCLE_6 ()
 {
     if (B_TeachMagicCircle (other,self, 6))
     {
-        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_06"); //Du bist bist nun im sechsten Kreis der Magie.
+        AI_Output			(other, self, "DIA_Sonja_TRAINING_15_07"); //Du bist bist nun im sechsten Kreis der Magie.
     };
 
 	DIA_Sonja_TRAINING_RUNES();
@@ -1389,14 +1460,14 @@ func void DIA_Sonja_TRAINING_MORE ()
 {
 	Info_ClearChoices   (DIA_Sonja_TRAINING);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString("Schleichen", B_GetLearnCostTalent(self, NPC_TALENT_SNEAK, 1)), DIA_Sonja_TEACH_SNEAK);
-    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_TRAINING_Teach_Back);
+    Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_TRAINING_Info_Choices);
 };
 
 func void DIA_Sonja_TEACH_SNEAK ()
 {
     if (B_TeachThiefTalent (other, self, NPC_TALENT_SNEAK))
 	{
-		AI_Output (self, other, "DIA_Sonja_TRAINING_15_07");//Du kannst jetzt schleichen.
+		AI_Output (self, other, "DIA_Sonja_TRAINING_15_08");//Du kannst jetzt schleichen.
 	};
 
 	DIA_Sonja_TRAINING_MORE();
@@ -3405,7 +3476,12 @@ func void DIA_Sonja_SLEEP_BACK()
 func void Sonja_SleepTime_Morning_Info ()
 {
 	PC_Sleep (8);
-	AI_StopProcessInfos (self);
+	self.aivar[AIV_PARTYMEMBER] = FALSE;
+	self.flags = NPC_FLAG_IMMORTAL;
+
+	AI_StopProcessInfos	(self);
+
+	Npc_ExchangeRoutine	(self,"WAIT");
 };
 
 //--------------------- mittags -----------------------------------------
@@ -3413,7 +3489,12 @@ func void Sonja_SleepTime_Morning_Info ()
 func void Sonja_SleepTime_Noon_Info ()
 {
 	PC_Sleep (12);
-	AI_StopProcessInfos (self);
+	self.aivar[AIV_PARTYMEMBER] = FALSE;
+	self.flags = NPC_FLAG_IMMORTAL;
+
+	AI_StopProcessInfos	(self);
+
+	Npc_ExchangeRoutine	(self,"WAIT");
 };
 
 //---------------------- abend --------------------------------------
@@ -3421,7 +3502,12 @@ func void Sonja_SleepTime_Noon_Info ()
 func void Sonja_SleepTime_Evening_Info ()
 {
 	PC_Sleep (20);
-	AI_StopProcessInfos (self);
+	self.aivar[AIV_PARTYMEMBER] = FALSE;
+	self.flags = NPC_FLAG_IMMORTAL;
+
+	AI_StopProcessInfos	(self);
+
+	Npc_ExchangeRoutine	(self,"WAIT");
 };
 
 //------------------------ nacht -----------------------------------------
@@ -3429,7 +3515,12 @@ func void Sonja_SleepTime_Evening_Info ()
 func VOID Sonja_SleepTime_Midnight_Info()
 {
 	PC_Sleep (0);
-	AI_StopProcessInfos (self);
+	self.aivar[AIV_PARTYMEMBER] = FALSE;
+	self.flags = NPC_FLAG_IMMORTAL;
+
+	AI_StopProcessInfos	(self);
+
+	Npc_ExchangeRoutine	(self,"WAIT");
 };
 
 
