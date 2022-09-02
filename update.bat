@@ -3,6 +3,7 @@ copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Items\IT_SonjaRune.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Items"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\AI\AI_Intern\AI_Constants.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\AI\AI_Intern"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\AI\Human\ZS_Human\ZS_Talk.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\AI\Human\ZS_Human"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\AI\Magic\Spells\Spell_SummonDragon.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\AI\Magic\Spells"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\AI\Magic\Spells\Spell_SummonSonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\AI\Magic\Spells"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\AI\Magic\Spells\Spell_Teleport_Alle.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\AI\Magic\Spells"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\AI\Magic\Spell_ProcessMana.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\AI\Magic"
@@ -15,18 +16,19 @@ copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos\B_AAA_AssignSonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos\B_AAA_Aufreissen.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos\B_AAA_Pimp.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\NPC\Monster\MST_Dragon_Sonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\NPC\Monster"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\NPC\Monster\MST_Meatbug.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\NPC\Monster"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\NPC_Globals.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Text.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Startup.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Gothic.src" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\_intern\Constants.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\_intern"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\System\VisualFX\VisualFxInst.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\System\VisualFX"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Worlds\Sonja\DieGestrandeten.zen" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Worlds\Sonja"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\_compiled\OUINFO.INF" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\_compiled"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\content\CUTSCENE\OU.BIN" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\content\CUTSCENE
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\content\CUTSCENE\OU.CS" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\content\CUTSCENE"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\System\Sonja.ini" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\System"
-copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\System\MENU\Menu_Opt_Sonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\System\MENU"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\System\MENU\Menu_Status.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\System\MENU"
 
 pause

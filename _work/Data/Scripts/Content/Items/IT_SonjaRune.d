@@ -337,3 +337,35 @@ FUNC VOID Use_Pimp()
 					Doc_PrintLines	( nDocID,  1, "");
 					Doc_Show		( nDocID );
 };
+
+//**********************************************************************************
+//	ItRu_SummonDragon
+//**********************************************************************************
+
+INSTANCE ItRu_SummonDragon (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Ru_SummonDragon;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_STONE;
+
+	spell				= 	SPL_SummonDragon;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER_RED";
+
+	description			=	NAME_SPL_SummonDragon;
+	TEXT	[0]			=	NAME_Mag_Circle;
+	COUNT	[0]			=	mag_circle;
+
+	TEXT	[1]			=	NAME_Manakosten;
+	COUNT	[1]			=	SPL_COST_SUMMONDRAGON;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
