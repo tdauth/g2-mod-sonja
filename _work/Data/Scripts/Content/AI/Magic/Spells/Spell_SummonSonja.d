@@ -40,14 +40,43 @@ func void Spell_Cast_SummonSonja()
 	var string wpName;
 	wpName = Npc_GetNearestWP(hero);
 
-	if (Npc_IsDead(Sonja))
+	if (Hlp_IsValidNpc(Sonja))
 	{
-        Sonja.attribute[ATR_HITPOINTS] = Sonja.attribute[ATR_HITPOINTS_MAX];
-		PrintScreen ("Sonja wiederbelebt!", - 1, - 1, FONT_Screen, 2);
-	};
+        if (Npc_IsDead(Sonja))
+        {
+            Sonja.attribute[ATR_HITPOINTS] = Sonja.attribute[ATR_HITPOINTS_MAX];
+            PrintScreen ("Sonja wiederbelebt!", - 1, - 1, FONT_Screen, 2);
 
-	AI_Teleport(Sonja, wpName);
-	//AI_GotoNpc(VLK_436_Sonja, hero);
+            Sonja.aivar[AIV_PARTYMEMBER] = TRUE;
+
+            if (CurrentLevel == OLDWORLD_ZEN)
+            {
+                Npc_ExchangeRoutine	(Sonja,"FOLLOWOLDWORLD");
+            }
+            else if (CurrentLevel == NEWWORLD_ZEN)
+            {
+                Npc_ExchangeRoutine	(Sonja,"FOLLOW");
+            }
+            else if (CurrentLevel == ADDONWORLD_ZEN)
+            {
+                Npc_ExchangeRoutine	(Sonja, "FOLLOWADDONWORLD");
+            }
+            else if (CurrentLevel == DRAGONISLAND_ZEN)
+            {
+                Npc_ExchangeRoutine	(Sonja,"FOLLOWDRAGONISLAND");
+            };
+
+            Sonja.aivar[AIV_PARTYMEMBER] = TRUE;
+            Sonja.flags = 0; // NPC_FLAG_IMMORTAL
+        };
+
+        AI_Teleport(Sonja, wpName);
+        //AI_GotoNpc(VLK_436_Sonja, hero);
+    }
+    else
+    {
+        PrintScreen ("Sonja ist nicht zu finden!", - 1, - 1, FONT_Screen, 2);
+    };
 
 	self.aivar[AIV_SelectSpell] += 1;
 };

@@ -5,9 +5,9 @@
 PROTOTYPE Mst_Default_Dragon_Sonja(C_Npc)
 {
 	name							= "Beschworener Drache";
-	guild							= GIL_DRAGON;
+	guild							= GIL_SUMMONED_DRAGON;
 	aivar[AIV_MM_REAL_ID]			= ID_DRAGON_FIRE;
-	level							= 500;
+	level							= 0;
 	
 	bodyStateInterruptableOverride = TRUE;
 	

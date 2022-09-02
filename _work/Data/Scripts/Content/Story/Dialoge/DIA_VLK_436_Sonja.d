@@ -253,6 +253,28 @@ func void DIA_Sonja_FREIKAUFEN_Info ()
     SonjaGefragt = TRUE;
 };
 
+///////////////////////////////////////////////////////////////////////
+//	Info HERBEIRUFEN
+///////////////////////////////////////////////////////////////////////
+instance DIA_Sonja_HERBEIRUFEN		(C_INFO)
+{
+	npc			 = 	VLK_436_Sonja;
+	condition	 = 	DIA_Sonja_HERBEIRUFEN_Condition;
+	information	 = 	DIA_Sonja_HERBEIRUFEN_Info;
+	permanent	 = 	FALSE;
+	description  =  "Wie kann ich dich rufen?";
+};
+
+func int DIA_Sonja_HERBEIRUFEN_Condition ()
+{
+	return SonjaFolgt == TRUE;
+};
+
+func void DIA_Sonja_HERBEIRUFEN_Info ()
+{
+    AI_Output (other, self, "DIA_Sonja_HERBEIRUFEN_15_00"); //Wie kann ich dich rufen, wenn ich in Not bin?
+    AI_Output (self, other, "DIA_Sonja_HERBEIRUFEN_16_00"); //Vatras hat mir eine Rune gebastelt, mit der er mich jederzeit beschwören konnte, nachdem seine Predigt fertig war. Ich habe noch welche bei mir. Kauf sie mir einfach ab.
+};
 
 ///////////////////////////////////////////////////////////////////////
 //	Info PEOPLE
