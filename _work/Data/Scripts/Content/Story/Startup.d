@@ -2508,8 +2508,6 @@ FUNC VOID INIT_SURFACE ()
 // ------  OLDWORLD.zen ------
 FUNC VOID INIT_OLDWORLD ()
 {
-    B_StoreSonjaStats(Sonja);
-
 	INIT_SUB_Oldcamp();
 	INIT_SUB_Demontower();
 	INIT_SUB_Surface();
@@ -2525,8 +2523,6 @@ FUNC VOID INIT_OLDWORLD ()
 		B_Kapitelwechsel (4, OLDWORLD_ZEN);
 		B_Chapter4_OneTime = TRUE;
 	};
-
-	B_ApplySonjaStats(Sonja);
 };
 
 FUNC VOID STARTUP_OLDWORLD ()

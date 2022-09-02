@@ -1,4 +1,4 @@
-var int SonjaFolgt;							//= TRUE Sonja folgt.
+var int SonjaFolgt;							//= TRUE Sonja wurde freigekauft.
 var int SonjaGeheiratet;					//= TRUE Sonja geheiratet.
 var int SonjaGefragt;						//= TRUE Sonja nach Freikaufen gefragt.
 var int SonjaSummonDays;
@@ -269,7 +269,7 @@ instance DIA_Sonja_PEOPLE		(C_INFO)
 
 func int DIA_Sonja_PEOPLE_Condition ()
 {
-	return SonjaFolgt;
+	return SonjaFolgt == TRUE;
 };
 
 func void DIA_Sonja_PEOPLE_Info ()
@@ -374,7 +374,7 @@ instance DIA_Sonja_NOT_YET		(C_INFO)
 
 func int DIA_Sonja_NOT_YET_Condition ()
 {
-	return SonjaFolgt;
+	return SonjaFolgt == TRUE;
 };
 
 func void DIA_Sonja_NOT_YET_Info ()
@@ -862,7 +862,7 @@ instance DIA_Sonja_VIDEOS		(C_INFO)
 
 func int DIA_Sonja_VIDEOS_Condition ()
 {
-    return SonjaFolgt;
+    return SonjaFolgt == TRUE;
 };
 
 func void DIA_Sonja_VIDEOS_Info ()
@@ -995,17 +995,17 @@ func void DIA_Sonja_VIDEOS_UndeadDragonDeath()
 instance DIA_Sonja_ESCAPE		(C_INFO)
 {
 	npc		 = 	VLK_436_Sonja;
-	nr		 = 	99;
+	nr		 = 	3;
 	condition	 = 	DIA_Sonja_ESCAPE_Condition;
 	information	 = 	DIA_Sonja_ESCAPE_Info;
 	permanent	 = 	TRUE;
 
-	description	 = 	"Lass uns abhauen ...";
+	description	 = 	"(Levelwechsel)";
 };
 
 func int DIA_Sonja_ESCAPE_Condition ()
 {
-    return SonjaFolgt;
+    return SonjaFolgt == TRUE;
 };
 
 func void DIA_Sonja_ESCAPE_Info ()
@@ -1021,12 +1021,38 @@ func void DIA_Sonja_ESCAPE_Info ()
         Info_AddChoice	(DIA_Sonja_ESCAPE, "Zurück nach Irdorath ...", DIA_Sonja_ESCAPE_Irdorath);
     };
 
+    Info_AddChoice	(DIA_Sonja_ESCAPE, "(Werte von Levelwechsel laden)", DIA_Sonja_ESCAPE_Apply );
+    Info_AddChoice	(DIA_Sonja_ESCAPE, "(Werte für Levelwechsel speichern)", DIA_Sonja_ESCAPE_Store );
     Info_AddChoice	(DIA_Sonja_ESCAPE, DIALOG_BACK, DIA_Sonja_ESCAPE_Back );
 };
 
 func void DIA_Sonja_ESCAPE_Back()
 {
     Info_ClearChoices	(DIA_Sonja_ESCAPE);
+};
+
+func void DIA_Sonja_ESCAPE_Store()
+{
+    if (B_StoreSonjaStats(self))
+    {
+        AI_Output			(self, other, "DIA_Sonja_ESCAPE_16_00"); //Los geht's! Ich habe mir alles gemerkt.
+    } else {
+        AI_Output			(self, other, "DIA_Sonja_ESCAPE_16_01"); //Ich kann mir nichts merken!
+    };
+
+    DIA_Sonja_ESCAPE_Info();
+};
+
+func void DIA_Sonja_ESCAPE_Apply()
+{
+    if (B_ApplySonjaStats(self))
+    {
+        AI_Output			(self, other, "DIA_Sonja_ESCAPE_16_02"); //Ich weiß immer noch alles!
+    } else {
+        AI_Output			(self, other, "DIA_Sonja_ESCAPE_16_03"); //Ich kann mich nicht mehr erinnern!
+    };
+
+    DIA_Sonja_ESCAPE_Info();
 };
 
 func void DIA_Sonja_ESCAPE_Irdorath()
@@ -1056,7 +1082,7 @@ instance DIA_Sonja_WAREZ		(C_INFO)
 
 func int DIA_Sonja_WAREZ_Condition ()
 {
-	return SonjaFolgt;
+	return SonjaFolgt == TRUE;
 };
 
 var int SonjaSummonHint;
@@ -1735,8 +1761,6 @@ func void DIA_Sonja_CHANGE_Back()
 
 FUNC VOID DIA_Sonja_WALKMODE_Action()
 {
-	AI_Output (other, self, "DIA_Sonja_WALKMODE_15_00");//Ändere deine Gangart!
-
 	Info_ClearChoices   (DIA_Sonja_CHANGE);
 	if (Npc_GetTalentSkill(self, NPC_TALENT_SNEAK) == 1)
 	{

@@ -5702,28 +5702,28 @@ instance spellFX_SummonSonja		(CFx_Base_Proto)
 		emtrjmode_s 		= "FIXED";
 		emTrjOriginNode 	= "ZS_RIGHTHAND";
 		LightPresetname 	= "REDAMBIENCE";
+};
 
-		};
+instance spellFX_SummonSonja_KEY_OPEN	(C_ParticleFXEmitKey)
+{
+        LightRange = 0.01;
+};
 
-		instance spellFX_SummonSonja_KEY_OPEN	(C_ParticleFXEmitKey)
-		{
-				LightRange = 0.01;
-		};
+instance spellFX_SummonSonja_KEY_INIT		(C_ParticleFXEmitKey)
+{
+        LightRange = 0.01;
+};
 
-		instance spellFX_SummonSonja_KEY_INIT		(C_ParticleFXEmitKey)
-		{
-				LightRange = 0.01;
-		};
+instance spellFX_SummonSonja_KEY_INVEST_1 (C_ParticleFXEmitKey)
+{
+    LightRange = 200;
+    emCreateFXID = 	"FX_EarthQuake";
+};
 
-		instance spellFX_SummonSonja_KEY_INVEST_1 (C_ParticleFXEmitKey)
-		{
-			LightRange = 200;
-			emCreateFXID = 	"FX_EarthQuake";
-		};
-		instance spellFX_SummonSonja_KEY_CAST		(C_ParticleFXEmitKey)
-		{
-			emCreateFXID		= "spellFX_SummonSonja_ORIGIN";
-			pfx_ppsisloopingchg = 1;
+instance spellFX_SummonSonja_KEY_CAST		(C_ParticleFXEmitKey)
+{
+    emCreateFXID		= "spellFX_SummonCreature_ORIGIN";
+    pfx_ppsisloopingchg = 1;
 };
 
 instance spellFX_SummonDragon		(CFx_Base_Proto)
@@ -5734,26 +5734,26 @@ instance spellFX_SummonDragon		(CFx_Base_Proto)
 		emtrjmode_s 		= "FIXED";
 		emTrjOriginNode 	= "ZS_RIGHTHAND";
 		LightPresetname 	= "REDAMBIENCE";
+};
 
-		};
+instance spellFX_SummonDragon_KEY_OPEN	(C_ParticleFXEmitKey)
+{
+        LightRange = 0.01;
+};
 
-		instance spellFX_SummonDragon_KEY_OPEN	(C_ParticleFXEmitKey)
-		{
-				LightRange = 0.01;
-		};
+instance spellFX_SummonDragon_KEY_INIT		(C_ParticleFXEmitKey)
+{
+        LightRange = 0.01;
+};
 
-		instance spellFX_SummonDragon_KEY_INIT		(C_ParticleFXEmitKey)
-		{
-				LightRange = 0.01;
-		};
+instance spellFX_SummonDragon_KEY_INVEST_1 (C_ParticleFXEmitKey)
+{
+    LightRange = 200;
+    emCreateFXID = 	"FX_EarthQuake";
+};
 
-		instance spellFX_SummonDragon_KEY_INVEST_1 (C_ParticleFXEmitKey)
-		{
-			LightRange = 200;
-			emCreateFXID = 	"FX_EarthQuake";
-		};
-		instance spellFX_SummonDragon_KEY_CAST		(C_ParticleFXEmitKey)
-		{
-			emCreateFXID		= "spellFX_SummonDragon_ORIGIN";
-			pfx_ppsisloopingchg = 1;
+instance spellFX_SummonDragon_KEY_CAST		(C_ParticleFXEmitKey)
+{
+    emCreateFXID		= "spellFX_SummonCreature_ORIGIN";
+    pfx_ppsisloopingchg = 1;
 };

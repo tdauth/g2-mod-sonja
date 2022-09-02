@@ -69,8 +69,8 @@ FUNC VOID Rtn_Start_436 ()
 
 FUNC VOID Rtn_StartOldWorld_436 ()
 {
-    TA_Stand_Guarding		(08,00,23,00,"OC_CENTER_GUARD_03");
-    TA_Stand_Guarding		(23,00,08,00,"OC_CENTER_GUARD_03");
+    TA_Stand_Guarding		(08,00,23,00,"SPAWN_MOLERAT02_SPAWN01");
+    TA_Stand_Guarding		(23,00,08,00,"SPAWN_MOLERAT02_SPAWN01");
 };
 
 FUNC VOID Rtn_StartAddOnWorld_436 ()
@@ -93,8 +93,8 @@ FUNC VOID Rtn_Follow_436 ()
 
 FUNC VOID Rtn_FollowOldWorld_436 ()
 {
-	TA_Follow_Player (08,00,20,00,"OC_CENTER_GUARD_03");
-	TA_Follow_Player (20,00,08,00,"OC_CENTER_GUARD_03");
+	TA_Follow_Player (08,00,20,00,"SPAWN_MOLERAT02_SPAWN01");
+	TA_Follow_Player (20,00,08,00,"SPAWN_MOLERAT02_SPAWN01");
 };
 
 FUNC VOID Rtn_FollowAddOnWorld_436 ()

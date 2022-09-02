@@ -221,7 +221,8 @@ CONST STRING TXT_GUILDS	[GIL_MAX] =	{
 	"Drakonier"		,
 	"X"				,
 	"Y"				,
-	"Z"				
+	"Z"				,
+	"Drache" // Sonja
 };
 
 
@@ -373,7 +374,8 @@ const string TXT_SPELLS[MAX_SPELL] =
 	// Sonja
 	"Sonja herbeirufen",		 // 100	SPL_SummonSonja
 	"Zu Sonja",		             // 101	SPL_teleportSonja
-	"Zur Roten Laterne"		     // 102	SPL_TeleportRoteLaterne
+	"Zur Roten Laterne",		 // 102	SPL_TeleportRoteLaterne
+	"Drachen herbeirufen"        // 103 SPL_SummonDragon
 };
 
 ////////////////////////////////////////////////////////////////////////////////

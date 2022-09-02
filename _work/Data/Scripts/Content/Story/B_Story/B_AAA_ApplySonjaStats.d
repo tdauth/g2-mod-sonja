@@ -30,87 +30,111 @@ var int SonjaEquippedMeleeWeapon;
 var int SonjaEquippedRangedWeapon;
 var int SonjaInventoryItem[100];
 
+var int SonjaLoad;
+
 // Erlerntes Speichern für Reset
 var int SonjaRaisedAttributes[ATR_INDEX_MAX];
 var int SonjaRaisedAttributesSpentLP[ATR_INDEX_MAX];
 
-func void B_StoreSonjaStats(var C_NPC slf)
+func int B_StoreSonjaStats(var C_NPC slf)
 {
-    SonjaLP = slf.lp;
-    SonjaEXP = slf.exp;
-    SonjaEXP_NEXT = slf.exp_next;
-    SonjaLevel = slf.level;
+    if (Hlp_IsValidNpc(slf))
+    {
+        SonjaLP = slf.lp;
+        SonjaEXP = slf.exp;
+        SonjaEXP_NEXT = slf.exp_next;
+        SonjaLevel = slf.level;
 
-    SonjaSTR = slf.attribute[ATR_STRENGTH];
-    SonjaDEX = slf.attribute[ATR_DEXTERITY];
-    SonjaMANA_MAX = slf.attribute[ATR_MANA_MAX];
-    SonjaHP_MAX = slf.attribute[ATR_HITPOINTS_MAX];
-    SonjaHitChance1H = slf.aivar[REAL_TALENT_1H];
-    SonjaHitChance2H = slf.aivar[REAL_TALENT_2H];
-    SonjaHitChanceBow = slf.aivar[REAL_TALENT_BOW];
-    SonjaHitChanceCrossBow = slf.aivar[REAL_TALENT_CROSSBOW];
+        SonjaSTR = slf.attribute[ATR_STRENGTH];
+        SonjaDEX = slf.attribute[ATR_DEXTERITY];
+        SonjaMANA_MAX = slf.attribute[ATR_MANA_MAX];
+        SonjaHP_MAX = slf.attribute[ATR_HITPOINTS_MAX];
+        SonjaHitChance1H = slf.aivar[REAL_TALENT_1H];
+        SonjaHitChance2H = slf.aivar[REAL_TALENT_2H];
+        SonjaHitChanceBow = slf.aivar[REAL_TALENT_BOW];
+        SonjaHitChanceCrossBow = slf.aivar[REAL_TALENT_CROSSBOW];
 
-    SonjaTalentMage = Npc_GetTalentSkill(slf, NPC_TALENT_MAGE);
-    SonjaTalentSneak = Npc_GetTalentSkill(slf, NPC_TALENT_SNEAK);
-    SonjaTalentAcrobat = Npc_GetTalentSkill(slf, NPC_TALENT_ACROBAT);
+        SonjaTalentMage = Npc_GetTalentSkill(slf, NPC_TALENT_MAGE);
+        SonjaTalentSneak = Npc_GetTalentSkill(slf, NPC_TALENT_SNEAK);
+        SonjaTalentAcrobat = Npc_GetTalentSkill(slf, NPC_TALENT_ACROBAT);
 
-    SonjaEquippedArmor = Hlp_GetInstanceID(Npc_GetEquippedArmor());
-    SonjaEquippedMeleeWeapon = Hlp_GetInstanceID(Npc_GetEquippedMeleeWeapon());
-    SonjaEquippedRangedWeapon = Hlp_GetInstanceID(Npc_GetEquippedRangedWeapon());
+        var c_item equippedItem;
+        equippedItem = Npc_GetEquippedArmor(slf);
+        SonjaEquippedArmor = Hlp_GetInstanceID(equippedItem);
+        equippedItem = Npc_GetEquippedMeleeWeapon(slf);
+        SonjaEquippedMeleeWeapon = Hlp_GetInstanceID(equippedItem);
+        equippedItem = Npc_GetEquippedRangedWeapon(slf);
+        SonjaEquippedRangedWeapon = Hlp_GetInstanceID(equippedItem);
+
+        SonjaLoad = TRUE;
+
+        return TRUE;
+    };
+
+    return FALSE;
 };
 
-func void B_ApplySonjaStats(var C_NPC slf)
+func int B_ApplySonjaStats(var C_NPC slf)
 {
-    slf.lp = SonjaLP;
-    slf.exp = SonjaEXP;
-    slf.exp_next = SonjaEXP_NEXT;
-    slf.level = SonjaLevel;
-    slf.attribute[ATR_STRENGTH] = SonjaSTR;
-    slf.attribute[ATR_DEXTERITY] = SonjaDEX;
-    slf.attribute[ATR_MANA_MAX] = SonjaMANA_MAX;
-    slf.attribute[ATR_HITPOINTS_MAX] = SonjaHP_MAX;
-    slf.HitChance[NPC_TALENT_1H] = SonjaHitChance1H;
-    slf.aivar[REAL_TALENT_1H] = SonjaHitChance1H;
-    slf.HitChance[NPC_TALENT_2H] = SonjaHitChance2H;
-    slf.aivar[REAL_TALENT_2H] = SonjaHitChance2H;
-    slf.HitChance[NPC_TALENT_BOW] = SonjaHitChanceBow;
-    slf.aivar[REAL_TALENT_BOW] = SonjaHitChanceBow;
-    slf.HitChance[NPC_TALENT_CROSSBOW] = SonjaHitChanceCrossBow;
-    slf.aivar[REAL_TALENT_CROSSBOW] = SonjaHitChanceCrossBow;
-
-    Npc_SetTalentSkill (slf, NPC_TALENT_MAGE, SonjaTalentMage);
-    Npc_SetTalentSkill (slf, NPC_TALENT_SNEAK, SonjaTalentSneak);
-    Npc_SetTalentSkill (slf, NPC_TALENT_ACROBAT, SonjaTalentAcrobat);
-
-    if (SonjaEquippedArmor != 0)
+    if (SonjaLoad)
     {
-        if (Npc_HasItems(slf, SonjaEquippedArmor) == FALSE)
+        slf.lp = SonjaLP;
+        slf.exp = SonjaEXP;
+        slf.exp_next = SonjaEXP_NEXT;
+        slf.level = SonjaLevel;
+        slf.attribute[ATR_STRENGTH] = SonjaSTR;
+        slf.attribute[ATR_DEXTERITY] = SonjaDEX;
+        slf.attribute[ATR_MANA_MAX] = SonjaMANA_MAX;
+        slf.attribute[ATR_HITPOINTS_MAX] = SonjaHP_MAX;
+        slf.HitChance[NPC_TALENT_1H] = SonjaHitChance1H;
+        slf.aivar[REAL_TALENT_1H] = SonjaHitChance1H;
+        slf.HitChance[NPC_TALENT_2H] = SonjaHitChance2H;
+        slf.aivar[REAL_TALENT_2H] = SonjaHitChance2H;
+        slf.HitChance[NPC_TALENT_BOW] = SonjaHitChanceBow;
+        slf.aivar[REAL_TALENT_BOW] = SonjaHitChanceBow;
+        slf.HitChance[NPC_TALENT_CROSSBOW] = SonjaHitChanceCrossBow;
+        slf.aivar[REAL_TALENT_CROSSBOW] = SonjaHitChanceCrossBow;
+
+        Npc_SetTalentSkill (slf, NPC_TALENT_MAGE, SonjaTalentMage);
+        Npc_SetTalentSkill (slf, NPC_TALENT_SNEAK, SonjaTalentSneak);
+        Npc_SetTalentSkill (slf, NPC_TALENT_ACROBAT, SonjaTalentAcrobat);
+
+        if (SonjaEquippedArmor != 0)
         {
-            CreateInvItem(slf, SonjaEquippedArmor);
+            if (Npc_HasItems(slf, SonjaEquippedArmor) == FALSE)
+            {
+                CreateInvItem(slf, SonjaEquippedArmor);
+            };
+
+            EquipItem(slf, SonjaEquippedArmor);
         };
 
-        EquipItem(slf, SonjaEquippedArmor);
-    };
-
-    if (SonjaEquippedMeleeWeapon != 0)
-    {
-        if (Npc_HasItems(slf, SonjaEquippedMeleeWeapon) == FALSE)
+        if (SonjaEquippedMeleeWeapon != 0)
         {
-            CreateInvItem(slf, SonjaEquippedMeleeWeapon);
+            if (Npc_HasItems(slf, SonjaEquippedMeleeWeapon) == FALSE)
+            {
+                CreateInvItem(slf, SonjaEquippedMeleeWeapon);
+            };
+
+            EquipItem(slf, SonjaEquippedMeleeWeapon);
         };
 
-        EquipItem(slf, SonjaEquippedMeleeWeapon);
-    };
-
-    if (SonjaEquippedRangedWeapon != 0)
-    {
-        if (Npc_HasItems(slf, SonjaEquippedRangedWeapon) == FALSE)
+        if (SonjaEquippedRangedWeapon != 0)
         {
-            CreateInvItem(slf, SonjaEquippedRangedWeapon);
+            if (Npc_HasItems(slf, SonjaEquippedRangedWeapon) == FALSE)
+            {
+                CreateInvItem(slf, SonjaEquippedRangedWeapon);
+            };
+
+            EquipItem(slf, SonjaEquippedRangedWeapon);
         };
 
-        EquipItem(slf, SonjaEquippedRangedWeapon);
+        SonjaLoad = FALSE;
+
+        return TRUE;
     };
+
+    return FALSE;
 };
 
 func void B_ResetSonjaAttributesStartingFrom(var C_NPC slf, var int attrib)

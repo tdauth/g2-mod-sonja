@@ -376,7 +376,10 @@ const int GIL_EMPTY_X					= 63	;
 const int GIL_EMPTY_Y					= 64	;
 const int GIL_EMPTY_Z					= 65	;
 
-const int GIL_MAX						= 66	;	// (ehem. 42)
+// Sonja
+const int GIL_SUMMONED_DRAGON           = 66    ;
+
+const int GIL_MAX						= 67	;	// (ehem. 42)
 
 
 

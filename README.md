@@ -22,6 +22,8 @@ Sonja provides the following features:
 * Marry her to cook for the player's hero.
 * Sleep with her to regenerate life and mana and or to change the time of day.
 * New rune items to summon her anywhere and to teleport to her from anywhere.
+* New rune to summon a dragon.
+* Summoned creatures are allied now.
 * She has only 90 mana maximum now instead of 1000 since she supports the hero now.
 * Teaches the newly added skills "Womanizer" and "Pimp".
 * Can sell the Meatbug pet Hans.
@@ -35,6 +37,7 @@ Sonja provides the following features:
 * [Spell_SummonSonja.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_SummonSonja.d)
 * [Spell_Teleport_Alle.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_Teleport_Alle.d)
 * [Spell_ProcessMana.d](./_work/Data/Scripts/Content/AI/Magic/Spell_ProcessMana.d)
+* [C_CanNpcCollideWithSpell.d](./_work/Data/Scripts/Content/AI/Magic/C_CanNpcCollideWithSpell.d)
 * [B_GiveTradeInv_Sonja.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv_Sonja.d)
 * [B_AAA_ApplySonjaStats.d](./_work/Data/Scripts/Content/Story/B_Story/B_AAA_ApplySonjaStats.d)
 * [B_GivePlayerXP.d](./_work/Data/Scripts/Content/Story/B_Story/B_GivePlayerXP.d)
@@ -42,10 +45,12 @@ Sonja provides the following features:
 * [B_Enter_SonjaWorld.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_SonjaWorld.d)
 * [B_TeachAttributePoints.d](./_work/Data/Scripts/Content/Story/B_Story/B_TeachAttributePoints.d)
 * [AI_Constants.d](./_work/Data/Scripts/Content/AI/AI_Intern/AI_Constants.d)
+* [Species.d](./_work/Data/Scripts/Content/AI/AI_Intern/Species.d)
 * [ZS_Talk.d](./_work/Data/Scripts/Content/AI/Human/ZS_Human/ZS_Talk.d)
 * [B_AAA_AssignSonja.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_AssignSonja.d)
 * [B_AAA_Aufreissen.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Aufreissen.d)
 * [B_AAA_Pimp.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Pimp.d)
+* [B_InitMonsterAttitudes.d](./_work/Data/Scripts/Content/Story/NPC/Monster/B_Monster/B_InitMonsterAttitudes.d)
 * [MST_Dragon_Sonja.d](./_work/Data/Scripts/Content/Story/NPC/Monster/MST_Dragon_Sonja.d)
 * [MST_Meatbug.d](./_work/Data/Scripts/Content/Story/NPC/Monster/MST_Meatbug.d)
 * [NPC_Globals.d](./_work/Data/Scripts/Content/Story/NPC_Globals.d)

@@ -2,7 +2,7 @@
 // SPL_SummonDragon		/k6
 // ******************
 
-const int SPL_Cost_SummonDragon		= 5;
+const int SPL_Cost_SummonDragon		= 120;
 
 INSTANCE Spell_SummonDragon (C_Spell_Proto)
 {

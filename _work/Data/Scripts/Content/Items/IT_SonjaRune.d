@@ -342,6 +342,8 @@ FUNC VOID Use_Pimp()
 //	ItRu_SummonDragon
 //**********************************************************************************
 
+const	int	Value_Ru_SummonDragon				=	2000;
+
 INSTANCE ItRu_SummonDragon (C_Item)
 {
 	name 				=	NAME_Rune;
@@ -359,7 +361,7 @@ INSTANCE ItRu_SummonDragon (C_Item)
 	wear				= 	WEAR_EFFECT;
 	effect				=	"SPELLFX_WEAKGLIMMER_RED";
 
-	description			=	NAME_SPL_SummonDragon;
+	description			=	"Drachen herbeirufen";
 	TEXT	[0]			=	NAME_Mag_Circle;
 	COUNT	[0]			=	mag_circle;
 
