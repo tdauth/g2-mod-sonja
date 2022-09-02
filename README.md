@@ -2,6 +2,13 @@
 
 Allows to buy NPC Sonja (VLK_436_Sonja) as a companion with special services.
 
+## How to Play
+
+Download and run the installer setup [Sonja-1.0.exe](./Sonja-1.0.exe).
+Run the "GothicStarter" and choose the mod Sonja to play Gothic II with.
+
+## Features
+
 Sonja provides the following features:
 
 * Follows the player's hero as companion to fight with him and increase his XP.

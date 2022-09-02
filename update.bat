@@ -30,5 +30,6 @@ copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\content\CUTSCENE\OU.CS" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\content\CUTSCENE"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\System\Sonja.ini" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\System"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\System\MENU\Menu_Status.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\System\MENU"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\demo\Sonja-1.0.exe" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja"
 
 pause
