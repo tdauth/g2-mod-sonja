@@ -401,3 +401,128 @@ INSTANCE ItRu_TransformDragon (C_Item)
 	TEXT	[5]			=	NAME_Value;
 	COUNT	[5]			=	value;
 };
+
+INSTANCE ITAR_Babe_Leather_L (C_Item)
+{
+	name 					=	"Lederrüstung";
+
+	mainflag 				=	ITEM_KAT_ARMOR;
+	flags 					=	0;
+
+	protection [PROT_EDGE]	=	25;
+	protection [PROT_BLUNT] = 	25;
+	protection [PROT_POINT] = 	20;
+	protection [PROT_FIRE] 	= 	 5;
+	protection [PROT_MAGIC] = 	 0;
+
+	value 					=	VALUE_ITAR_Leather_L;
+
+	wear 					=	WEAR_TORSO;
+
+	visual 					=	"ItAr_Leather_L.3ds";
+	visual_change 			=	"BAB_ARMOR_LEATHER.ASC";
+	visual_skin 			=	0;
+	material 				=	MAT_LEATHER;
+
+	on_equip				=	Equip_ITAR_Leather_L;
+	on_unequip				=	UnEquip_ITAR_Leather_L;
+
+	description				=	name;
+
+	TEXT[1]					=	NAME_Prot_Edge;
+	COUNT[1]				= 	protection	[PROT_EDGE];
+	TEXT[2]					=	NAME_Prot_Point;
+	COUNT[2]				= 	protection	[PROT_POINT];
+	TEXT[3] 				=	NAME_Prot_Fire;
+	COUNT[3]				= 	protection	[PROT_FIRE];
+	TEXT[4]					=	NAME_Prot_Magic;
+	COUNT[4]				= 	protection	[PROT_MAGIC];
+	TEXT[5]					=	NAME_Value;
+	COUNT[5]				= 	value;
+};
+
+INSTANCE ITAR_Babe_DJG_Crawler (C_Item)
+{
+	name 					=	"Rüstung aus Crawlerplatten";
+
+	mainflag 				=	ITEM_KAT_ARMOR;
+	flags 					=	0;
+
+	protection [PROT_EDGE]	=	70;
+	protection [PROT_BLUNT] = 	70;
+	protection [PROT_POINT] = 	70;
+	protection [PROT_FIRE] 	= 	15;
+	protection [PROT_MAGIC] = 	0;
+
+	value 					=	VALUE_ITAR_DJG_Crawler;
+
+	wear 					=	WEAR_TORSO;
+
+	visual 					=	"ItAr_Djg_Crawler.3ds";
+	visual_change 			=	"DJG_CRW_VEL.ASC";
+	visual_skin 			=	0;
+	material 				=	MAT_LEATHER;
+
+	on_equip				=	Equip_ITAR_DJG_Crawler;
+	on_unequip				=	UnEquip_ITAR_DJG_Crawler;
+
+	description				=	name;
+
+	TEXT[1]					=	NAME_Prot_Edge;
+	COUNT[1]				= 	protection	[PROT_EDGE];
+
+	TEXT[2]					=	NAME_Prot_Point;
+	COUNT[2]				= 	protection	[PROT_POINT];
+
+	TEXT[3] 				=	NAME_Prot_Fire;
+	COUNT[3]				= 	protection	[PROT_FIRE];
+
+	TEXT[4]					=	NAME_Prot_Magic;
+	COUNT[4]				= 	protection	[PROT_MAGIC];
+
+	TEXT[5]					=	NAME_Value;
+	COUNT[5]				= 	value;
+};
+
+INSTANCE ITAR_Babe_KDF_L (C_Item)
+{
+	name 					=	"Feuermagierrobe";
+
+	mainflag 				=	ITEM_KAT_ARMOR;
+	flags 					=	0;
+
+	protection [PROT_EDGE]	=	40;
+	protection [PROT_BLUNT] = 	40;
+	protection [PROT_POINT] = 	40;
+	protection [PROT_FIRE] 	= 	20;
+	protection [PROT_MAGIC] = 	20;
+
+	value 					=	VALUE_ITAR_KDF_L;
+
+	wear 					=	WEAR_TORSO;
+
+	visual 					=	"ItAr_KdF_L.3ds";
+	visual_change 			=	"KDF_VEL.ASC";
+	visual_skin 			=	0;
+	material 				=	MAT_LEATHER;
+
+	on_equip				=	Equip_ITAR_KDF_L;
+	on_unequip				=	UnEquip_ITAR_KDF_L;
+
+	description				=	name;
+
+	TEXT[1]					=	NAME_Prot_Edge;
+	COUNT[1]				= 	protection	[PROT_EDGE];
+
+	TEXT[2]					=	NAME_Prot_Point;
+	COUNT[2]				= 	protection	[PROT_POINT];
+
+	TEXT[3] 				=	NAME_Prot_Fire;
+	COUNT[3]				= 	protection	[PROT_FIRE];
+
+	TEXT[4]					=	NAME_Prot_Magic;
+	COUNT[4]				= 	protection	[PROT_MAGIC];
+
+	TEXT[5]					=	NAME_Value;
+	COUNT[5]				= 	value;
+};

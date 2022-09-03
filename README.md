@@ -28,6 +28,7 @@ Sonja provides the following features:
 * She has only 90 mana maximum now instead of 1000 since she supports the hero now.
 * Teaches the newly added skills "Womanizer" and "Pimp".
 * Can sell the Meatbug pet Hans.
+* You can buy the Rote Laterne from Bromor and run it.
 
 ## Modified Files
 
@@ -85,6 +86,7 @@ Sonja provides the following features:
 ## Credits
 
 * nneka.: [Insel Zen](https://www.worldofgothic.de/?go=moddb&action=view&fileID=429&cat=18&page=2&order=0)
+* Tandrael: [Velaya Rüstungen](https://www.worldofgothic.de/?go=moddb&action=view&fileID=1415&cat=0&page=0&order=0&searchkey=velaya&searchcat=0)
 
 ## Links
 

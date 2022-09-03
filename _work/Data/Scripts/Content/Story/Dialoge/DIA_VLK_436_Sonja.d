@@ -8,7 +8,7 @@ var int SonjaRespawnDays;
 var int SonjaRespawnItemsDays;
 var int SonjaCookDays;
 var int 	Sonja_SkinTexture; // 137 Frau
-var int 	Sonja_BodyTexture; // BodyTex_N
+var int 	Sonja_BodyTexture; // BodyTexBabe_Nude
 var string 	Sonja_HeadMesh; // Hum_Head_Babe8
 
 // ************************************************************
@@ -2487,7 +2487,7 @@ func void DIA_Sonja_AUSSEHEN_Fat ()
 {
 	AI_Output			(other, self, "DIA_Sonja_AUSSEHEN_15_02"); //Iss etwas!
 
-    Mdl_SetModelFatness (self, 4);
+    Mdl_SetModelFatness (self, 3);
 
     DIA_Sonja_AUSSEHEN_Allegemein_Info();
 };
@@ -2626,6 +2626,7 @@ FUNC VOID DIA_Sonja_Choose_BodyTex_Info()
 {
 	Info_ClearChoices	(DIA_Sonja_AUSSEHEN);
 
+	Info_AddChoice		(DIA_Sonja_AUSSEHEN, "Nackt" 	, DIA_Sonja_Choose_BodyTexBabe_Nude);
 	Info_AddChoice		(DIA_Sonja_AUSSEHEN, "Käseweiß" 	, DIA_Sonja_Choose_BodyTexBabe_P);
 	Info_AddChoice		(DIA_Sonja_AUSSEHEN, "Weiß" 	,    DIA_Sonja_Choose_BodyTexBabe_N);
 	Info_AddChoice		(DIA_Sonja_AUSSEHEN, "Latino" 	, DIA_Sonja_Choose_BodyTexBabe_L);
@@ -2658,6 +2659,14 @@ func void DIA_Sonja_Choose_BodyTexBabe_N()
 func void DIA_Sonja_Choose_BodyTexBabe_P()
 {
 	Sonja_BodyTexture 	=BodyTexBabe_P;
+	Change_Sonja_Visual();
+
+	DIA_Sonja_Choose_BodyTex_Info();
+};
+
+func void DIA_Sonja_Choose_BodyTexBabe_Nude()
+{
+	Sonja_BodyTexture 	=BodyTexBabe_Nude;
 	Change_Sonja_Visual();
 
 	DIA_Sonja_Choose_BodyTex_Info();
@@ -2808,6 +2817,9 @@ FUNC VOID DIA_Sonja_KLEIDUNG_Info()
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Rüstung Drachenjägerin", 2000),          DIA_Sonja_KLEIDUNGITAR_DJG_BABE);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Schwere Banditenrüstung", VALUE_ITAR_BDT_H),            DIA_Sonja_KLEIDUNG_ITAR_BDT_H);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Mittlere Banditenrüstung", VALUE_ITAR_BDT_M),           DIA_Sonja_KLEIDUNG_ITAR_BDT_M);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Feuermagierrobe", VALUE_ITAR_KDF_L),                    DIA_Sonja_KLEIDUNG_ITAR_Babe_KDF_L);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Rüstung aus Crawlerplatten", VALUE_ITAR_DJG_Crawler),   DIA_Sonja_KLEIDUNG_ITAR_Babe_DJG_Crawler);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Lederrüstung", VALUE_ITAR_Leather_L),                   DIA_Sonja_KLEIDUNG_ITAR_Babe_Leather_L);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Kleidung Bäuerin", 200),                                DIA_Sonja_KLEIDUNG_Farmer);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Leichte Armbrust", Value_LeichteArmbrust),              DIA_Sonja_KLEIDUNG_ItRw_Crossbow_L_02);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Buchenbogen", Value_Buchenbogen),                       DIA_Sonja_KLEIDUNG_ItRw_Bow_M_04);
@@ -3148,6 +3160,27 @@ func void DIA_Sonja_KLEIDUNG_Farmer ()
     DIA_Sonja_KLEIDUNG_Info();
 };
 
+func void DIA_Sonja_KLEIDUNG_ITAR_Babe_Leather_L ()
+{
+    Sonja_Bekleiden(ITAR_Babe_Leather_L, VALUE_ITAR_Leather_L);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ITAR_Babe_KDF_L()
+{
+    Sonja_Bekleiden(ITAR_Babe_KDF_L, VALUE_ITAR_KDF_L);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ITAR_Babe_DJG_Crawler()
+{
+    Sonja_Bekleiden(ITAR_Babe_DJG_Crawler, VALUE_ITAR_DJG_Crawler);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
 func void DIA_Sonja_KLEIDUNG_ITAR_BDT_M ()
 {
     Sonja_BekleidenEx(ITAR_BDT_M, VALUE_ITAR_BDT_M, FALSE);
@@ -3278,8 +3311,9 @@ func void DIA_Sonja_SUMMON_Info ()
 
 	if (Wld_GetDay() - SonjaSummonDays >= 3)
 	{
-        AI_Output			(self, other, "DIA_Sonja_SUMMON_16_00"); //Ich kenne ein Bäurin, die Interesse haben könnte. Aber nur damit du mit ihr mehr Gold verdienen kannst, verstanden?
+        AI_Output			(self, other, "DIA_Sonja_SUMMON_16_00"); //Ich kenne ein Bäurin und eine Sklavin, die beide Interesse haben könnte. Aber nur damit du mit ihr mehr Gold verdienen kannst, verstanden?
         Wld_SpawnNpcRange	(self,	BAU_915_Baeuerin,	1,	500);
+        Wld_SpawnNpcRange	(self,	VLK_15000_Sklavin,	1,	500);
         SonjaSummonDays = Wld_GetDay();
     }
     else

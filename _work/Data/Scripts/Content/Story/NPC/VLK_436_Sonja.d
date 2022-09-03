@@ -31,7 +31,7 @@ instance VLK_436_Sonja (Npc_Default)
 
 		
 	// ------ visuals ------																			
-	B_SetNpcVisual 		(self, FEMALE, "Hum_Head_Babe6", FaceBabe_L_Charlotte2, BodyTexBabe_L, ITAR_VlkBabe_H);	
+	B_SetNpcVisual 		(self, FEMALE, "Hum_Head_Babe6", FaceBabe_L_Charlotte2, BodyTexBabe_Nude, ITAR_VlkBabe_H);
 
 	Mdl_SetModelFatness	(self,0);
 	Mdl_ApplyOverlayMds	(self, "Humans_Babe.mds"); 

@@ -580,6 +580,9 @@ const int BodyTex_T	= 10; //tätowierte psionikerhaut
 const int BodyTexBabe_F	= 11; //Fellkragen Babe 
 const int BodyTexBabe_S	= 12;//das kleine Schwarze 
 
+// Sonja
+const int BodyTexBabe_Nude = 13;
+
 
 // ------ Keine Rüstung ------
 const int NO_ARMOR			= -1;
