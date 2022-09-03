@@ -54,7 +54,7 @@ func void B_Aufreissen ()
 		B_GiveAufreisserXP();//B_GivePlayerXP (XP_Ambient);
 		CreateInvItems (other, ItPo_Health_02, 2);
 		//Snd_Play ("Geldbeutel");
-		AI_OutputSVM(self,other, "TOUGHGUY_ATTACKWON"); // ADDON_WRONGARMOR SC_HeyWaitASecond
+		AI_OutputSVM_Overlay(self,other, "TOUGHGUY_ATTACKWON"); // ADDON_WRONGARMOR SC_HeyWaitASecond
 	}
 	else
 	{

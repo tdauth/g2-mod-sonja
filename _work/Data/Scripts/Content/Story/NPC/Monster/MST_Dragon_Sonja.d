@@ -63,5 +63,6 @@ INSTANCE Dragon_Sonja	(Mst_Default_Dragon_Sonja)
 {
 	//flags				= 	NPC_FLAG_IMMORTAL;
 	B_SetVisuals_Dragon_Fire();
+	Mdl_SetModelScale(self,	0.60,	0.60, 	0.60);
 	Npc_SetToFistMode(self);
 };

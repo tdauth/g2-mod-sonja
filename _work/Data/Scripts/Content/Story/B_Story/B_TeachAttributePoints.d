@@ -18,7 +18,7 @@ func int B_TeachAttributePoints (var C_NPC slf, var C_NPC oth, var int attrib, v
 	//EXIT IF...
 	
 	// ------ falscher Parameter ------
-	if (attrib!=ATR_STRENGTH) && (attrib!=ATR_DEXTERITY) && (attrib!=ATR_MANA_MAX)
+	if (attrib!=ATR_STRENGTH) && (attrib!=ATR_DEXTERITY) && (attrib!=ATR_MANA_MAX) && (attrib!=ATR_HITPOINTS_MAX)
 	{
 		Print ("*** ERROR: Wrong Parameter ***");
 		return FALSE;
@@ -28,7 +28,9 @@ func int B_TeachAttributePoints (var C_NPC slf, var C_NPC oth, var int attrib, v
 	var int realAttribute;
 	if 		(attrib == ATR_STRENGTH)	{	realAttribute = oth.attribute[ATR_STRENGTH];	}	// Umwandeln von const-Parameter in VAR für folgende If-Abfrage
 	else if (attrib == ATR_DEXTERITY)	{	realAttribute = oth.attribute[ATR_DEXTERITY];	}
-	else if (attrib == ATR_MANA_MAX)	{	realAttribute = oth.attribute[ATR_MANA_MAX];	};
+	else if (attrib == ATR_MANA_MAX)	{	realAttribute = oth.attribute[ATR_MANA_MAX];	}
+	// Sonja
+	else if (attrib == ATR_HITPOINTS_MAX)	{	realAttribute = oth.attribute[ATR_HITPOINTS_MAX];	};
 	
 	if (realAttribute >= teacherMAX)				//Wenn der Spieler schon das teacherMAX erreicht oder überschritten hat
 	{

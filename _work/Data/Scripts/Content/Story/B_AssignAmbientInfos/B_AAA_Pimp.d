@@ -41,8 +41,8 @@ func int B_Pimp ()
         }
         else
         {
-            AI_OutputSVM(self,other, "SpareMe");
-            AI_OutputSVM(other,self, "NOTHINGTOGET02");
+            AI_OutputSVM_Overlay(self,other, "SpareMe");
+            AI_OutputSVM_Overlay(other,self, "NOTHINGTOGET02");
 
             return PIMP_STATE_NO_MONEY;
         };
