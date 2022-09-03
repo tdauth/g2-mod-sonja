@@ -375,7 +375,8 @@ const string TXT_SPELLS[MAX_SPELL] =
 	"Sonja herbeirufen",		 // 100	SPL_SummonSonja
 	"Zu Sonja",		             // 101	SPL_teleportSonja
 	"Zur Roten Laterne",		 // 102	SPL_TeleportRoteLaterne
-	"Drachen herbeirufen"        // 103 SPL_SummonDragon
+	"Drachen herbeirufen",       // 103 SPL_SummonDragon
+	"Drache"                     // 104 SPL_Dragon
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -899,6 +900,8 @@ const string PRINT_LearnCrossBow5			= "Armbrust + 5";
 
 const string PRINT_LearnHITPOINTS1			= "Leben + 1";
 const string PRINT_LearnHITPOINTS5			= "Leben + 5";
+const string PRINT_LearnHITPOINTS10			= "Leben + 10";
+const string PRINT_LearnHITPOINTS20			= "Leben + 20";
 
 
 

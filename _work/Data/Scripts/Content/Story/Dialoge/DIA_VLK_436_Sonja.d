@@ -1205,15 +1205,6 @@ func void DIA_Sonja_WAREZ_Info ()
         };
     };
 
-    // Wir platzieren es hier, um die Datei B_GiveTradeInv.d nicht zu veraendern.
-	if (self.aivar[AIV_ChapterInv] <= Kapitel)
-	{
-        B_ClearJunkTradeInv (self);
-        B_GiveTradeInv_Sonja		(self);
-
-        self.aivar[AIV_ChapterInv] = (Kapitel +1);
-    };
-
 	B_GiveTradeInv (self);
 	AI_Output			(other, self, "DIA_Isgaroth_Trade_15_00"); //Zeig mir deine Ware.
 };
@@ -1606,6 +1597,8 @@ func void DIA_Sonja_TRAINING_HITPOINTS ()
 
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnHITPOINTS1			, B_GetLearnCostAttribute(other, ATR_HITPOINTS_MAX))			,DIA_Sonja_TEACH_HITPOINTS_1);
     Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnHITPOINTS5			, B_GetLearnCostAttribute(other, ATR_HITPOINTS_MAX)*5)		,DIA_Sonja_TEACH_HITPOINTS_5);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnHITPOINTS10			, B_GetLearnCostAttribute(other, ATR_HITPOINTS_MAX)*10)		,DIA_Sonja_TEACH_HITPOINTS_10);
+    Info_AddChoice		(DIA_Sonja_TRAINING, B_BuildLearnString(PRINT_LearnHITPOINTS20			, B_GetLearnCostAttribute(other, ATR_HITPOINTS_MAX)*20)		,DIA_Sonja_TEACH_HITPOINTS_20);
     Info_AddChoice 		(DIA_Sonja_TRAINING,DIALOG_BACK,DIA_Sonja_TRAINING_Info_Choices);
 };
 
@@ -1615,9 +1608,24 @@ FUNC VOID DIA_Sonja_TEACH_HITPOINTS_1()
 
 	DIA_Sonja_TRAINING_HITPOINTS();
 };
+
 FUNC VOID DIA_Sonja_TEACH_HITPOINTS_5()
 {
 	B_TeachAttributePoints (other, self, ATR_HITPOINTS_MAX, 5, T_MEGA);
+
+	DIA_Sonja_TRAINING_HITPOINTS();
+};
+
+FUNC VOID DIA_Sonja_TEACH_HITPOINTS_10()
+{
+	B_TeachAttributePoints (other, self, ATR_HITPOINTS_MAX, 10, T_MEGA);
+
+	DIA_Sonja_TRAINING_HITPOINTS();
+};
+
+FUNC VOID DIA_Sonja_TEACH_HITPOINTS_20()
+{
+	B_TeachAttributePoints (other, self, ATR_HITPOINTS_MAX, 20, T_MEGA);
 
 	DIA_Sonja_TRAINING_HITPOINTS();
 };
@@ -2148,7 +2156,7 @@ func int B_TeachAufreisserTalentPercent (var C_NPC slf, var C_NPC oth, var int p
 func void SonjaTeachAufreisser()
 {
     Info_ClearChoices (DIA_Sonja_TEACH);
-    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +20"			, 10)		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_20);
+    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +20"			, 20)		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_20);
     Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +10"			, 10)		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_10);
     Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +5"			, 5)		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_5);
     Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +1"			, 1)			,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_1);
@@ -2170,14 +2178,14 @@ FUNC VOID DIA_Sonja_TEACHAUFREISSER_Back ()
 
 FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_1 ()
 {
-	B_TeachAufreisserTalentPercent (self, other, 1, T_MAX);
+	B_TeachAufreisserTalentPercent (self, other, 1, 100);
 
 	SonjaTeachAufreisser();
 };
 
 FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_5 ()
 {
-	B_TeachAufreisserTalentPercent (self, other, 5, T_MAX);
+	B_TeachAufreisserTalentPercent (self, other, 5, 100);
 
 	SonjaTeachAufreisser();
 };
@@ -2185,7 +2193,7 @@ FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_5 ()
 
 FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_10 ()
 {
-	B_TeachAufreisserTalentPercent (self, other, 10, T_MAX);
+	B_TeachAufreisserTalentPercent (self, other, 10, 100);
 
 	SonjaTeachAufreisser();
 };
@@ -2193,7 +2201,7 @@ FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_10 ()
 
 FUNC VOID DIA_Sonja_TEACHAUFREISSER_AUFREISSER_20 ()
 {
-	B_TeachAufreisserTalentPercent (self, other, 20, T_MAX);
+	B_TeachAufreisserTalentPercent (self, other, 20, 100);
 
 	SonjaTeachAufreisser();
 };
@@ -2798,6 +2806,8 @@ FUNC VOID DIA_Sonja_KLEIDUNG_Info()
         Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Schwere Drachenjägerrüstung", VALUE_ITAR_DJG_H),        DIA_Sonja_KLEIDUNG_ITAR_DJG_H);
     };
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Rüstung Drachenjägerin", 2000),          DIA_Sonja_KLEIDUNGITAR_DJG_BABE);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Schwere Banditenrüstung", VALUE_ITAR_BDT_H),            DIA_Sonja_KLEIDUNG_ITAR_BDT_H);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Mittlere Banditenrüstung", VALUE_ITAR_BDT_M),           DIA_Sonja_KLEIDUNG_ITAR_BDT_M);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Kleidung Bäuerin", 200),                                DIA_Sonja_KLEIDUNG_Farmer);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Leichte Armbrust", Value_LeichteArmbrust),              DIA_Sonja_KLEIDUNG_ItRw_Crossbow_L_02);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Buchenbogen", Value_Buchenbogen),                       DIA_Sonja_KLEIDUNG_ItRw_Bow_M_04);
@@ -2805,6 +2815,7 @@ FUNC VOID DIA_Sonja_KLEIDUNG_Info()
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Folteraxt", Value_Folteraxt),                           DIA_Sonja_KLEIDUNG_ItMw_Folteraxt);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Kurzschwert", Value_ShortSword3),                       DIA_Sonja_KLEIDUNG_ItMw_ShortSword3);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, BuildSonjaItemString("Schwerer Ast", Value_BauMace),                          DIA_Sonja_KLEIDUNG_Schwerer_Ast);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Banditensachen",                                                             DIA_Sonja_KLEIDUNG_Banditensachen);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bester Gürtel aus ihrem Inventar",                                           DIA_Sonja_KLEIDUNG_BestBelt);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Beste Ringe aus ihrem Inventar",                                             DIA_Sonja_KLEIDUNG_BestRings);
 	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Bestes Amulett aus ihrem Inventar",                                          DIA_Sonja_KLEIDUNG_BestAmulet);
@@ -2853,7 +2864,7 @@ func void Sonja_Equip(var int armor, var int cost)
     };
 };
 
-func void Sonja_Bekleiden(var int armor, var int cost)
+func void Sonja_BekleidenEx(var int armor, var int cost, var int equip)
 {
     if (Npc_HasItems(self, armor))
     {
@@ -2861,7 +2872,12 @@ func void Sonja_Bekleiden(var int armor, var int cost)
         AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_00"); //Wie du magst!
 
         AI_UnequipArmor	(self);
-        AI_EquipArmor 	(self, armor);
+
+        if (equip == TRUE)
+        {
+            AI_EquipArmor 	(self, armor);
+        };
+
         //AI_EquipArmor(self, Npc_GetInvItem(self, armor));
         B_LogEntry ("Sonja", "Ich kann Sonja sagen, was sie anziehen soll. Sie findet das in Ordnung.");
     }
@@ -2881,11 +2897,21 @@ func void Sonja_Bekleiden(var int armor, var int cost)
 
             CreateInvItems (self, armor, 1);
             AI_UnequipArmor	(self);
-            AI_EquipArmor 	(self, armor);
+
+            if (equip == TRUE)
+            {
+                AI_EquipArmor 	(self, armor);
+            };
+
             //AI_EquipArmor(self, Npc_GetInvItem(self, armor));
             B_LogEntry ("Sonja", "Sonja freut sich über neue Kleidung.");
         };
     };
+};
+
+func void Sonja_Bekleiden(var int armor, var int cost)
+{
+    Sonja_BekleidenEx(armor, cost, TRUE);
 };
 
 // Irgendwie prüfen ob zweimal ausrüstbar.
@@ -3044,6 +3070,35 @@ func void DIA_Sonja_KLEIDUNG_BestBelt()
     DIA_Sonja_KLEIDUNG_Info();
 };
 
+func void DIA_Sonja_KLEIDUNG_Banditensachen()
+{
+    Info_ClearChoices	(DIA_Sonja_KLEIDUNG);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, "Banditensachen anlegen",                                                     DIA_Sonja_KLEIDUNG_Banditensachen_Confirm);
+	Info_AddChoice		(DIA_Sonja_KLEIDUNG, DIALOG_BACK,                                                                  DIA_Sonja_KLEIDUNG_Info);
+};
+
+func void DIA_Sonja_KLEIDUNG_Banditensachen_Confirm()
+{
+    AI_Output			(other, self, "DIA_Sonja_KLEIDUNG_15_08"); //Zieh Banditensachen an!
+
+    if (Npc_HasItems(self, ITAR_BDT_M))
+    {
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_07"); //Ich habe diese Mittlere Banditenrüstung.
+        AI_EquipArmor(self, ITAR_BDT_M);
+    }
+    else if (Npc_HasItems(self, ITAR_BDT_H))
+    {
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_08"); //Ich habe diese Schwere Banditenrüstung.
+        AI_EquipArmor(self, ITAR_BDT_H);
+    }
+    else
+    {
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_04"); //Ich habe keinen geeigneten Gegenstand im Inventar. Kauf mir doch etwas, mein Prinz!
+    };
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
 func void DIA_Sonja_KLEIDUNG_Schwerer_Ast()
 {
     Sonja_Equip(ItMw_1h_Bau_Mace, Value_BauMace);
@@ -3093,6 +3148,20 @@ func void DIA_Sonja_KLEIDUNG_Farmer ()
     DIA_Sonja_KLEIDUNG_Info();
 };
 
+func void DIA_Sonja_KLEIDUNG_ITAR_BDT_M ()
+{
+    Sonja_BekleidenEx(ITAR_BDT_M, VALUE_ITAR_BDT_M, FALSE);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
+func void DIA_Sonja_KLEIDUNG_ITAR_BDT_H ()
+{
+    Sonja_BekleidenEx(ITAR_BDT_H, VALUE_ITAR_BDT_H, FALSE);
+
+    DIA_Sonja_KLEIDUNG_Info();
+};
+
 func void DIA_Sonja_KLEIDUNGITAR_DJG_BABE ()
 {
     Sonja_Bekleiden(ITAR_DJG_BABE, 2000);
@@ -3136,7 +3205,7 @@ func void DIA_Sonja_KLEIDUNG_ItRu_InstantFireball()
     }
     else
     {
-        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_03"); //Ich muss erst den zweiten Kreis der Magie erlernen.
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_05"); //Ich muss erst den zweiten Kreis der Magie erlernen.
     };
 
     DIA_Sonja_KLEIDUNG_Info();
@@ -3150,7 +3219,7 @@ func void DIA_Sonja_KLEIDUNG_ItRu_ArmyOfDarkness()
     }
     else
     {
-        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_04"); //Ich muss erst den sechsten Kreis der Magie erlernen.
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_06"); //Ich muss erst den sechsten Kreis der Magie erlernen.
     };
 
     DIA_Sonja_KLEIDUNG_Info();
@@ -3164,7 +3233,7 @@ func void DIA_Sonja_KLEIDUNG_ItRu_MassDeath()
     }
     else
     {
-        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_04"); //Ich muss erst den sechsten Kreis der Magie erlernen.
+        AI_Output			(self, other, "DIA_Sonja_KLEIDUNG_16_06"); //Ich muss erst den sechsten Kreis der Magie erlernen.
     };
 
     DIA_Sonja_KLEIDUNG_Info();

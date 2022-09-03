@@ -23,6 +23,7 @@ Sonja provides the following features:
 * Sleep with her to regenerate life and mana and or to change the time of day.
 * New rune items to summon her anywhere and to teleport to her from anywhere.
 * New rune to summon a dragon.
+* New rune to transform into a dragon.
 * Summoned creatures are allied now.
 * She has only 90 mana maximum now instead of 1000 since she supports the hero now.
 * Teaches the newly added skills "Womanizer" and "Pimp".
@@ -36,10 +37,13 @@ Sonja provides the following features:
 * [Spell_SummonDragon.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_SummonDragon.d)
 * [Spell_SummonSonja.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_SummonSonja.d)
 * [Spell_Teleport_Alle.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_Teleport_Alle.d)
+* [Spell_Transform_Alle.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_Transform_Alle.d)
 * [Spell_ProcessMana.d](./_work/Data/Scripts/Content/AI/Magic/Spell_ProcessMana.d)
 * [C_CanNpcCollideWithSpell.d](./_work/Data/Scripts/Content/AI/Magic/C_CanNpcCollideWithSpell.d)
 * [B_GiveTradeInv_Sonja.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv_Sonja.d)
+* [B_GiveTradeInv.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv.d)
 * [B_AAA_ApplySonjaStats.d](./_work/Data/Scripts/Content/Story/B_Story/B_AAA_ApplySonjaStats.d)
+* [B_GetLearnCostAttribute.d](./_work/Data/Scripts/Content/Story/B_Story/B_GetLearnCostAttribute.d)
 * [B_GivePlayerXP.d](./_work/Data/Scripts/Content/Story/B_Story/B_GivePlayerXP.d)
 * [B_Enter_DragonIsland.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_DragonIsland.d)
 * [B_Enter_SonjaWorld.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_SonjaWorld.d)

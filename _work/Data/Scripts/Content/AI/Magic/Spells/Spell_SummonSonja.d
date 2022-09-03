@@ -7,6 +7,7 @@ const int SPL_Cost_SummonSonja		= 5;
 INSTANCE Spell_SummonSonja (C_Spell_Proto)
 {
 	time_per_mana			= 0;
+	spelltype 				= SPELL_GOOD;
 	targetCollectAlgo		= TARGET_COLLECT_NONE;
 };
 

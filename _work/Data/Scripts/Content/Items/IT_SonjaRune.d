@@ -362,11 +362,41 @@ INSTANCE ItRu_SummonDragon (C_Item)
 	effect				=	"SPELLFX_WEAKGLIMMER_RED";
 
 	description			=	"Drachen herbeirufen";
-	TEXT	[0]			=	NAME_Mag_Circle;
-	COUNT	[0]			=	mag_circle;
 
 	TEXT	[1]			=	NAME_Manakosten;
 	COUNT	[1]			=	SPL_COST_SUMMONDRAGON;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+
+//**********************************************************************************
+//	ItRu_TransformDragon
+//**********************************************************************************
+
+const	int	Value_Ru_TransformDragon				=	2000;
+
+INSTANCE ItRu_TransformDragon (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Ru_TransformDragon;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_STONE;
+
+	spell				= 	SPL_TrfDragon;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER_RED";
+
+	description			=	"Verwandlung Drache";
+
+	TEXT	[1]			=	NAME_Manakosten;
+	COUNT	[1]			=	SPL_Cost_TrfDragon;
 
 	TEXT	[5]			=	NAME_Value;
 	COUNT	[5]			=	value;

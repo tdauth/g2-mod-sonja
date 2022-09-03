@@ -16,6 +16,7 @@ func INT Spell_ProcessMana (VAR INT manaInvested)
 	if (activeSpell == SPL_SummonSonja   		) 	{	return	Spell_Logic_SummonSonja		(manaInvested);	};
 	if (activeSpell == SPL_TeleportSonja   		) 	{	return	Spell_Logic_TeleportSonja	(manaInvested);	};
 	if (activeSpell == SPL_SummonDragon   		) 	{	return	Spell_Logic_SummonDragon	(manaInvested);	};
+	if (activeSpell == SPL_TrfDragon		    )	{	return	Spell_Logic_TrfDragon(manaInvested);	    };
 	
 	//Paladin-Runen
 	if (activeSpell == SPL_PalLight				)	{	return  Spell_Logic_PalLight			(manaInvested); };

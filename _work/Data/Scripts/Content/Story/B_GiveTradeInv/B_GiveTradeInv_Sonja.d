@@ -49,6 +49,7 @@ FUNC VOID B_GiveTradeInv_Sonja_Chapter_1 (var C_NPC slf)
     CreateInvItems (slf,ItMi_IEDudelGelb			,1);
     CreateInvItems (slf,ItMi_IEHarfe			,1);
     CreateInvItems (slf,ItMi_IELaute			,1);
+    CreateInvItems (slf,ItMi_Rake			,1);
 
     // ------ Scrolls ------
     CreateInvItems (slf,ItSc_Light			,6);
@@ -239,6 +240,7 @@ FUNC VOID B_GiveTradeInv_Sonja_Chapter_5 (var C_NPC slf)
     CreateInvItems (slf,ItRw_Addon_MagicBolt	,100);
 
     CreateInvItems (slf,ItRu_SummonDragon	,1);
+    CreateInvItems (slf,ItRu_TransformDragon	,1);
 };
 
 FUNC VOID B_GiveTradeInv_Sonja (var C_NPC slf)

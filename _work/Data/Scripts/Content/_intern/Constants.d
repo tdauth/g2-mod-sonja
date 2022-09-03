@@ -646,12 +646,14 @@ const int SPL_Reserved_97			= 97;
 const int SPL_Reserved_98			= 98;
 const int SPL_Reserved_99			= 99;
 
+// Sonja
 const int SPL_SummonSonja			= 100;
 const int SPL_TeleportSonja			= 101;
 const int SPL_TeleportRoteLaterne   = 102;
 const int SPL_SummonDragon          = 103;
+const int SPL_TrfDragon             = 104;
 
-const int MAX_SPELL					= 104;   // 59 (Gothic), 68 (Gothic2), 100 (G2Addon), 104 (Sonja)
+const int MAX_SPELL					= 105;   // 59 (Gothic), 68 (Gothic2), 100 (G2Addon), 105 (Sonja)
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -801,7 +803,8 @@ const string spellFxInstanceNames[MAX_SPELL] =
 	"SummonSonja",			// 100	SPL_SummonSonja
 	"Teleport",				// 101	SPL_TeleportSonja
 	"Teleport",				// 102	SPL_TeleportRoteLaterne
-	"SummonDragon"			// 103	SPL_SummonDragon
+	"SummonDragon",			// 103	SPL_SummonDragon
+	"Transform"			    // 104	SPL_TrfDragon
 };
 
 
@@ -952,7 +955,8 @@ const string spellFxAniLetters[MAX_SPELL] =
 	"SUM",  				// 100	SPL_SummonSonja Sonja herbeirufen
 	"HEA",  				// 101	SPL_TeleportSonja Zu Sonja teleportieren
 	"HEA",  				// 102	SPL_TeleportRoteLaterne Zu Sonja teleportieren
-	"SUM"  				    // 103	SPL_SummonDragon Sonja herbeirufen
+	"SUM",  				// 103	SPL_SummonDragon Sonja herbeirufen
+	"TRF"                   // 104  SPL_Dragon Drache
 };
 
 
