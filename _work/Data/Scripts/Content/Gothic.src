@@ -193,6 +193,8 @@ STORY\B_Content\B_Beklauen.d
 STORY\B_AssignAmbientInfos\B_Announce_Herold.d
 STORY\B_AssignAmbientInfos\B_Preach_Vatras.d
 
+STORY\B_Story\B_GetLearnCostTalent.d
+STORY\B_Story\B_AAA_TeachAufreisserTalentPercent.d
 
 STORY\B_AssignAmbientInfos\B_AAA_Aufreissen.d
 STORY\B_AssignAmbientInfos\B_AAA_Pimp.d
@@ -271,7 +273,6 @@ STORY\G_Functions\G_PickLock.d
 
 
 
-STORY\B_Story\B_GetLearnCostTalent.d
 STORY\B_Story\B_GetLearnCostAttribute.d
 STORY\B_Story\B_BuildLearnString.d
 

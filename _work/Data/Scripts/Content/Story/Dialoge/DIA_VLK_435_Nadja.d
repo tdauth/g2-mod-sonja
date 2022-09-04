@@ -101,7 +101,10 @@ func void DIA_Nadja_STANDARD_Info ()
 		Nadja_LuciaInfo = TRUE;
 	};	
 	
-	AI_StopProcessInfos (self);
+	if (Bromor_RoteTaverneVerkauft == FALSE)
+	{
+        AI_StopProcessInfos (self);
+    };
 };
 ///////////////////////////////////////////////////////////////////////
 //	Info Danach

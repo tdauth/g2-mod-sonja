@@ -1,17 +1,3 @@
-var int SonjaFolgt;							//= TRUE Sonja wurde freigekauft.
-var int SonjaGeheiratet;					//= TRUE Sonja geheiratet.
-var int SonjaGefragt;						//= TRUE Sonja nach Freikaufen gefragt.
-var int SonjaSummonDays;
-var int SonjaSexDays;
-var int SonjaProfitDays;
-var int SonjaRespawnDays;
-var int SonjaRespawnItemsDays;
-var int SonjaCookDays;
-var int SonjaDragonInfo;                    //=TRUE Sonja hat dem Helden von den Spruchrollen und Runen erzählt.
-var int 	Sonja_SkinTexture; // 137 Frau
-var int 	Sonja_BodyTexture; // BodyTexBabe_Nude
-var string 	Sonja_HeadMesh; // Hum_Head_Babe8
-
 // ************************************************************
 // 			Change Sonja Visual
 // ************************************************************
@@ -278,7 +264,8 @@ func int DIA_Sonja_HERBEIRUFEN_Condition ()
 func void DIA_Sonja_HERBEIRUFEN_Info ()
 {
     AI_Output (other, self, "DIA_Sonja_HERBEIRUFEN_15_00"); //Wie kann ich dich rufen, wenn ich in Not bin?
-    AI_Output (self, other, "DIA_Sonja_HERBEIRUFEN_16_00"); //Vatras hat mir eine Rune gebastelt, mit der er mich jederzeit beschwören konnte, nachdem seine Predigt fertig war. Ich habe noch welche bei mir. Kauf sie mir einfach ab.
+    AI_Output (self, other, "DIA_Sonja_HERBEIRUFEN_16_00"); //Vatras hat mir eine Rune gebastelt, mit der er mich jederzeit beschwören konnte, nachdem seine Predigt fertig war. Hier hast du sie!
+    B_GiveInvItems(self, other, ItRu_SummonSonja, 1);
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -2099,64 +2086,6 @@ func void DIA_Sonja_TEACH_Back()
     Info_ClearChoices   (DIA_Sonja_TEACH);
 };
 
-func int B_TeachAufreisserTalentPercent (var C_NPC slf, var C_NPC oth, var int percent, var int teacherMAX)
-{
-	var string concatText;
-
-	// ------ Kostenberechnung ------
-	var int kosten;
-	kosten = B_GetLearnCostTalent(oth, NPC_TALENT_WOMANIZER, percent);
-
-	//EXIT IF...
-
-	// ------ Lernen NICHT über teacherMax ------
-	var int realHitChance;
-	realHitChance = Npc_GetTalentSkill(oth, NPC_TALENT_WOMANIZER);
-
-	if (realHitChance >= teacherMAX)
-	{
-		concatText = ConcatStrings (PRINT_NoLearnOverPersonalMAX, IntToString(teacherMAX));
-		PrintScreen	(concatText, -1, -1, FONT_SCREEN, 2);
-		B_Say (slf, oth, "$NOLEARNYOUREBETTER");
-
-		return FALSE;
-	};
-
-	if ((realHitChance + percent) > teacherMAX)
-	{
-		concatText = ConcatStrings (PRINT_NoLearnOverPersonalMAX, IntToString(teacherMAX));
-		PrintScreen	(concatText, -1, -1, FONT_SCREEN, 2);
-		B_Say (slf, oth, "$NOLEARNOVERPERSONALMAX");
-
-		return FALSE;
-	};
-
-	// ------ Player hat zu wenig Lernpunkte ------
-	if (oth.lp < kosten)
-	{
-		PrintScreen	(PRINT_NotEnoughLP, -1, -1, FONT_Screen, 2);
-		B_Say (slf, oth, "$NOLEARNNOPOINTS");
-
-		return FALSE;
-	};
-
-
-	// FUNC
-
-	// ------ Lernpunkte abziehen ------
-	oth.lp = oth.lp - kosten;
-
-	// ------ AUFREISSER steigern ------
-    Npc_SetTalentSkill (oth, NPC_TALENT_WOMANIZER, Npc_GetTalentSkill(oth, NPC_TALENT_WOMANIZER) + percent);	//Aufreisser
-
-	concatText = ConcatStrings ("Verbessere: Aufreißen zu ", IntToString (Npc_GetTalentSkill(other, NPC_TALENT_WOMANIZER)));
-	concatText = ConcatStrings (ConcatText, " Prozent");
-    PrintScreen	(concatText, -1, -1, FONT_Screen, 2);
-
-
-    return TRUE;
-};
-
 func void SonjaTeachAufreisser()
 {
     Info_ClearChoices (DIA_Sonja_TEACH);
@@ -3838,6 +3767,33 @@ FUNC VOID DIA_Sonja_ADVICE_Info()
         AI_Output			(self, other, "DIA_Sonja_ADVICE_16_00"); //Ich weiß es nicht.
         B_LogEntry ("Sonja", "Sonja weiß auch nicht, was ich tun soll.");
 	};
+};
+
+
+// ************************************************************
+// 			  				ROTER LATERNE
+// ************************************************************
+
+INSTANCE DIA_Sonja_ROTE_LATERNE (C_INFO)
+{
+	npc			= VLK_436_Sonja;
+	nr			= 900;
+	condition	= DIA_Sonja_ROTE_LATERNE_Condition;
+	information	= DIA_Sonja_ROTE_LATERNE_Info;
+	permanent	= FALSE;
+	description = "Ich habe die Rote Laterne gekauft!";
+};
+
+FUNC INT DIA_Sonja_ROTE_LATERNE_Condition()
+{
+	return SonjaFolgt == TRUE && Bromor_RoteTaverneVerkauft;
+};
+
+FUNC VOID DIA_Sonja_ROTE_LATERNE_Info()
+{
+    AI_Output			(other, self, "DIA_Sonja_ROTE_LATERNE_15_00"); //Ich habe die Rote Laterne gekauft!
+    AI_Output			(self, other, "DIA_Sonja_ADVICE_16_03"); //Geh zu Lord Hagen und hol dir das Auge Innos.
+    B_LogEntry ("Sonja", "Sonja weiß auch nicht, was ich tun soll.");
 };
 
 // ************************************************************

@@ -558,6 +558,9 @@ const int	MOBSI_PRAYSHRINE				= 5;
 const int	MOBSI_GOLDHACKEN				= 6;
 const int	MOBSI_PRAYIDOL					= 7;
 
+// Sonja
+const int	MOBSI_ROTELATERNE					= 8;
+
 var int 	PLAYER_MOBSI_PRODUCTION;
 
 // *****************************

@@ -964,6 +964,76 @@ FUNC VOID Use_Runemaking_Dragon()
 	};
 };
 
+INSTANCE ITWR_RoteLaterne (C_ITEM)
+{
+	name 					=	"Geschäftsbuch der Roten Laterne";
+
+	mainflag 				=	ITEM_KAT_DOCS;
+	flags 					=	ITEM_MISSION;
+
+	value 					=	100;
+
+	visual 					=	"ItWr_Book_02_01.3ds";  					//BUCH VARIATIONEN: ItWr_Book_01.3DS , ItWr_Book_02_01.3DS, ItWr_Book_02_02.3DS, ItWr_Book_02_03.3DS, ItWr_Book_02_04.3DS, ItWr_Book_02_05.3DS
+	material 				=	MAT_LEATHER;
+
+	scemeName				=	"MAP";
+	description				= 	"Geschäftsbuch der Roten Laterne";
+	TEXT[5]					= 	NAME_Value;
+	COUNT[5]				= 	value;
+	on_state[0]				=	ROTELATERNE_S1;
+};
+
+// ******************************************************
+INSTANCE ITAR_VLK_Pimp (C_Item)
+{
+	name 					=	"Zuhälter Kleidung";
+
+	mainflag 				=	ITEM_KAT_ARMOR;
+	flags 					=	0;
+
+	protection [PROT_EDGE]	=	15;
+	protection [PROT_BLUNT] = 	15;
+	protection [PROT_POINT] = 	10;
+	protection [PROT_FIRE] 	= 	5;
+	protection [PROT_MAGIC] = 	5;
+
+	value 					=	VALUE_ITAR_VLK_H;
+
+	wear 					=	WEAR_TORSO;
+
+	visual 					=	"ItAr_VLK_H.3DS";
+	visual_change 			=	"Armor_Vlk_H.asc";
+	visual_skin 			=	0;
+	material 				=	MAT_LEATHER;
+	on_equip				=  	Equip_ITAR_VLK_Pimp;
+	on_unequip				= 	UnEquip_ITAR_VLK_Pimp;
+
+	description				=	name;
+
+	TEXT[0]					=	"Bonus Zuhälter";
+	COUNT[0]				= 	15;
+	TEXT[1]					=	NAME_Prot_Edge;
+	COUNT[1]				= 	protection	[PROT_EDGE];
+	TEXT[2]					=	NAME_Prot_Point;
+	COUNT[2]				= 	protection	[PROT_POINT];
+	TEXT[3] 				=	NAME_Prot_Fire;
+	COUNT[3]				= 	protection	[PROT_FIRE];
+	TEXT[4]					=	NAME_Prot_Magic;
+	COUNT[4]				= 	protection	[PROT_MAGIC];
+	TEXT[5]					=	NAME_Value;
+	COUNT[5]				= 	value;
+};
+
+FUNC VOID Equip_ITAR_VLK_Pimp()
+{
+    Npc_SetTalentSkill (self,NPC_TALENT_PIMP, Npc_GetTalentSkill (self,NPC_TALENT_PIMP) + 15);
+};
+
+FUNC VOID UnEquip_ITAR_VLK_Pimp()
+{
+	Npc_SetTalentSkill (self,NPC_TALENT_PIMP, Npc_GetTalentSkill (self,NPC_TALENT_PIMP) - 15);
+};
+
 INSTANCE ITAR_Babe_Leather_L (C_Item)
 {
 	name 					=	"Lederrüstung";

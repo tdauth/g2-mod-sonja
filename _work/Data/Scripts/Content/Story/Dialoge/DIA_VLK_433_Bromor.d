@@ -490,6 +490,8 @@ func void DIA_Bromor_BUY_Info ()
         AI_Output (self, other, "DIA_Bromor_BUY_07_08"); //Hier ist der Schlüssel zu meinem Zimmer. Die Rote Taverne, die Perle von Khorinis gehört nun dir. Halte sie in Ehren!
         B_GiveInvItems (other, self, ItMi_Gold, 15000);
         B_GiveInvItems (self, other, ItKe_Bromor, 1);
+        CreateInvItem(other, ITWR_RoteLaterne);
+        CreateInvItem(other, ITAR_VLK_Pimp);
         B_LogEntry ("Die Rote Laterne", "Die Rote Laterne gehört nun mir. Ich soll sie in Ehren halten.");
         Bromor_RoteTaverneVerkauft = TRUE;
         Npc_ExchangeRoutine	(self,"NEWLIFE");

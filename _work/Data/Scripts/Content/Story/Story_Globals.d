@@ -1462,7 +1462,21 @@ var int Orc_Randomizer;
 var int CurrentLevel; 	//Newworld_zen, Oldworld_Zen, Dragonisland_zen -> Level in dem sich der Player befindet!
 
 // Sonja
+var int SonjaFolgt;							//= TRUE Sonja wurde freigekauft.
+var int SonjaGeheiratet;					//= TRUE Sonja geheiratet.
+var int SonjaGefragt;						//= TRUE Sonja nach Freikaufen gefragt.
+var int SonjaSummonDays;
+var int SonjaSexDays;
+var int SonjaProfitDays;
+var int SonjaRespawnDays;
+var int SonjaRespawnItemsDays;
+var int SonjaCookDays;
+var int SonjaDragonInfo;                    //=TRUE Sonja hat dem Helden von den Spruchrollen und Runen erzählt.
+var int 	Sonja_SkinTexture; // 137 Frau
+var int 	Sonja_BodyTexture; // BodyTexBabe_Nude
+var string 	Sonja_HeadMesh; // Hum_Head_Babe8
 var int Bromor_RoteTaverneVerkauft;						//= TRUE Bromor hat dem Spieler die Rote Taverne verkauft.
+var int RoteLaterne_Guards; //=TRUE Die Rote Laterne wurde mit Wachen ausgestattet.
 
 //--------------------
 //DragonIsland Kapitel 6

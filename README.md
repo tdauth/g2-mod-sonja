@@ -4,7 +4,7 @@ Allows to buy NPC Sonja (VLK_436_Sonja) as a companion with special services.
 
 ## How to Play
 
-Download and run the installer setup [Sonja-1.0.exe](./Sonja-1.0.exe).
+Download and run the installer setup [Sonja-1.2.exe](./Sonja-1.2.exe).
 Run the "GothicStarter" and choose the mod Sonja to play Gothic II with.
 
 ## Features
@@ -30,52 +30,6 @@ Sonja provides the following features:
 * Can sell the Meatbug pet Hans.
 * You can buy the Rote Laterne from Bromor and run it.
 * Can teach you constructing runes of transformation.
-
-## Modified Files
-
-* [VLK_436_Sonja.d](./_work/Data/Scripts/Content/Story/NPC/VLK_436_Sonja.d)
-* [DIA_VLK_436_Sonja.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_436_Sonja.d)
-* [DIA_VLK_433_Bromor.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_433_Bromor.d)
-* [DIA_VLK_434_Borka.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_434_Borka.d)
-* [DIA_VLK_435_Nadja.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_435_Nadja.d)
-* [IT_SonjaRune.d](./_work/Data/Scripts/Content/Items/IT_SonjaRune.d)
-* [Spell_SummonDragon.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_SummonDragon.d)
-* [Spell_SummonSonja.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_SummonSonja.d)
-* [Spell_Teleport_Alle.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_Teleport_Alle.d)
-* [Spell_Transform_Alle.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_Transform_Alle.d)
-* [Spell_ProcessMana.d](./_work/Data/Scripts/Content/AI/Magic/Spell_ProcessMana.d)
-* [C_CanNpcCollideWithSpell.d](./_work/Data/Scripts/Content/AI/Magic/C_CanNpcCollideWithSpell.d)
-* [B_GiveTradeInv_Sonja.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv_Sonja.d)
-* [B_GiveTradeInv.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv.d)
-* [B_AAA_ApplySonjaStats.d](./_work/Data/Scripts/Content/Story/B_Story/B_AAA_ApplySonjaStats.d)
-* [B_GetLearnCostAttribute.d](./_work/Data/Scripts/Content/Story/B_Story/B_GetLearnCostAttribute.d)
-* [B_GetLearnCostTalent.d](./_work/Data/Scripts/Content/Story/B_Story/B_GetLearnCostTalent.d)
-* [B_TeachPlayerTalentRunes.d](./_work/Data/Scripts/Content/Story/B_Story/B_TeachPlayerTalentRunes.d)
-* [B_GivePlayerXP.d](./_work/Data/Scripts/Content/Story/B_Story/B_GivePlayerXP.d)
-* [B_Enter_DragonIsland.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_DragonIsland.d)
-* [B_Enter_SonjaWorld.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_SonjaWorld.d)
-* [B_TeachAttributePoints.d](./_work/Data/Scripts/Content/Story/B_Story/B_TeachAttributePoints.d)
-* [MakeRune.d](./_work/Data/Scripts/Content/Story/Dialog_Mobsis/MakeRune.d)
-* [AI_Constants.d](./_work/Data/Scripts/Content/AI/AI_Intern/AI_Constants.d)
-* [Species.d](./_work/Data/Scripts/Content/AI/AI_Intern/Species.d)
-* [ZS_Talk.d](./_work/Data/Scripts/Content/AI/Human/ZS_Human/ZS_Talk.d)
-* [B_AAA_AssignSonja.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_AssignSonja.d)
-* [B_AAA_Aufreissen.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Aufreissen.d)
-* [B_AAA_Pimp.d](./_work/Data/Scripts/Content/Story/B_AssignAmbientInfos/B_AAA_Pimp.d)
-* [B_InitMonsterAttitudes.d](./_work/Data/Scripts/Content/Story/NPC/Monster/B_Monster/B_InitMonsterAttitudes.d)
-* [MST_Dragon_Sonja.d](./_work/Data/Scripts/Content/Story/NPC/Monster/MST_Dragon_Sonja.d)
-* [MST_Meatbug.d](./_work/Data/Scripts/Content/Story/NPC/Monster/MST_Meatbug.d)
-* [NPC_Globals.d](./_work/Data/Scripts/Content/Story/NPC_Globals.d)
-* [Text.d](./_work/Data/Scripts/Content/Story/Text.d)
-* [Startup.d](./_work/Data/Scripts/Content/Story/Startup.d)
-* [Menu_Status.d](./_work/Data/Scripts/System/MENU/Menu_Status.d)
-* [Constants.d](./_work/Data/Scripts/Content/_intern/Constants.d)
-* [VisualFxInst.d](./_work/Data/Scripts/System/VisualFX/VisualFxInst.d)
-* [Gothic.src](./_work/Data/Scripts/Content/Gothic.src)
-* [OUINFO.INF](./_work/Data/Scripts/_compiled/OUINFO.INF)
-* [OU.BIN](./_work/Data/Scripts/content/CUTSCENE/OU.BIN)
-* [CS.BIN](./_work/Data/Scripts/content/CUTSCENE/CS.BIN)
-* Currently not used but maybe later for a custom home: [DieGestrandeten.zen](./_work/Data/Worlds/Sonja/DieGestrandeten.zen)
 
 ## TODOs
 
