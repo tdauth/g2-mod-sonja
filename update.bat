@@ -27,12 +27,15 @@ copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\AI\Magic\C_CanNpcCollideWithSpell.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\AI\Magic"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_GiveTradeInv\B_GiveTradeInv_Sonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_GiveTradeInv"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_GiveTradeInv\B_GiveTradeInv.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_GiveTradeInv"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Dialog_Mobsis\MakeRune.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\Dialog_Mobsis"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_AAA_ApplySonjaStats.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_GetLearnCostAttribute.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_GetLearnCostTalent.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_GivePlayerXP.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_Enter_DragonIsland.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_Enter_SonjaWorld.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_TeachAttributePoints.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_Story\B_TeachPlayerTalentRunes.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos\B_AAA_AssignSonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos\B_AAA_Aufreissen.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos\B_AAA_Pimp.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\B_AssignAmbientInfos"
@@ -51,6 +54,6 @@ copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\content\CUTSCENE\OU.CS" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\content\CUTSCENE"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\System\Sonja.ini" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\System"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\System\MENU\Menu_Status.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\System\MENU"
-copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\demo\Sonja-1.0.exe" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\demo\Sonja-1.1.exe" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja"
 
 pause

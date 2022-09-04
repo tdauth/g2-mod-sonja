@@ -29,6 +29,7 @@ Sonja provides the following features:
 * Teaches the newly added skills "Womanizer" and "Pimp".
 * Can sell the Meatbug pet Hans.
 * You can buy the Rote Laterne from Bromor and run it.
+* Can teach you constructing runes of transformation.
 
 ## Modified Files
 
@@ -48,10 +49,13 @@ Sonja provides the following features:
 * [B_GiveTradeInv.d](./_work/Data/Scripts/Content/Story/B_GiveTradeInv/B_GiveTradeInv.d)
 * [B_AAA_ApplySonjaStats.d](./_work/Data/Scripts/Content/Story/B_Story/B_AAA_ApplySonjaStats.d)
 * [B_GetLearnCostAttribute.d](./_work/Data/Scripts/Content/Story/B_Story/B_GetLearnCostAttribute.d)
+* [B_GetLearnCostTalent.d](./_work/Data/Scripts/Content/Story/B_Story/B_GetLearnCostTalent.d)
+* [B_TeachPlayerTalentRunes.d](./_work/Data/Scripts/Content/Story/B_Story/B_TeachPlayerTalentRunes.d)
 * [B_GivePlayerXP.d](./_work/Data/Scripts/Content/Story/B_Story/B_GivePlayerXP.d)
 * [B_Enter_DragonIsland.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_DragonIsland.d)
 * [B_Enter_SonjaWorld.d](./_work/Data/Scripts/Content/Story/B_Story/B_Enter_SonjaWorld.d)
 * [B_TeachAttributePoints.d](./_work/Data/Scripts/Content/Story/B_Story/B_TeachAttributePoints.d)
+* [MakeRune.d](./_work/Data/Scripts/Content/Story/Dialog_Mobsis/MakeRune.d)
 * [AI_Constants.d](./_work/Data/Scripts/Content/AI/AI_Intern/AI_Constants.d)
 * [Species.d](./_work/Data/Scripts/Content/AI/AI_Intern/Species.d)
 * [ZS_Talk.d](./_work/Data/Scripts/Content/AI/Human/ZS_Human/ZS_Talk.d)

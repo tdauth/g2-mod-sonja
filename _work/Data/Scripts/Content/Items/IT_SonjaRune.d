@@ -338,6 +338,71 @@ FUNC VOID Use_Pimp()
 					Doc_Show		( nDocID );
 };
 
+const int Value_Sc_SummonDragon = 5000;
+
+INSTANCE ItSc_SummonDragon (C_Item)
+{
+	name 				=	NAME_Spruchrolle;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	ITEM_MULTI;
+
+	value 				=	Value_Sc_SummonDragon;
+
+	visual				=	"ItSc_Shrink.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_SummonDragon;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_SummonDragon;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+
+const int Value_Sc_TrfDragon = 5000;
+
+/*******************************************************************************************/
+INSTANCE ItSc_TrfDragon (C_Item)
+{
+	name 				=	NAME_Spruchrolle;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	ITEM_MULTI;
+
+	value 				=	Value_Sc_TrfDragon;
+
+	visual				=	"ItSc_TrfSheep.3DS";
+	material			=	MAT_LEATHER;
+
+	spell			    = 	SPL_TrfDragon;
+	cond_atr[2]   		= 	ATR_MANA_MAX;
+	cond_value[2]  		= 	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_TrfDragon;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+
 //**********************************************************************************
 //	ItRu_SummonDragon
 //**********************************************************************************
@@ -361,7 +426,7 @@ INSTANCE ItRu_SummonDragon (C_Item)
 	wear				= 	WEAR_EFFECT;
 	effect				=	"SPELLFX_WEAKGLIMMER_RED";
 
-	description			=	"Drachen herbeirufen";
+	description			=	NAME_SPL_SummonDragon;
 
 	TEXT	[1]			=	NAME_Manakosten;
 	COUNT	[1]			=	SPL_COST_SUMMONDRAGON;
@@ -374,16 +439,16 @@ INSTANCE ItRu_SummonDragon (C_Item)
 //	ItRu_TransformDragon
 //**********************************************************************************
 
-const	int	Value_Ru_TransformDragon				=	2000;
+const	int	Value_Ru_TrfDragon				=	2000;
 
-INSTANCE ItRu_TransformDragon (C_Item)
+INSTANCE ItRu_TrfDragon (C_Item)
 {
 	name 				=	NAME_Rune;
 
 	mainflag 			=	ITEM_KAT_RUNE;
 	flags 				=	0;
 
-	value 				=	Value_Ru_TransformDragon;
+	value 				=	Value_Ru_TrfDragon;
 
 	visual				=	"ItRu_SumGol.3DS";
 	material			=	MAT_STONE;
@@ -393,13 +458,510 @@ INSTANCE ItRu_TransformDragon (C_Item)
 	wear				= 	WEAR_EFFECT;
 	effect				=	"SPELLFX_WEAKGLIMMER_RED";
 
-	description			=	"Verwandlung Drache";
+	description			=	NAME_SPL_TrfDragon;
 
 	TEXT	[1]			=	NAME_Manakosten;
 	COUNT	[1]			=	SPL_Cost_TrfDragon;
 
 	TEXT	[5]			=	NAME_Value;
 	COUNT	[5]			=	value;
+};
+
+/*******************************************************************************************/
+INSTANCE ItRu_TrfSheep (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfSheep;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell			    = 	SPL_TrfSheep;
+	cond_atr[2]   		= 	ATR_MANA_MAX;
+	cond_value[2]  		= 	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_TrfSheep;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfScavenger (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfScavenger;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfScavenger;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_TrfScavenger;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfGiantRat (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfGiantrat;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfGiantRat;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_TrfGiantRat;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfGiantBug (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfGiantBug;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfGiantBug;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_TrfGiantBug;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfWolf (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfWolf;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfWolf;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			= 	NAME_SPL_TrfWolf;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfWaran (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfWaran;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfWaran;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			= 	NAME_SPL_TrfWaran;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfSnapper (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfSnapper;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfSnapper;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			= NAME_SPL_TrfSnapper;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfWarg (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfWarg;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfWarg;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_TrfWarg;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfFireWaran (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfFireWaran;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfFireWaran;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=  NAME_SPL_TrfFireWaran;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfLurker (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfLurker;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfLurker;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_TrfLurker;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfShadowbeast (C_Item)
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfShadowbeast;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfShadowbeast;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=	NAME_SPL_TrfShadowbeast;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+INSTANCE ItRu_TrfDragonSnapper (C_Item)//Joly:Auf Dracheninsel in Truhe der Schwarzmagiernovizen
+{
+	name 				=	NAME_Rune;
+
+	mainflag 			=	ITEM_KAT_RUNE;
+	flags 				=	0;
+
+	value 				=	Value_Sc_TrfDragonSnapper;
+
+	visual				=	"ItRu_SumGol.3DS";
+	material			=	MAT_LEATHER;
+
+	spell				= 	SPL_TrfDragonSnapper;
+	cond_atr[2]   		=	ATR_MANA_MAX;
+	cond_value[2]  		=	SPL_Cost_Scroll;
+
+	wear				= 	WEAR_EFFECT;
+	effect				=	"SPELLFX_WEAKGLIMMER";
+
+	description			=  NAME_SPL_TrfDragonSnapper;
+
+	TEXT	[0]			=	Name_MageScroll	;
+
+	TEXT	[1]			=	NAME_Mana_needed;
+	COUNT	[1]			=	SPL_Cost_Scroll;
+
+	TEXT	[5]			=	NAME_Value;
+	COUNT	[5]			=	value;
+};
+/*******************************************************************************************/
+
+INSTANCE ITWR_Runemaking_Transform (C_ITEM)
+{
+	name 					=	"Verwandlungsbuch";
+
+	mainflag 				=	ITEM_KAT_DOCS;
+	flags 					=	ITEM_MISSION;
+
+	value 					=	100;
+
+	visual 					=	"ItWr_Book_02_02.3ds";  					//BUCH VARIATIONEN: ItWr_Book_01.3DS , ItWr_Book_02_01.3DS, ItWr_Book_02_02.3DS, ItWr_Book_02_03.3DS, ItWr_Book_02_04.3DS, ItWr_Book_02_05.3DS
+	material 				=	MAT_LEATHER;
+
+	scemeName				=	"MAP";
+	description				= 	"Runenbuch der Verwandlung";
+	TEXT[5]					= 	NAME_Value;
+	COUNT[5]				= 	value;
+	on_state[0]				=	Use_Runemaking_Transform;
+};
+
+FUNC VOID Use_Runemaking_Transform()
+{
+	var C_NPC her; 	her = Hlp_GetNpc(PC_Hero);
+
+	if  (Hlp_GetInstanceID(self) == Hlp_GetInstanceID(her))
+	{
+		var int nDocID;
+
+		nDocID = 	Doc_Create		()			  ;
+					Doc_SetPages	( nDocID,  2 );
+					Doc_SetPage 	( nDocID,  0, "Book_Mage_L.tga", 	0 		);
+					Doc_SetPage 	( nDocID,  1, "Book_Mage_R.tga",	0		);
+
+					Doc_SetFont 	( nDocID, -1, FONT_Book	   			);
+					Doc_SetMargins	( nDocID,  0,  275, 20, 30, 20, 1   		);
+
+					Doc_PrintLine	( nDocID,  0, "VERWANDLUNG"					);
+					Doc_PrintLine	( nDocID,  0, ""	);
+					Doc_PrintLine	( nDocID,  0, ""	);
+					Doc_PrintLines	( nDocID,  0, "Die Runen der Verwandlung und die zu deren Herstellung benötigten Ingredenzien ");
+					Doc_PrintLine	( nDocID,  0, ""	);
+					Doc_PrintLine	( nDocID,  0, ""	);
+
+					Doc_PrintLine	( nDocID,  0, "Verwandlung Schaf");
+					Doc_PrintLine	( nDocID,  0, "1 Schafsfell");
+					Doc_PrintLine	( nDocID,  0, "");
+
+					Doc_PrintLine	( nDocID,  0, "Verwandlung Scavenger");
+					Doc_PrintLine	( nDocID,  0, "10 Rohes Fleisch");
+					Doc_PrintLine	( nDocID,  0, "");
+
+					Doc_PrintLine	( nDocID,  0, "Verwandlung Riesenratte");
+					Doc_PrintLine	( nDocID,  0, "10 Rohes Fleisch");
+					Doc_PrintLine	( nDocID,  0, "");
+
+					Doc_PrintLine	( nDocID,  0, "Verwandlung Feldräuber");
+					Doc_PrintLine	( nDocID,  0, "2 Feldräuberzangen");
+					Doc_PrintLine	( nDocID,  0, "");
+
+					Doc_SetMargins	( nDocID, -1, 30, 20, 275, 20, 1   		);
+					Doc_PrintLine	( nDocID,  1, ""					);
+					Doc_PrintLine	( nDocID,  1, ""					);
+
+					Doc_PrintLines	( nDocID,  1, "Für die Herstellung einer Rune sind jeweils die aufgeführten Ingredenzien erforderlich."					);
+					Doc_PrintLine	( nDocID,  1, ""					);
+					Doc_PrintLines	( nDocID,  1, "Dem Anwender muss die Formel für den Zauber bekannt sein und er muss einen blanken Runenstein, sowie eine Spruchrolle des jeweiligen Zaubers besitzen."					);
+					Doc_PrintLine	( nDocID,  1, ""					);
+					Doc_PrintLines	( nDocID,  1, "Erst wenn diese Vorraussetzungen erfüllt sind, kann er am Runentisch zu Werke gehen."					);
+					Doc_Show		( nDocID );
+	};
+};
+
+INSTANCE ITWR_Runemaking_Dragon (C_ITEM)
+{
+	name 					=	"Drachenbuch";
+
+	mainflag 				=	ITEM_KAT_DOCS;
+	flags 					=	ITEM_MISSION;
+
+	value 					=	100;
+
+	visual 					=	"ItWr_Book_02_01.3ds";  					//BUCH VARIATIONEN: ItWr_Book_01.3DS , ItWr_Book_02_01.3DS, ItWr_Book_02_02.3DS, ItWr_Book_02_03.3DS, ItWr_Book_02_04.3DS, ItWr_Book_02_05.3DS
+	material 				=	MAT_LEATHER;
+
+	scemeName				=	"MAP";
+	description				= 	"Runenbuch der Drachen";
+	TEXT[5]					= 	NAME_Value;
+	COUNT[5]				= 	value;
+	on_state[0]				=	Use_Runemaking_Dragon;
+};
+
+FUNC VOID Use_Runemaking_Dragon()
+{
+	var C_NPC her; 	her = Hlp_GetNpc(PC_Hero);
+
+	if  (Hlp_GetInstanceID(self) == Hlp_GetInstanceID(her))
+	{
+		var int nDocID;
+
+		nDocID = 	Doc_Create		()			  ;
+					Doc_SetPages	( nDocID,  2 );
+					Doc_SetPage 	( nDocID,  0, "Book_Mage_L.tga", 	0 		);
+					Doc_SetPage 	( nDocID,  1, "Book_Mage_R.tga",	0		);
+
+					Doc_SetFont 	( nDocID, -1, FONT_Book	   			);
+					Doc_SetMargins	( nDocID,  0,  275, 20, 30, 20, 1   		);
+
+					Doc_PrintLine	( nDocID,  0, "DRACHEN"					);
+					Doc_PrintLine	( nDocID,  0, ""	);
+					Doc_PrintLine	( nDocID,  0, ""	);
+					Doc_PrintLines	( nDocID,  0, "Die Runen der Drachen und die zu deren Herstellung benötigten Ingredenzien ");
+					Doc_PrintLine	( nDocID,  0, ""	);
+					Doc_PrintLine	( nDocID,  0, ""	);
+
+					Doc_PrintLine	( nDocID,  0, "Drachen beschwören");
+					Doc_PrintLine	( nDocID,  0, "1 Drachenschuppe");
+					Doc_PrintLine	( nDocID,  0, "");
+
+					Doc_PrintLine	( nDocID,  0, "Verwandlung Drache");
+					Doc_PrintLine	( nDocID,  0, "1 Drachenschuppe");
+					Doc_PrintLine	( nDocID,  0, "");
+
+					Doc_SetMargins	( nDocID, -1, 30, 20, 275, 20, 1   		);
+					Doc_PrintLine	( nDocID,  1, ""					);
+					Doc_PrintLine	( nDocID,  1, ""					);
+
+					Doc_PrintLines	( nDocID,  1, "Für die Herstellung einer Rune sind jeweils die aufgeführten Ingredenzien erforderlich."					);
+					Doc_PrintLine	( nDocID,  1, ""					);
+					Doc_PrintLines	( nDocID,  1, "Dem Anwender muss die Formel für den Zauber bekannt sein und er muss einen blanken Runenstein, sowie eine Spruchrolle des jeweiligen Zaubers besitzen."					);
+					Doc_PrintLine	( nDocID,  1, ""					);
+					Doc_PrintLines	( nDocID,  1, "Erst wenn diese Vorraussetzungen erfüllt sind, kann er am Runentisch zu Werke gehen."					);
+					Doc_Show		( nDocID );
+	};
 };
 
 INSTANCE ITAR_Babe_Leather_L (C_Item)

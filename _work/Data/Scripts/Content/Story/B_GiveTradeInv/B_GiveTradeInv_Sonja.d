@@ -102,6 +102,10 @@ FUNC VOID B_GiveTradeInv_Sonja_Chapter_1 (var C_NPC slf)
     // Talente
     CreateInvItems (slf,ItWr_Womanizer	,1);
     CreateInvItems (slf,ItWr_Pimp	,1);
+
+    // Runes
+    CreateInvItems (slf,ITWR_Runemaking_Transform	,1);
+    CreateInvItems (slf,ITWR_Runemaking_Dragon	,1);
 };
 
 FUNC VOID B_GiveTradeInv_Sonja_Chapter_2 (var C_NPC slf)
@@ -239,8 +243,9 @@ FUNC VOID B_GiveTradeInv_Sonja_Chapter_5 (var C_NPC slf)
     CreateInvItems (slf,ItRw_Addon_FireArrow	,100);
     CreateInvItems (slf,ItRw_Addon_MagicBolt	,100);
 
-    CreateInvItems (slf,ItRu_SummonDragon	,1);
-    CreateInvItems (slf,ItRu_TransformDragon	,1);
+    // Drachen
+    CreateInvItems (slf,ItSc_SummonDragon	,3);
+    CreateInvItems (slf,ItSc_TrfDragon	,3);
 };
 
 FUNC VOID B_GiveTradeInv_Sonja (var C_NPC slf)

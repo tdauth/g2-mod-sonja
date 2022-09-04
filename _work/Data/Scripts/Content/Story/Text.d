@@ -521,6 +521,10 @@ const string NAME_SPL_Reserved_98			= "NAME_SPL_RESERVED_98";
 const string NAME_SPL_Reserved_99			= "NAME_SPL_RESERVED_99";
 
 
+// Sonja
+const string NAME_SPL_SummonDragon          = "Drache beschwören";
+const string NAME_SPL_TrfDragon             = "Verwandlung Drache";
+
 // *****************************************************************************************
 // Charakterbogen-Texte: TALENTE
 // *****************************************************************************************

@@ -426,6 +426,28 @@ func void DIA_Nadja_WANT_HERB_Info ()
 	};
 };
 
+///////////////////////////////////////////////////////////////////////
+//	Info NEW BOSS
+///////////////////////////////////////////////////////////////////////
+instance DIA_Nadja_NEW_BOSS		(C_INFO)
+{
+	npc			 = 	VLK_435_Nadja;
+	nr			 = 	3;
+	condition	 = 	DIA_Nadja_NEW_BOSS_Condition;
+	information	 = 	DIA_Nadja_NEW_BOSS_Info;
+	permanent	 =  TRUE;
+	description	 = 	"Du arbeitest jetzt für mich.";
+};
+func int DIA_Nadja_NEW_BOSS_Condition ()
+{
+	return Bromor_RoteTaverneVerkauft;
+};
+func void DIA_Nadja_NEW_BOSS_Info ()
+{
+	AI_Output (other, self, "DIA_Nadja_NEW_BOSS_15_00"); //Du arbeitest jetzt für mich.
+	AI_Output (self, other, "DIA_Nadja_NEW_BOSS_11_01"); //Alles klar, mein Süßer!
+};
+
 
 
 

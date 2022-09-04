@@ -32,7 +32,7 @@ CRCCheck force
 
 ; TODO: Version der Modifikation
 !define VER_MAJOR 1 ; Major Version
-!define VER_MINOR 0 ; Minor Version
+!define VER_MINOR 1 ; Minor Version
 !define VER_PATCH 1 ; Patch-Version (1=a, ...)
 !define VER_FLAGS 0 ; Sprachversion
 !define VER_FILE  "${VER_MAJOR}.${VER_MINOR}"

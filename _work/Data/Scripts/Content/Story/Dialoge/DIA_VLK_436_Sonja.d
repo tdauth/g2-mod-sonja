@@ -7,6 +7,7 @@ var int SonjaProfitDays;
 var int SonjaRespawnDays;
 var int SonjaRespawnItemsDays;
 var int SonjaCookDays;
+var int SonjaDragonInfo;                    //=TRUE Sonja hat dem Helden von den Spruchrollen und Runen erzählt.
 var int 	Sonja_SkinTexture; // 137 Frau
 var int 	Sonja_BodyTexture; // BodyTexBabe_Nude
 var string 	Sonja_HeadMesh; // Hum_Head_Babe8
@@ -204,7 +205,11 @@ func void DIA_Sonja_BEZAHLEN_DoIt()
         B_GiveInvItems (other, self, ItMi_Gold, 1000);
         AI_Output (self, other, "DIA_Sonja_BEZAHLEN_16_01"); //1000 Goldstücke! Wahnsinn! Endlich mal ein reicher Mann im Hafen, der weiß wie man eine Dame behandelt.
         AI_Output (self, other, "DIA_Sonja_BEZAHLEN_16_02"); //Lass uns abhauen!
-        B_LogEntry ("Sonja", "Sonja folgt mir nun und arbeitet für mich.");
+        AI_Output (self, other, "DIA_Sonja_BEZAHLEN_16_03"); //Ich kann dir einiges beibringen, zum Beispiel wie du ein besserer Zuhälter wirst, wie du andere besser aufreißt oder wie du spezielle Runen herstellen kannst.
+        AI_Output (self, other, "DIA_Sonja_BEZAHLEN_16_04"); //In meiner Zeit auf Khorinis habe ich so einiges gelernt. Allerdings kam ich hier gar nicht mehr weg. Nimm mich überall hin mit, wenn du willst, damit ich mehr von der Insel sehe.
+        AI_Output (self, other, "DIA_Sonja_BEZAHLEN_16_05"); //Du kannst mir auch gerne beibringen, was du weißt. Ich lerne schnell.
+        B_LogEntry ("Sonja", "Sonja folgt mir nun und arbeitet für mich. Sie kann mir beibringen wie ich ein besserer Zuhälter werde, wie ich andere besser aufreiße und wie ich spezielle Runen herstellen kann.");
+        B_LogEntry ("Sonja", "Sonja sammelt zusätzliche Erfahrung, wenn ich Erfahrung sammle. Ich kann ihr meine Talente für ihre Lernpunkte beibringen.");
         SonjaFolgt = TRUE;
         SonjaSummonDays = 0;
         SonjaRespawnItemsDays = 0;
@@ -2100,8 +2105,7 @@ func int B_TeachAufreisserTalentPercent (var C_NPC slf, var C_NPC oth, var int p
 
 	// ------ Kostenberechnung ------
 	var int kosten;
-	//kosten = (B_GetLearnCostTalent(oth, NPC_TALENT_WOMANIZER, 1) * percent);
-	kosten = percent; // 1 LP pro Aufreisser %
+	kosten = B_GetLearnCostTalent(oth, NPC_TALENT_WOMANIZER, percent);
 
 	//EXIT IF...
 
@@ -2156,10 +2160,10 @@ func int B_TeachAufreisserTalentPercent (var C_NPC slf, var C_NPC oth, var int p
 func void SonjaTeachAufreisser()
 {
     Info_ClearChoices (DIA_Sonja_TEACH);
-    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +20"			, 20)		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_20);
-    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +10"			, 10)		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_10);
-    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +5"			, 5)		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_5);
-    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +1"			, 1)			,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_1);
+    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +20"			, B_GetLearnCostTalent(other, NPC_TALENT_WOMANIZER, 20))		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_20);
+    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +10"			, B_GetLearnCostTalent(other, NPC_TALENT_WOMANIZER, 10))		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_10);
+    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +5"			, B_GetLearnCostTalent(other, NPC_TALENT_WOMANIZER, 5))		,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_5);
+    Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString("Aufreißen +1"			, B_GetLearnCostTalent(other, NPC_TALENT_WOMANIZER, 1))			,DIA_Sonja_TEACHAUFREISSER_AUFREISSER_1);
     Info_AddChoice		(DIA_Sonja_TEACH, DIALOG_BACK, DIA_Sonja_TEACHAUFREISSER_Back);
 };
 
@@ -2212,8 +2216,7 @@ func int B_TeachPimpTalent (var C_NPC slf, var C_NPC oth, var int circle, var in
 
 	// ------ Kostenberechnung ------
 	var int kosten;
-	//kosten = (B_GetLearnCostTalent(oth, NPC_TALENT_WOMANIZER, 1) * circle);
-	kosten = circle; // 1 LP pro Aufreisser %
+	kosten = B_GetLearnCostTalent(oth, NPC_TALENT_PIMP, circle);
 
 	//EXIT IF...
 
@@ -2272,7 +2275,7 @@ func void SonjaTeachPimp()
         var String concatText;
         concatText = ConcatStrings("Erlerne  ", IntToString(Npc_GetTalentSkill(other, NPC_TALENT_PIMP) + 1));
         concatText = ConcatStrings(concatText, ". Kreis des Zuhälters");
-        Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString(concatText, Npc_GetTalentSkill(other, NPC_TALENT_PIMP) + 1)			,DIA_Sonja_TEACHPIMP_1);
+        Info_AddChoice		(DIA_Sonja_TEACH, B_BuildLearnString(concatText, B_GetLearnCostTalent(other, NPC_TALENT_PIMP, Npc_GetTalentSkill(other, NPC_TALENT_PIMP) + 1))			,DIA_Sonja_TEACHPIMP_1);
     };
     Info_AddChoice		(DIA_Sonja_TEACH, DIALOG_BACK, DIA_Sonja_TEACHPIMP_Back);
 };
@@ -3558,6 +3561,112 @@ FUNC VOID Sonja_RESPAWN_ITEMS_Herb()
     };
 
     DIA_Sonja_RESPAWN_ITEMS_Choices();
+};
+
+///////////////////////////////////////////////////////////////////////
+//	Info DRAGON INFO
+///////////////////////////////////////////////////////////////////////
+instance DIA_Sonja_DRAGON_INFO		(C_INFO)
+{
+	npc			 = 	VLK_436_Sonja;
+	condition	 = 	DIA_Sonja_DRAGON_INFO_Condition;
+	information	 = 	DIA_Sonja_DRAGON_INFO_Info;
+	important	 = 	TRUE;
+	permanent	 = 	TRUE;
+};
+
+func int DIA_Sonja_DRAGON_INFO_Condition ()
+{
+	return SonjaFolgt == TRUE && Kapitel >= 5 && SonjaDragonInfo == FALSE;
+};
+func void DIA_Sonja_DRAGON_INFO_Info ()
+{
+    SonjaDragonInfo = TRUE;
+
+    AI_Output (self, other, "DIA_Sonja_DRAGON_INFO_16_00"); //Ich habe einige neue interessante Spruchrollen bezüglich Drachen erhalten. Ich kann dir auch die Herstellung der entsprechenden Runen beibringen.
+    AI_Output (self, other, "DIA_Sonja_DRAGON_INFO_16_01"); //Es ist doch sehr nützlich die Magier zu kennen. Sie zahlen auch sehr gut, zumindest die Feuermagier.
+
+
+	B_LogEntry ("Sonja", "Sonja kann mir spezielle Spruchrollen für Drachen verkaufen und mich lehren, die entsprechenden Runen herzustellen.");
+};
+
+///////////////////////////////////////////////////////////////////////
+//	Info SPELLS
+///////////////////////////////////////////////////////////////////////
+instance DIA_Sonja_SPELLS		(C_INFO)
+{
+	npc			 = 	VLK_436_Sonja;
+	nr			 = 	6;
+	condition	 = 	DIA_Sonja_SPELLS_Condition;
+	information	 = 	DIA_Sonja_SPELLS_Info;
+	permanent	 = 	TRUE;
+	description	 = 	"Unterweise mich (Runen erschaffen)";
+};
+func int DIA_Sonja_SPELLS_Condition ()
+{
+	return SonjaFolgt;
+};
+func void DIA_Sonja_SPELLS_Info ()
+{
+	var int abletolearn;
+	abletolearn = 0;
+	AI_Output (other, self, "DIA_Pyrokar_SPELLS_15_00"); //Unterweise mich.
+
+	Info_ClearChoices 	(DIA_Sonja_SPELLS);
+
+	if (PLAYER_TALENT_RUNES [SPL_TrfGiantBug] == FALSE)
+	{
+		Info_AddChoice	(DIA_Sonja_SPELLS, B_BuildLearnString (NAME_SPL_TrfGiantBug, B_GetLearnCostTalent (other, NPC_TALENT_RUNES, SPL_TrfGiantBug)) ,DIA_Sonja_SPELLS_TrfGiantBug);
+		abletolearn = (abletolearn +1);
+	};
+
+	if (PLAYER_TALENT_RUNES [SPL_TrfGiantRat] == FALSE)
+	{
+		Info_AddChoice	(DIA_Sonja_SPELLS, B_BuildLearnString (NAME_SPL_TrfGiantRat, B_GetLearnCostTalent (other, NPC_TALENT_RUNES, SPL_TrfGiantRat)) ,DIA_Sonja_SPELLS_TrfGiantRat);
+		abletolearn = (abletolearn +1);
+	};
+
+	if (PLAYER_TALENT_RUNES [SPL_TrfScavenger] == FALSE)
+	{
+		Info_AddChoice	(DIA_Sonja_SPELLS, B_BuildLearnString (NAME_SPL_TrfScavenger, B_GetLearnCostTalent (other, NPC_TALENT_RUNES, SPL_TrfScavenger)) ,DIA_Sonja_SPELLS_TrfScavenger);
+		abletolearn = (abletolearn +1);
+	};
+
+	if (PLAYER_TALENT_RUNES [SPL_TrfSheep] == FALSE)
+	{
+		Info_AddChoice	(DIA_Sonja_SPELLS, B_BuildLearnString (NAME_SPL_TrfSheep, B_GetLearnCostTalent (other, NPC_TALENT_RUNES, SPL_TrfSheep)) ,DIA_Sonja_SPELLS_TrfSheep);
+		abletolearn = (abletolearn +1);
+	};
+
+	Info_AddChoice		(DIA_Sonja_SPELLS, DIALOG_BACK, DIA_Sonja_SPELLS_BACK);
+
+	if (abletolearn < 1)
+	{
+		AI_Output (self, other, "DIA_Sonja_SPELLS_16_01"); //Es gibt nichts mehr, das ich dir beibringen könnte.
+	};
+};
+FUNC VOID DIA_Sonja_SPELLS_BACK()
+{
+	Info_ClearChoices 	(DIA_Sonja_SPELLS);
+};
+FUNC VOID DIA_Sonja_SPELLS_TrfSheep()
+{
+	B_TeachPlayerTalentRunes (self, other, SPL_TrfSheep);
+};
+
+func void DIA_Sonja_SPELLS_TrfScavenger()
+{
+    B_TeachPlayerTalentRunes (self, other, SPL_TrfScavenger);
+};
+
+func void DIA_Sonja_SPELLS_TrfGiantRat()
+{
+    B_TeachPlayerTalentRunes (self, other, SPL_TrfGiantRat);
+};
+
+func void DIA_Sonja_SPELLS_TrfGiantBug()
+{
+    B_TeachPlayerTalentRunes (self, other, SPL_TrfGiantBug);
 };
 
 // ************************************************************
