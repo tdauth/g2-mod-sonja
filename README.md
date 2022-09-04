@@ -34,6 +34,9 @@ Sonja provides the following features:
 
 * [VLK_436_Sonja.d](./_work/Data/Scripts/Content/Story/NPC/VLK_436_Sonja.d)
 * [DIA_VLK_436_Sonja.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_436_Sonja.d)
+* [DIA_VLK_433_Bromor.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_433_Bromor.d)
+* [DIA_VLK_434_Borka.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_434_Borka.d)
+* [DIA_VLK_435_Nadja.d](./_work/Data/Scripts/Content/Story/Dialoge/DIA_VLK_435_Nadja.d)
 * [IT_SonjaRune.d](./_work/Data/Scripts/Content/Items/IT_SonjaRune.d)
 * [Spell_SummonDragon.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_SummonDragon.d)
 * [Spell_SummonSonja.d](./_work/Data/Scripts/Content/AI/Magic/Spells/Spell_SummonSonja.d)

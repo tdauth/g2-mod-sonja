@@ -10,6 +10,7 @@ copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Anims\a
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Story_Globals.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Dialoge\DIA_VLK_433_Bromor.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\Dialoge"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Dialoge\DIA_VLK_434_Borka.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\Dialoge"
+copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Dialoge\DIA_VLK_435_Nadja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\Dialoge"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\Dialoge\DIA_VLK_436_Sonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\Dialoge"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\NPC\VLK_433_Bromor.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\NPC"
 copy "C:\Program Files (x86)\Steam\steamapps\common\Gothic II\_work\Data\Scripts\Content\Story\NPC\VLK_436_Sonja.d" "C:\Users\Tamino\Documents\Projekte\g2-mod-sonja\_work\Data\Scripts\Content\Story\NPC"
